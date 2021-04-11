@@ -1,0 +1,84 @@
+#
+# startgui
+#
+
+if [ "$DISPLAY" == "" ]
+then
+
+DM="console"
+declare -a DM_LIST=(console plasma i3 i3-gaps enlightenment awesome dwm sway)
+for x in ${DM_LIST[@]}
+do
+  which $x >/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    DM=${DM}" "$x
+  fi
+done
+#echo $DM
+declare -a DM_LIST=($DM)
+#echo ${#DM_LIST[@]}" items in list"
+#echo "item 0 is "${DM_LIST[0]}
+
+# load last_dm
+LAST_NUM=0
+LAST_DM=console
+[ -f ~/.last_dm ] && LAST_DM=$(cat ~/.last_dm)
+for x in $(seq 0 $((${#DM_LIST[@]}-1)))
+do
+  if [ "$LAST_DM" == "${DM_LIST[$x]}" ]
+  then
+    LAST_NUM=$x
+  fi
+done
+
+# pick which interface to start
+
+echo "Pick a desktop"
+echo ""
+for x in $(seq 0 $((${#DM_LIST[@]}-1)))
+do
+  #which ${DM_LIST[$x]}
+  if [ $LAST_NUM -eq $x ]
+  then
+    echo "${x}) ${DM_LIST[$x]}       <<-- Last Display Manager"
+  else
+    echo "${x}) ${DM_LIST[$x]}"
+  fi
+done
+echo
+echo "Default is the ${DM_LIST[${LAST_NUM}]} [${LAST_NUM}]"
+read dm
+
+if [ "$dm" == "" ]
+then 
+  dm=$LAST_NUM
+fi
+
+echo ${DM_LIST[$dm]} > ~/.last_dm
+
+if [ "${DM_LIST[$dm]}" == "sway" ]
+then
+  echo sway
+  xbindkeys
+  sway
+elif [ "${DM_LIST[$dm]}" != "console" ]
+then
+  echo startx ~/.xinitrc ${DM_LIST[$dm]}
+  startx ~/.xinitrc ${DM_LIST[$dm]}
+fi
+
+
+#case $d in
+#  0) echo 0;;
+#  1) echo startx ~/.xinitrc plasma;;
+#  2) echo startx ~/.xinitrc i3;;
+#  3) echo startx ~/.xinitrc enlightenment;;
+#  4) echo startx ~/.xinitrc awesome;;
+#  5) echo startx ~/.xinitrc dwm;;
+#  6) echo sway;;
+#  *) ;;
+#esac
+
+fi
+
