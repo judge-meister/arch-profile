@@ -21,15 +21,6 @@ set bg=dark
 " incrementally search
 :set incsearch
 
-" shortcuts for clearcase commands
-:map <F1> :! cleartool co -nc %
-:map <F2> :! cleartool lsco -cview -all
-:map <F3> :! cleartool ci -nc %
-:map <F4> :! xlsvtree %&
-:map <F5> :! cleartool diff -g -pred %&
-:map <F6> :! cdiff0 %&
-:map <F8> :! cleartool co -nc %
-
 :map <F9> :vertical wincmd f<CR>
 
 :map <F12> :r! date
