@@ -1,6 +1,6 @@
-    alias ls='ls -G --color '
-    alias grep='grep --color=always '
-    alias egrep='egrep --color=always '
+    alias ls='ls -G --color=auto '
+    alias grep='grep --color=auto '
+    alias egrep='egrep --color=auto '
 
     alias rm='rm -i'
     alias mv='mv -i'
@@ -8,4 +8,4 @@
 
     alias vi='vim'
 
-    alias pacman='pacman --color always '
+    alias pacman='pacman --color auto '
