@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
+    "modules-right": ["custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": true,
@@ -80,5 +80,12 @@
         "interval": 30, // Remove this if your script is endless and write in loop
         "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null", // Script in resources folder
         "exec-if": "pgrep spotify"
+    },
+    "custom/updates": {
+        "format": "⚠ {}",
+        "max-length": 15,
+        "interval": 360, // Remove this if your script is endless and write in loop
+        "exec": "$HOME/.local/bin/pacupdate", // Script in resources folder
+        /*"exec-if": "pgrep spotify"*/
     }
 }
