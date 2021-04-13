@@ -241,11 +241,11 @@ bar {
 # auto run commands
 # set background
 # use the same background as slim (login manager)
-# this file is an alias to something in /home/jessie/Pictures
-exec --no-startup-id feh --bg-fill ${HOME}/Pictures/central-park.jpg
+# this file is an alias to something in /home/judge/Pictures
+exec --no-startup-id feh --bg-fill ${HOME}/Pictures/wallpaper.png
 
-# Sway backgroud
-# output "*" background ${HOME}/Pictures/central-park2.jpg fill
+# Sway background
+# output "*" background ${HOME}/Pictures/wallpaper.png fill
 
 # run the merge for good colors
 #exec xrdb -merge $HOME/.Xresources
