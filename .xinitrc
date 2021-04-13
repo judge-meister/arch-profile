@@ -40,7 +40,8 @@ session=${1:-plasma}
 
 case $session in 
   plasma|kde    ) exec startplasma-x11;;
-  i3|i3wm       ) exec i3;;
+  i3|i3wm       ) picom &
+                  exec i3;;
   enlightenment ) exec enlightenment_start;;
   awesome       ) exec awesome;;
   dwm           ) nitrogen --restore &
