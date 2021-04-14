@@ -22,7 +22,10 @@ set $term alacritty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show run
+#set $menu1 wofi --show drun
+#set $menu2 wofi --show run
+#set $menu rofi -modi drun,ssh -theme solarized -font "hack 10" -show drun
+set $menu rofi -theme solarized -font "hack 10" -show drun
 
 output * resolution --custom 1366x768
 #output * mode 1600x900
@@ -81,6 +84,7 @@ input "type:keyboard" xkb_layout gb
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    #bindsym $mod+Shift+d exec $menu2
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
