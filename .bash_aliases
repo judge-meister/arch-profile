@@ -9,3 +9,4 @@
     alias vi='vim'
 
     alias pacman='pacman --color auto '
+    alias yay='yay --color auto '
