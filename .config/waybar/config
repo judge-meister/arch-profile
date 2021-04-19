@@ -8,17 +8,18 @@
     "modules-center": ["sway/window"],
     "modules-right": ["custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
     "sway/workspaces": {
-        "format": "{name}",
+        //"format": "{name}",
         "disable-scroll": true,
+        "disable-markup": false,
         "all-outputs": false,
-        //"format": "{icon}",
+        "format": " {icon} ",
         "format-icons": {
-            "1:web": "",
-            "2:code": "",
-            "3:term": "",
-            "4:work": "",
-            "5:music": "",
-            "6:docs": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
             "urgent": "",
             "focused": "",
             "default": ""
@@ -49,8 +50,9 @@
         },
         "format": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-full": "",
+        //"format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
