@@ -13,7 +13,8 @@ set $lockcmd i3lock
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Monospace 8
+#font pango:Monospace 9
+font pango: SourceCodePro Medium 8
 
 # HiDPI for sway
 # output eDP-1 scale 1
@@ -88,8 +89,8 @@ bindsym $mod+k focus down
 bindsym $mod+semicolon focus right
 
 # move to monitor
-bindsym $mod+Shift+Left move workspace to output left
-bindsym $mod+Shift+Right move workspace to output right
+#bindsym $mod+Shift+Left move workspace to output left
+#bindsym $mod+Shift+Right move workspace to output right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -104,16 +105,18 @@ bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
-# bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
-# bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+bar split h
+#bindsym $mod+bar split h
+bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $mod+minus split v
+#bindsym $mod+minus split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -234,7 +237,9 @@ bindsym $mod+r mode "resize"
 
 # i3status bar config
 bar {
-	font pango:monospace 9
+    position top
+	#font pango: monospace 10
+    font pango: SourceCodePro 9
 	status_command $barcmd --config ~/.config/i3/status.conf
 }
 
