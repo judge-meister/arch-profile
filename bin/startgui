@@ -3,6 +3,12 @@
 # startgui
 #
 
+error_exit() 
+{ 
+  echo $1 
+  exit 1 
+}
+
 get_dm_list()
 {
   find /usr/share/xsessions/ -type f -exec grep  '^Exec=' {} \; | sed 's/Exec=//g'
@@ -10,7 +16,7 @@ get_dm_list()
 }
 
 # already running a dm ?
-#[ -n "$DISPLAY" ] && exit
+[ -n "$DISPLAY" ] && [ "x$STARTGUI_TEST" == "x" ] && error_exit "A window manager appears to already be running."
 
 # possible window managers 
 # (console plasma i3 i3-gaps enlightenment awesome dwm sway)
@@ -45,6 +51,11 @@ pick_wm()
       echo "${x}) ${DM_LIST[$x]}"
     fi
   done
+  # add other options
+  echo
+  echo "l) Log Out"
+  echo "p) Power Off"
+  echo "r) Reboot"
   echo
   echo "Default is the ${DM_LIST[${LAST_NUM}]} [${LAST_NUM}]"
   read -r dm
@@ -54,39 +65,47 @@ pick_wm()
     dm=$LAST_NUM
   fi
 
-  echo "${DM_LIST[$dm]}" > ~/.last_dm
 }
 
 while :
 do
   load_last_dm
   pick_wm
+  echo
 
-  if [ "${DM_LIST[$dm]}" == "sway" ]
-  then
-    echo sway
-    xbindkeys
-    sway
-  elif [ "${DM_LIST[$dm]}" != "console" ]
-  then
-    echo "startx ~/.xinitrc ${DM_LIST[$dm]}"
-    startx ~/.xinitrc "${DM_LIST[$dm]}"
-  else
-    exit
-  fi
+  case $dm in
+    p) echo "Powerin Off"; sleep 1; poweroff ;;
+    r) echo "Rebooting";   sleep 1; reboot ;;
+    l) echo "Logging Out"; sleep 1; exit ;;
+  esac
+
+  echo "${DM_LIST[$dm]}" > ~/.last_dm
+
+  #echo "startx ~/.xinitrc ${DM_LIST[$dm]}"; 
+  echo "start ${DM_LIST[$dm]}"
+  sleep 1
+
+  case "${DM_LIST[$dm]}" in
+    sway) xbindkeys; sway ;;
+
+    console) bash;;
+    
+    *) startx ~/.xinitrc "${DM_LIST[$dm]}";;
+  esac
+
+  #if [ "${DM_LIST[$dm]}" == "sway" ]
+  #then
+  #  echo sway; sleep 1
+  #  xbindkeys
+  #  sway
+  #elif [ "${DM_LIST[$dm]}" == "console" ]
+  #then
+  #  echo "start console"; sleep 1
+  #  bash
+  #else
+  #  echo "startx ~/.xinitrc ${DM_LIST[$dm]}"; sleep 1
+  #  startx ~/.xinitrc "${DM_LIST[$dm]}"
+  #fi
 done
-
-#case $d in
-#  0) echo 0;;
-#  1) echo startx ~/.xinitrc plasma;;
-#  2) echo startx ~/.xinitrc i3;;
-#  3) echo startx ~/.xinitrc enlightenment;;
-#  4) echo startx ~/.xinitrc awesome;;
-#  5) echo startx ~/.xinitrc dwm;;
-#  6) echo sway;;
-#  *) ;;
-#esac
-
-
 
 
