@@ -12,7 +12,7 @@ error_exit()
 get_dm_list()
 {
   find /usr/share/xsessions/ -type f -exec grep  '^Exec=' {} \; | sed 's/Exec=//g'
-  find /usr/share/wayland-sessions/ -type f -exec grep  '^Exec=' {} \; | sed 's/Exec=//g'
+  find /usr/share/wayland-sessions/ -type f -exec grep  '^Exec=' {} \; 2>/dev/null | sed 's/Exec=//g'
 }
 
 # already running a dm ?
