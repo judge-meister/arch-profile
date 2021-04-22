@@ -6,7 +6,7 @@
 
 export PATH=~/bin:~/.local/bin:$PATH
 
-[[ $(fgconsole 2>/dev/null) == 1 ]] && startgui
+[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startgui
 	
 #exec startx -- vt1
 
