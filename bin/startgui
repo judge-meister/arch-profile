@@ -16,7 +16,7 @@ get_dm_list()
 }
 
 # already running a dm ?
-[ -n "$DISPLAY" ] && [ "x$STARTGUI_TEST" == "x" ] && error_exit "A window manager appears to already be running."
+[ -n "$DISPLAY" ] && [ "$STARTGUI_TEST" == "" ] && error_exit "A window manager appears to already be running."
 
 # possible window managers 
 # (console plasma i3 i3-gaps enlightenment awesome dwm sway)
