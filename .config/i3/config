@@ -7,7 +7,8 @@ set $mod Mod4
 set $term st
 set $menu rofi -show drun -theme "solarized_alternate"
 set $barcmd i3status
-set $lockcmd i3lock
+#set $lockcmd i3lock -c 111111
+set $lockcmd fancy-i3lock
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -81,7 +82,7 @@ for_window [class="Wireshark"] floating enable
 for_window [class="zoom"] floating enable
 
 # lock screen
-bindsym $mod+l exec $lockcmd -c 111111
+bindsym $mod+l exec $lockcmd 
 
 # change focus
 bindsym $mod+j focus left
