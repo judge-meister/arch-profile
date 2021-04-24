@@ -6,7 +6,8 @@ set $mod Mod4
 #set $term urxvt
 set $term st
 set $menu rofi -show drun -theme "solarized_alternate"
-set $barcmd i3status
+set $barcmd i3status --config ~/.config/i3/status.conf
+#set $barcmd i3blocks
 #set $lockcmd i3lock -c 111111
 set $lockcmd fancy-i3lock
 
@@ -56,6 +57,7 @@ for_window [class="^Spotify Premium$"] border none
 
 # skype, steam, wine: float Gimp
 for_window [class="Code"] floating enable
+for_window [class="feh"] floating enable
 for_window [class="Firefox"] floating enable
 for_window [class="Gimp"] floating enable
 for_window [class="google-chrome"] floating enable
@@ -241,14 +243,15 @@ bar {
     position top
 	#font pango: monospace 10
     font pango: SourceCodePro 9
-	status_command $barcmd --config ~/.config/i3/status.conf
+	status_command $barcmd 
 }
 
 # auto run commands
 # set background
 # use the same background as slim (login manager)
 # this file is an alias to something in /home/judge/Pictures
-exec --no-startup-id feh --bg-fill ${HOME}/Pictures/wallpaper.png
+#exec --no-startup-id feh --bg-fill ${HOME}/Pictures/wallpaper.png
+#exec --no-startup-id ~/.fehbg
 
 # Sway background
 # output "*" background ${HOME}/Pictures/wallpaper.png fill

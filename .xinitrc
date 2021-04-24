@@ -49,16 +49,19 @@ session=${1:-plasma}
 
 case $session in 
   plasma|kde    ) exec startplasma-x11;;
-  i3|i3wm       ) picom &
+  i3|i3wm       ) lxsession & 
+                  ~/.fehbg &
+                  picom &
                   exec i3;;
   enlightenment ) exec enlightenment_start;;
   awesome       ) exec awesome;;
-  dwm           ) nitrogen --restore &
+  dwm           ) lxsession &
+                  ~/.fehbg & #nitrogen --restore &
                   picom &
                   dwmblocks &
                   xbindkeys
                   exec dwm;;
   *             ) echo "$1"; 
-		  exec "$1";;
+                  exec "$1";;
 esac
 

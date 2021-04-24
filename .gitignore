@@ -2,6 +2,7 @@
 .bash_history
 .bash_logout
 .cache/
+.cargo/
 .config/dconf/
 .config/gtk-2.0/
 .config/neofetch/
@@ -16,4 +17,5 @@
 .ssh/
 .terminfo/
 .viminfo
+.viminfo.tmp
 clones
