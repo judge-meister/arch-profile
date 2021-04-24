@@ -27,18 +27,19 @@ fi
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+    # shellcheck source=/dev/null
     [ -x "$f" ] && . "$f"
   done
   unset f
 fi
 
 # set screen size and gb keyboard
-if [ "$(cat /sys/class/dmi/id/sys_vendor)" == "LENOVO" ]
+if [ "$(cat /sys/class/dmi/id/sys_vendor)" = "LENOVO" ]
 then
   xrandr -s 1366x768
   setxkbmap -layout gb
 fi
-if [ "$(cat /sys/class/dmi/id/sys_vendor)" == "Apple Inc." ]
+if [ "$(cat /sys/class/dmi/id/sys_vendor)" = "Apple Inc." ]
 then
   xrandr -s 1280x800
   setxkbmap -layout gb -model macbook79
@@ -57,7 +58,7 @@ case $session in
                   dwmblocks &
                   xbindkeys
                   exec dwm;;
-  *             ) echo $1; 
-		  exec $1;;
+  *             ) echo "$1"; 
+		  exec "$1";;
 esac
 
