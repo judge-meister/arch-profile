@@ -49,7 +49,8 @@ session=${1:-plasma}
 
 case $session in 
   plasma|kde    ) exec startplasma-x11;;
-  i3|i3wm       ) lxsession & 
+  i3|i3wm       ) dunst &
+                  lxsession & 
                   ~/.fehbg &
                   picom &
                   exec i3;;

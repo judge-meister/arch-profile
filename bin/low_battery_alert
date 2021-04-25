@@ -1,0 +1,17 @@
+#!/bin/bash
+
+limit=20
+[ "$1" != "" ] && limit=150
+
+bat_files="/sys/class/power_supply/BAT0"
+bat_status=$(cat ${bat_files}/status)
+capacity=$(cat "${bat_files}/capacity")
+
+if [[ ${bat_status} == "Discharging" && ${capacity} -le ${limit} ]]
+then
+    echo "Battery alert - ${capacity}%"
+    notify-send \
+        --icon="$HOME/.local/share/icons/battery_low_dark.png" \
+        "Low battery" \
+        "Only ${capacity}% battery remaining"
+fi
