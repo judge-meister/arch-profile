@@ -18,6 +18,12 @@ get_dm_list()
 # already running a dm ?
 [ -n "$DISPLAY" ] && [ "$STARTGUI_TEST" == "" ] && error_exit "A window manager appears to already be running."
 
+# restart NetworkManager on MacbookPro as it never seems to connect on boot up
+if [ "$(cat /sys/class/dmi/id/sys_vendor)" == "Apple Inc." ]
+then
+  sudo systemctl restart NetworkManager
+fi
+
 # possible window managers 
 # (console plasma i3 i3-gaps enlightenment awesome dwm sway)
 # shellcheck disable=SC2207
