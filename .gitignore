@@ -15,7 +15,9 @@
 .config/systemd/user/timers.target.wants/
 .last_dm
 .lesshst
-.local/share/
+.local/share/ranger
+.local/share/recently-used.xbel
+.local/share/xorg
 .mozilla/
 .pki/
 .python_history
