@@ -51,17 +51,21 @@ bindsym $mod+d exec $menu
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# spotify: no border
+# spotify, brave: no border
 for_window [class="^Spotify$"] border none
 for_window [class="^Spotify Premium$"] border none
+for_window [class="Brave-browser"] border none
 
-# skype, steam, wine: float Gimp
+# no title: st terminal
+for_window [class="st-256color"] border pixel 1
+
+# skype, steam, wine, Gimp etc. : float
 for_window [class="Code"] floating enable
 for_window [class="feh"] floating enable
-for_window [class="Firefox"] floating enable
+#for_window [class="Firefox"] floating enable
 for_window [class="Gimp"] floating enable
-for_window [class="google-chrome"] floating enable
-for_window [class="Google-chrome"] floating enable
+#for_window [class="google-chrome"] floating enable
+#for_window [class="Google-chrome"] floating enable
 for_window [class="Keybase"] floating enable
 for_window [class="Kicad"] floating enable
 for_window [class="Logic"] floating enable
@@ -237,13 +241,15 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
+smart_gaps on
+gaps inner 5
+gaps outer 0
 
 # i3status bar config
 bar {
     position top
 	#font pango: monospace 10
-    font pango: SourceCodePro 9
+    font pango: SourceCodePro 10
 	status_command $barcmd 
 }
 
