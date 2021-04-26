@@ -11,6 +11,13 @@ set $barcmd i3status --config ~/.config/i3/status.conf
 #set $lockcmd i3lock -c 111111
 set $lockcmd fancy-i3lock
 
+# Test other Mod keys
+bindsym Mod1+Return exec $term -T "st Mod1 Left Alt"
+bindsym Mod2+Return exec $term -T "st Mod2"
+bindsym Mod3+Return exec $term -T "st Mod3"
+#bindsym Mod4+Return exec $term -T "st Mod4 Cmd (L & R)"
+bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
