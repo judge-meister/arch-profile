@@ -1,0 +1,21 @@
+
+battery
+  /sys/class/power_supply/BAT0/*
+
+screen backlight
+  /sys/class/backlight/nv_backlight
+
+keyboard backlight
+  /sys/class/led/smc::backlight/
+
+enable Fn keys (disable media keys)
+  echo 2 >> /eys/module/hid_apple/parameter/fnmode
+
+Core Temp (more realistic values)
+  /sys/class/hwmon/hwmon2/temp*_input
+  hwmon2 -> /sys/devices/platform/coretemp.0/hwmon/hwmon2
+
+Light sensor
+  /sys/devices/platform/applesmc.768/light
+
+

@@ -33,17 +33,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   unset f
 fi
 
-# set screen size and gb keyboard
-if [ "$(cat /sys/class/dmi/id/sys_vendor)" = "LENOVO" ]
-then
-  xrandr -s 1366x768
-  setxkbmap -layout gb
-fi
-if [ "$(cat /sys/class/dmi/id/sys_vendor)" = "Apple Inc." ]
-then
-  xrandr -s 1280x800
-  setxkbmap -layout gb -model macbook79
-fi
+VENDOR="$(cat /sys/class/dmi/id/sys_vendor)"
 
 session=${1:-plasma}
 
@@ -53,7 +43,14 @@ case $session in
                   lxsession & 
                   ~/.fehbg &
                   picom &
-                  exec i3;;
+                  if [ "$VENDOR" = "LENOVO" ]; then
+                      setxkbmap -layout gb ;
+                      exec i3 ;
+                  elif [ "$VENDOR" = "Apple Inc." ]; then
+                      setxkbmap -layout gb -model macbook79 ;
+                      $HOME/bin/macfnmode fn ; 
+                      exec i3 -c "$HOME"/.config/i3/config.mac ;
+                  fi ;;
   enlightenment ) exec enlightenment_start;;
   awesome       ) exec awesome;;
   dwm           ) lxsession &
