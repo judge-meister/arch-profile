@@ -81,14 +81,13 @@ do
   echo
 
   case $dm in
-    p) echo "Powerin Off"; sleep 1; poweroff ;;
+    p) echo "Powering Off"; sleep 1; poweroff ;;
     r) echo "Rebooting";   sleep 1; reboot ;;
     l) echo "Logging Out"; sleep 1; exit ;;
   esac
 
   echo "${DM_LIST[$dm]}" > ~/.last_dm
 
-  #echo "startx ~/.xinitrc ${DM_LIST[$dm]}"; 
   echo "start ${DM_LIST[$dm]}"
   sleep 1
 
@@ -100,19 +99,6 @@ do
     *) startx ~/.xinitrc "${DM_LIST[$dm]}";;
   esac
 
-  #if [ "${DM_LIST[$dm]}" == "sway" ]
-  #then
-  #  echo sway; sleep 1
-  #  xbindkeys
-  #  sway
-  #elif [ "${DM_LIST[$dm]}" == "console" ]
-  #then
-  #  echo "start console"; sleep 1
-  #  bash
-  #else
-  #  echo "startx ~/.xinitrc ${DM_LIST[$dm]}"; sleep 1
-  #  startx ~/.xinitrc "${DM_LIST[$dm]}"
-  #fi
 done
 
 
