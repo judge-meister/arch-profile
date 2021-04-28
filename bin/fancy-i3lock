@@ -3,14 +3,12 @@
 # fancy-i3lock
 # -----------
 # Based on the awesome sauce of https://github.com/meskarune/i3lock-fancy
-# This just uses imagemagick in a container...
-# because reasons...
+# This just uses imagemagick.
 #
-# Dependencies: docker, i3lock, scrot
-
-# :authors: Jess Frazelle, @jessfraz
-# :date: 8 June 2015
-# :version: 0.0.1
+# Based on a similar script from Jess Frazelle (@jezzfraz) but simpler.
+#
+# Dependencies: i3lock, scrot
+#
 ##############################################################################
 set -e
 
@@ -19,22 +17,25 @@ set -e
 IMAGE=/tmp/i3lock.png
 
 # All options are here: http://www.imagemagick.org/Usage/blur/#blur_args
- BLURTYPE="0x5" # 7.52s
+# BLURTYPE="0x5" # 7.52s
 # BLURTYPE="0x2" # 4.39s
-#BLURTYPE="5x3" # 3.80s
+BLURTYPE="5x3" # 3.80s
 # BLURTYPE="2x8" # 2.90s
 # BLURTYPE="2x3" # 2.92s
 
 scrot $IMAGE
 
-#docker run --rm \
-#	-v $IMAGE:$IMAGE \
-#	-v "${HOME}/Pictures/lock.png:/root/lock.png" \
-#	r.j3ss.co/imagemagick \
-#	sh -c "
-convert $IMAGE -brightness-contrast -30x10 -level 0%,100%,0.6 -blur $BLURTYPE -gravity center - | composite -gravity center "${HOME}/Pictures/lock.png" - $IMAGE
+# original convertion
+#convert $IMAGE -brightness-contrast -30x10 -level 0%,100%,0.6 -blur $BLURTYPE -gravity center - | composite -gravity center $HOME/.local/share/icons/lock.png - $IMAGE
+
+# just blur the screenshot
+#convert $IMAGE  -level 0%,100%,0.8 -blur $BLURTYPE -gravity center $IMAGE
+
+# add text and lock image to screenshot
+convert $IMAGE -brightness-contrast 10x10 -level 0%,100%,0.8 -blur $BLURTYPE -font Roboto-Regular -pointsize 26 -fill white -gravity center -annotate +0+160 "Type Password to Unlock" $HOME/.local/share/icons/lock.png -gravity center -composite $IMAGE
 
 i3lock -i $IMAGE
 
 rm $IMAGE
 )
+
