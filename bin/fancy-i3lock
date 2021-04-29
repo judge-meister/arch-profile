@@ -32,7 +32,7 @@ scrot $IMAGE
 #convert $IMAGE  -level 0%,100%,0.8 -blur $BLURTYPE -gravity center $IMAGE
 
 # add text and lock image to screenshot
-convert $IMAGE -brightness-contrast 10x10 -level 0%,100%,0.8 -blur $BLURTYPE -font Roboto-Regular -pointsize 26 -fill white -gravity center -annotate +0+160 "Type Password to Unlock" $HOME/.local/share/icons/lock.png -gravity center -composite $IMAGE
+convert $IMAGE -brightness-contrast 10x10 -level 0%,100%,0.8 -blur $BLURTYPE -font Roboto-Regular -pointsize 26 -fill white -gravity center -annotate +0+160 "Type Password to Unlock" "$HOME"/.local/share/icons/lock.png -gravity center -composite $IMAGE
 
 i3lock -i $IMAGE
 

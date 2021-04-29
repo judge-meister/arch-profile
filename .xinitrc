@@ -48,7 +48,7 @@ case $session in
                       exec i3 ;
                   elif [ "$VENDOR" = "Apple Inc." ]; then
                       setxkbmap -layout gb -model macbook79 ;
-                      $HOME/bin/macfnmode fn ; 
+                      "$HOME"/bin/macfnmode fn ; 
                       exec i3 -c "$HOME"/.config/i3/config.mac ;
                   fi ;;
   enlightenment ) exec enlightenment_start;;
