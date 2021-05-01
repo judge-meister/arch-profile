@@ -1,4 +1,45 @@
+# vim: noet
+
 SHELL := bash
+
+.PHONY: all
+all: dotfiles folders 
+
+.PHONY: clean
+clean: cleandotfiles cleanfolders 
+
+.PHONY: dotfiles
+dotfiles: cleandotfiles  ## Install the dotfiles
+	# add aliases for dotfiles
+	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -type f); do \
+		f=$$(basename $$file); \
+		ln -sfnv $$file $(HOME)/$$f; \
+	done; 
+
+.PHONY: cleandotfiles
+cleandotfiles: ## Remove the dotfiles
+	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -type f); do \
+		f=$$(basename $$file); \
+		rm -fv $(HOME)/$$f; \
+	done; 
+
+.PHONY: folders
+folders: cleanfolders ## do lower directories
+	for file in $(shell find .config .local Pictures bin -type f ); do \
+		d=$$(dirname $$file); \
+		mkdir -p $(HOME)/$$d; \
+		ln -snfv $(CURDIR)/$$file $(HOME)/$$d/ ; \
+	done; \
+	systemctl --user daemon-reload;
+
+.PHONY: cleanfolders
+cleanfolders: ## do lower directories
+	for file in $(shell find .config .local Pictures bin -type f ); do \
+		f=$$(basename $$file); \
+		rm -fv $(HOME)/$$file ; \
+	done;
+
+
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
