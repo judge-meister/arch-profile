@@ -3,10 +3,10 @@
 SHELL := bash
 
 .PHONY: all
-all: dotfiles folders 
+all: dotfiles folders etc
 
 .PHONY: clean
-clean: cleandotfiles cleanfolders 
+clean: cleandotfiles cleanfolders cleanetc
 
 .PHONY: dotfiles
 dotfiles: cleandotfiles  ## Install the dotfiles
@@ -25,7 +25,7 @@ cleandotfiles: ## Remove the dotfiles
 
 .PHONY: folders
 folders: cleanfolders ## do lower directories
-	for file in $(shell find .config .local Pictures bin -type f ); do \
+	for file in $(shell find .config .local Pictures bin docs -type f ); do \
 		d=$$(dirname $$file); \
 		mkdir -p $(HOME)/$$d; \
 		ln -snfv $(CURDIR)/$$file $(HOME)/$$d/ ; \
@@ -34,7 +34,7 @@ folders: cleanfolders ## do lower directories
 
 .PHONY: cleanfolders
 cleanfolders: ## do lower directories
-	for file in $(shell find .config .local Pictures bin -type f ); do \
+	for file in $(shell find .config .local Pictures bin docs -type f ); do \
 		f=$$(basename $$file); \
 		rm -fv $(HOME)/$$file ; \
 	done;
