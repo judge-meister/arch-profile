@@ -8,9 +8,9 @@ I'm trying to make these config/dotfiles compatible between my thinkpad and old 
 
 ## Still To Do
 
-* get mac touchpad to accept tap to click.
-* figure out right-click and middle-click behaviour for mac touchpad.
-* change install method so repo does not reside at root of users home directory.
+* get mac touchpad to accept tap to click. - Done
+* figure out right-click and middle-click behaviour for mac touchpad. - Done
+* change install method so repo does not reside at root of users home directory. - Done
   * this would allow variant installations dependent on hardware.
   * also simplifies .gitignore - no need to ignore all the other random stuff in home dir.
 * create a list of installed packages for reproducability.
