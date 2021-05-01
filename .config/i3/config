@@ -96,7 +96,7 @@ for_window [class="zoom"] floating enable
 
 # lock screen + auto lock
 bindsym $mod+l exec $lockcmd 
-exec_always --no-startup-id xautolock -time 5 -locker "fancy-i3lock && sleep 1"
+exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
 
 # change focus
 bindsym $mod+j focus left
