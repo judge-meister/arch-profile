@@ -39,7 +39,18 @@ cleanfolders: ## do lower directories
 		rm -fv $(HOME)/$$file ; \
 	done;
 
+.PHONY: etc
+etc: cleanetc ## install etc files
+	for file in $(shell find etc -type f); do \
+		sudo mkdir -p /$$(dirname $$file); \
+		sudo ln -snfv $(CURDIR)/$$file /$$(dirname $$file)/; \
+	done;
 
+.PHONY: cleanetc
+cleanetc: ## remove files installed into etc
+	for file in $(shell find etc -type f); do \
+		sudo rm -f /$$file; \
+	done;
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
