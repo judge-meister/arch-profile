@@ -22,9 +22,10 @@ set bg=dark
 :set incsearch
 
 :map <F9> :vertical wincmd f<CR>
-
-:map <F12> :r! date
+		
+:map <F12> :r! date<CR>
 :map <C-T> :tabnew<CR>
+:map <F11> :set noexpandtab<CR>:setlocal list<CR>:set listchars=tab:>~,trail:.<CR>
 
 " make return indent to the same as previous line
 :set autoindent
