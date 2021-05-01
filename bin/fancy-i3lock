@@ -36,6 +36,7 @@ convert $IMAGE -brightness-contrast 10x10 -level 0%,100%,0.8 -blur $BLURTYPE -fo
 
 i3lock -i $IMAGE
 
-rm $IMAGE
+rm -f $IMAGE
+rm -f ${IMAGE%.*}*.png
 )
 
