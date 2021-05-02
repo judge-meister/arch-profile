@@ -14,14 +14,14 @@ dotfiles: cleandotfiles  ## Install the dotfiles
 	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -type f); do \
 		f=$$(basename $$file); \
 		ln -sfnv $$file $(HOME)/$$f; \
-	done; 
+	done;
 
 .PHONY: cleandotfiles
 cleandotfiles: ## Remove the dotfiles
 	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -type f); do \
 		f=$$(basename $$file); \
 		rm -fv $(HOME)/$$f; \
-	done; 
+	done;
 
 .PHONY: folders
 folders: cleanfolders ## do lower directories
