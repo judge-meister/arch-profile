@@ -6,6 +6,9 @@ limit=20
 bat_files="/sys/class/power_supply/BAT0"
 bat_status=$(cat ${bat_files}/status)
 capacity=$(cat "${bat_files}/capacity")
+chargenow=$(cat "${bat_files}/charge_now")
+chargefull=$(cat "${bat_files}/charge_full")
+capacity=$((chargenow*100/chargefull))
 
 if [[ ${bat_status} == "Discharging" && ${capacity} -le ${limit} ]]
 then
