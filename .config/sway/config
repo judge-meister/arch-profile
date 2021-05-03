@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 font pango: SourceCodePro Medium 11
-default_border pixel 2
+default_border pixel 1
 
 ### Variables
 #
@@ -241,8 +241,10 @@ set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ -1000
     bindsym XF86MonBrightnessUp exec brightness -inc 10 
     bindsym XF86MonBrightnessDown exec brightness -dec 10 
 
-gaps inner 8
-gaps outer 4
+# gaps settings
+smart_gaps on
+gaps inner 5
+gaps outer 0
 
   # nag
   set {
