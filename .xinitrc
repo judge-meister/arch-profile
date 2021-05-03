@@ -53,18 +53,7 @@ case $session in
                   fi ;;
   enlightenment ) exec enlightenment_start;;
   awesome       ) exec awesome;;
-  dwm           ) lxsession &
-                  ~/.fehbg & #nitrogen --restore &
-                  picom &
-                  if [ "$VENDOR" = "LENOVO" ]; then
-                      setxkbmap -layout gb ;
-                  elif [ "$VENDOR" = "Apple Inc." ]; then
-                      setxkbmap -layout gb -model macbook79 ;
-                      "$HOME"/bin/macfnmode fn ; 
-                  fi ;
-                  dwmblocks &
-                  xbindkeys
-                  exec dwm;;
+  dwm           ) exec dwm;;
   *             ) echo "$1"; 
                   exec "$1";;
 esac
