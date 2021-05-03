@@ -2,9 +2,9 @@
 
 for x in /sys/class/power_supply/BAT0/*; 
 do 
-  if [ ! -d $x ]; 
+  if [ ! -d "$x" ]; 
   then 
-    echo "$x : $(cat $x)";
+    echo "$x : $(cat "$x")";
   fi; 
 done
 

@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
+    "modules-right": ["custom/disk", "custom/docker", "custom/updates", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "tray", "clock"],
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": true,
@@ -41,6 +41,12 @@
     "memory": {
         "format": "{}% "
     },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp2_input",
+        "format": "{temperatureC}°C ",
+        "critical-threshold": 80,
+        "format-critical": "{temperatureC}°C ",
+    },
     "battery": {
         "bat": "BAT0",
         "interval": 15,
@@ -53,7 +59,7 @@
         "format": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ⚡",
         //"format-icons": ["", "", "", "", ""]
         "format-icons": ["", "", "", "", ""]
     },
@@ -87,10 +93,23 @@
         "exec-if": "pgrep spotify"
     },
     "custom/updates": {
-        "format": "⚠ {}",
+        "format": " {}",
         "max-length": 15,
-        "interval": 360, // Remove this if your script is endless and write in loop
-        "exec": "$HOME/.local/bin/pacupdate", // Script in resources folder
-        /*"exec-if": "pgrep spotify"*/
+        "interval": 360,
+        "exec": "$HOME/.local/bin/pacupdate",
+        "exec-if": "exit 0",
+        "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 wybar",
+        "signal": 8
+    },
+    "custom/docker": {
+        "format": "Docker: {}",
+        "interval": 60,
+        "max-length": 15,
+        "exec": "$HOME/.local/bin/dockerisrunning",
+    },
+    "custom/disk": {
+        "format": "/ {}",
+        "interval": 60,
+        "exec": "df -hl / |tail -1| awk -F' ' '{print $4}'",
     }
 }

@@ -83,7 +83,7 @@ input "type:keyboard" {
 #      xkb_model macbook79
 }
 # only add the xkb_model setting if on a macbook
-exec ~/bin/kbd_model
+exec_always ~/bin/kbd_model
 
 ### Key bindings
 #
@@ -229,8 +229,8 @@ bindsym $mod+r mode "resize"
 #
 set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ +1000
-set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ -1000
+set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -2000
+set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +2000
 
     bindsym XF86AudioMute        $mute
     bindsym XF86AudioMicMute     $mic_off
@@ -240,6 +240,17 @@ set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ -1000
     # increase and decrease screen brightness
     bindsym XF86MonBrightnessUp exec brightness -inc 10 
     bindsym XF86MonBrightnessDown exec brightness -dec 10 
+
+# macbook controls (needs fnmode set to fn)
+exec_always ~/bin/macfnmode fn
+bindsym F1 exec $HOME/bin/macbrightness -dec
+bindsym F2 exec $HOME/bin/macbrightness -inc
+bindsym F5 exec $HOME/bin/kbdbrightness -dec
+bindsym F6 exec $HOME/bin/kbdbrightness -inc
+bindsym F10 $mute
+bindsym F11 $vol_dn
+bindsym F12 $vol_up
+
 
 # gaps settings
 smart_gaps on
