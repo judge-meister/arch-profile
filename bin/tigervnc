@@ -3,7 +3,7 @@
 
 if [ "$1" == "build" ]
 then
-  docker build -t judge:tigervnc -f ./tiger-vnc/Dockerfile  .
+  docker build -t judge:tigervnc -f "$HOME"/dockerfiles/tiger-vnc/Dockerfile  .
   exit
 fi
 
@@ -18,10 +18,10 @@ then
   if [ "$running" == "true" ]
   then
     echo "Stop container $ID"
-    docker stop $ID
+    docker stop "$ID"
   fi
   echo "Remove Container $ID"
-  docker container rm $ID
+  docker container rm "$ID"
 fi
 
 echo "Create and Run new tigervnc container"
