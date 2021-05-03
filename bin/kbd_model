@@ -1,0 +1,9 @@
+#!/bin/bash
+
+VENDOR=$(cat /sys/class/dmi/id/sys_vendor)
+
+if [ "$VENDOR" == "Apple Inc." ]
+then
+    swaymsg input "type:keyboard" xkb_model macbook79
+fi
+

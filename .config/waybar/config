@@ -8,11 +8,11 @@
     "modules-center": ["sway/window"],
     "modules-right": ["custom/updates", "pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
     "sway/workspaces": {
-        //"format": "{name}",
+        "format": "{name}",
         "disable-scroll": true,
         "disable-markup": false,
         "all-outputs": false,
-        "format": " {icon} ",
+        //"format": " {icon} ",
         "format-icons": {
             "1": "",
             "2": "",
@@ -43,14 +43,17 @@
     },
     "battery": {
         "bat": "BAT0",
+        "interval": 15,
         "states": {
             // "good": 95,
             "warning": 30,
+            //"critical": 15
             "critical": 15
         },
         "format": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
+        "format-charging": "{capacity}% ",
         //"format-icons": ["", "", "", "", ""]
         "format-icons": ["", "", "", "", ""]
     },
