@@ -98,7 +98,7 @@
         "interval": 360,
         "exec": "$HOME/.local/bin/pacupdate",
         "exec-if": "exit 0",
-        "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 wybar",
+        "on-click": "alacritty -e update_packages",
         "signal": 8
     },
     "custom/docker": {

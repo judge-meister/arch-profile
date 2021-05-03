@@ -132,6 +132,9 @@ window#waybar {
 #custom-updates {
     /*color: rgb(102, 220, 105);*/
 }
+#custom-updates.hover {
+    background: #444;
+}
 
 #custom-docker {
     /*color: rgb(102, 220, 105);*/

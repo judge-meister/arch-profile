@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo pacman -Syu
+
+echo ""
+read -r -p "Press Enter to close." </dev/tty
+
+pkill -SIGRTMIN+8 waybar
+
