@@ -49,10 +49,10 @@ output * bg /home/judge/Pictures/wallpaper.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+          timeout 300 'fancy-swaylock' \
+          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+          before-sleep 'fancy-swaylock'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -85,6 +85,7 @@ input "type:keyboard" {
 }
 # only add the xkb_model setting if on a macbook
 exec_always ~/bin/kbd_model
+exec_always xbindkeys
 
 ### Key bindings
 #
@@ -109,6 +110,9 @@ exec_always ~/bin/kbd_model
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+    # manually lock the screen
+    bindsym Ctrl+l exec $HOME/bin/fancy-swaylock
 
     # Exit sway (logs you out of your Wayland session)
     #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -317,6 +321,9 @@ bar {
 # vncview class name "TigerVNC Viewer"
 #for_window [class="TigerVNC Viewer"] floating enable
 assign [class="TigerVNC Viewer"] → 6
+
+# start a few useful programs
+exec_always dunst
 
 
 include /etc/sway/config.d/*
