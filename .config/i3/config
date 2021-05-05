@@ -5,18 +5,20 @@
 set $mod Mod4
 #set $term urxvt
 set $term st
-set $menu rofi -show drun -theme "solarized_alternate"
+set $menu1 rofi -show drun -theme "solarized_alternate"
+set $menu2 rofi -show run -theme "solarized_alternate"
+set $menu3 "rofi -modi combi,window -show combi -combi-modi run,drun -theme solarized_alternate"
 set $barcmd i3status --config ~/.config/i3/status.conf
 #set $barcmd i3blocks
 #set $lockcmd i3lock -c 111111
 set $lockcmd fancy-i3lock
 
 # Test other Mod keys
-bindsym Mod1+Return exec $term -T "st Mod1 Left Alt"
-bindsym Mod2+Return exec $term -T "st Mod2"
-bindsym Mod3+Return exec $term -T "st Mod3"
+#bindsym Mod1+Return exec $term -T "st Mod1 Left Alt"
+#bindsym Mod2+Return exec $term -T "st Mod2"
+#bindsym Mod3+Return exec $term -T "st Mod3"
 #bindsym Mod4+Return exec $term -T "st Mod4 Cmd (L & R)"
-bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
+#bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -53,10 +55,15 @@ floating_maximum_size 2500 x 1500
 bindsym $mod+Return exec $term
 
 # start dmenu
-bindsym $mod+d exec $menu
+bindsym $mod+d exec $menu3
+#bindsym $mod+d exec $menu1
+#bindsym $mod+Shift+d exec $menu2
 
 # kill focused window
 bindsym $mod+Shift+q kill
+
+# tigervnc - open on new workspace
+assign [class="TigerVNC Viewer"] → 6
 
 # spotify, brave: no border
 for_window [class="^Spotify$"] border none
