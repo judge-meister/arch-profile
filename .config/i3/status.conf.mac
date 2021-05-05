@@ -41,14 +41,14 @@ battery 0 {
 	#format = "%status %percentage %remaining (%emptytime %consumption)"
 	format = "%status %percentage (%remaining)"
 	format_down = "No battery"
-	status_chr = "⚡" #CHR"
-    status_bat = "🔋" #BAT"
-    status_unk = "?" #UNK"
-	status_full = "☻" #FULL"
+	status_chr = "⚡" # CHR"
+	status_bat = "🔋" # BAT"
+	status_unk = "?"  # UNK"
+	status_full = "☻" # FULL"
 	path = "/sys/class/power_supply/BAT%d/uevent"
 	low_threshold = 10
-    last_full_capacity = true
-    integer_battery_capacity = true
+	last_full_capacity = true
+	integer_battery_capacity = true
 }
 
 run_watch Docker {
@@ -60,7 +60,7 @@ run_watch DHCP {
 }
 
 path_exists VPN {
-    format_down = ""
+	format_down = ""
 	path = "/proc/sys/net/ipv4/conf/tun0"
 }
 
@@ -78,7 +78,7 @@ cpu_temperature 0 {
 }
 
 #memory {
-#    format = "%used / %total"
+#	format = "%used / %total"
 #}
 
 disk "/" {
