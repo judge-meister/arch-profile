@@ -98,6 +98,9 @@ for_window [class="zoom"] floating enable
 bindsym $mod+l exec $lockcmd 
 exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
 
+# run pacman -Syu in a terminal
+bindsym $mod+u exec $term -e update_packages
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
