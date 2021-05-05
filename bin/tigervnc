@@ -24,12 +24,20 @@ then
   docker container rm "$ID"
 fi
 
+RM="--rm"
+if [ "$1" == "-keep" ]
+then
+  RM=""
+fi
+
+xhost local:root
+
 echo "Create and Run new tigervnc container"
 
-docker run -it --rm \
+docker run -it "$RM" \
         -v /etc/localtime:/etc/localtime:ro \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -v ~/.vnc:/vnc \
+        -v ~/.vnc:/vnc:ro \
         -e "DISPLAY=unix${DISPLAY}" \
         --net host \
         --name tigervnc \

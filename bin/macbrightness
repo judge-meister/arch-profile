@@ -1,13 +1,24 @@
 #!/bin/bash
 
-BRIGHT="/sys/class/backlight/nv_backlight/brightness"
-MAX=$(cat "/sys/class/backlight/nv_backlight/max_brightness")
+VENDOR=$(cat /sys/class/dmi/id/sys_vendor)
+
+if [ "$VENDOR" == "Apple Inc." ]
+then
+  BRIGHT="/sys/class/backlight/nv_backlight/brightness"
+  MAX=$(cat "/sys/class/backlight/nv_backlight/max_brightness")
+elif [ "$VENDOR" == "LENOVO" ]
+then
+  BRIGHT="/sys/class/backlight/intel_backlight/brightness"
+  MAX=$(cat "/sys/class/backlight/intel_backlight/max_brightness")
+fi
 CUR=$(cat "$BRIGHT")
-INC=10
+#CUR_PERC=$(echo "((${CUR}*100/${MAX})+0.5)" | bc -l | python3 -c "print(round(float(input())))")
+#INC=10  # percent
+TEN_PERC=$(( MAX/10 ))
 
 if [ "$1" == "-inc" ]
 then
-  CUR=$((CUR+INC))
+  CUR=$((CUR+TEN_PERC))
   if [ $CUR -ge "$MAX" ]
   then
     CUR=$MAX
@@ -16,7 +27,7 @@ fi
 
 if [ "$1" == "-dec" ]
 then
-  CUR=$((CUR-INC))
+  CUR=$((CUR-TEN_PERC))
   if [ $CUR -le 0 ]
   then
     CUR=0
