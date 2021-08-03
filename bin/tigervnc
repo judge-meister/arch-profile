@@ -3,7 +3,7 @@
 
 if [ "$1" == "build" ]
 then
-  cd ~/dockerfiles/tiger-vnc/
+  cd ~/dockerfiles/tiger-vnc/ || exit
   docker build -t judge/tigervnc:latest .
   exit
 fi

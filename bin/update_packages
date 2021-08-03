@@ -4,7 +4,7 @@ sudo pacman -Syu
 
 echo ""
 read -r -p "Reboot ? [y/N]: " rb
-if [ $rb == "Y" ] || [ $rb == "y" ]
+if [ "$rb" == "Y" ] || [ "$rb" == "y" ]
 then
   reboot
 fi
