@@ -3,7 +3,12 @@
 sudo pacman -Syu
 
 echo ""
-read -r -p "Press Enter to close." </dev/tty
+read -r -p "Reboot ? [y/N]: " rb
+if [ $rb == "Y" ] || [ $rb == "y" ]
+then
+  reboot
+fi
+#read -r -p "Press Enter to close." </dev/tty
 
 pkill -SIGRTMIN+8 waybar
 

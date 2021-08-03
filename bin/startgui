@@ -92,7 +92,7 @@ do
   sleep 1
 
   case "${DM_LIST[$dm]}" in
-    sway) xbindkeys; sway ;;
+    sway) sway ;;
 
     console) bash;;
     

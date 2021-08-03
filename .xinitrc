@@ -52,7 +52,9 @@ case $session in
                       exec i3 -c "$HOME"/.config/i3/config.mac ;
                   fi ;;
   enlightenment ) exec enlightenment_start;;
-  awesome       ) exec awesome;;
+  awesome       ) echo "$1";
+                  setxkbmap -layout gb;
+                  exec awesome;;
   dwm           ) exec dwm;;
   *             ) echo "$1"; 
                   exec "$1";;
