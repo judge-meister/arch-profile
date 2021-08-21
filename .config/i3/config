@@ -102,6 +102,7 @@ for_window [class="Wine"] floating enable
 for_window [class="Wireshark"] floating enable
 for_window [class="zoom"] floating enable
 for_window [class="Qemu-system-i386"] floating enable
+for_window [class="jigsawgirls.exe"] floating enable
 
 # lock screen + auto lock
 bindsym $mod+l exec $lockcmd 

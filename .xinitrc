@@ -39,23 +39,7 @@ session=${1:-plasma}
 
 case $session in 
   plasma|kde    ) exec startplasma-x11;;
-  i3|i3wm|i3-with-shmlog ) dunst &
-                  lxsession & 
-                  ~/.fehbg &
-                  picom &
-                  if [ "$VENDOR" = "LENOVO" ]; then
-                      setxkbmap -layout gb ;
-                      exec i3 ;
-                  elif [ "$VENDOR" = "Apple Inc." ]; then
-                      setxkbmap -layout gb -model macbook79 ;
-                      "$HOME"/bin/macfnmode fn ; 
-                      exec i3 -c "$HOME"/.config/i3/config.mac ;
-                  fi ;;
   enlightenment ) exec enlightenment_start;;
-  awesome       ) echo "$1";
-                  setxkbmap -layout gb;
-                  exec awesome;;
-  dwm           ) exec dwm;;
   *             ) echo "$1"; 
                   exec "$1";;
 esac
