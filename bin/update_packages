@@ -21,6 +21,8 @@ then
   KERNEL_CHANGED="true"
 fi
 
+checkupdates_alert
+
 if [ "$KERNEL_CHANGED" == "true" ]
 then
 
