@@ -9,7 +9,7 @@ sudo pacman -Su
 
 if [ "$(uname -r)" != "$UNAME_KERNEL_VER" ]
 then
-  $NEW_KERNEL=$(uname -r)
+  NEW_KERNEL=$(uname -r)
   echo -e "\nkernel updated to $NEW_KERNEL"
   KERNEL_CHANGED="true"
 fi
