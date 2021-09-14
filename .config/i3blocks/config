@@ -1,0 +1,64 @@
+
+[updates]
+command=checkupdates | wc -l | awk '{print "📦: "$1}'
+interval=15
+color=#eeee00
+
+[disk space]
+command=df -h |grep ' /$' | awk -F' ' '{print "/: "$4}'
+interval=600
+color=#ff4444
+
+[cpu temp]
+command=t=$(cat /sys/class/hwmon/hwmon4/temp2_input); echo "$t / 1000" | bc  | awk '{print "T: "$1"°C"}'; if [ "$t" -gt 75000 ];then exit 33; fi; exit 0
+interval=10
+color=#bbbbbb
+
+[Docker]
+command=dockerisrunning
+interval=3600
+color=#0088cc
+
+[VPN]
+
+[Volume]
+command=volume | awk '{print "♪ "$1}'
+interval=2
+color=#bbbbbb
+
+#[click]
+#full_text=Click me!
+#command=echo "Got clicked with button $button"
+#color=#F79494
+
+# Guess the weather hourly - https://wttr.in/:help to see additional options
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+color=#A4C2F4
+
+[battery]
+command=battery_status
+interval=20
+color=#bbbbbb
+
+# Query my default IP address only on startup
+[ip-wifi]
+#command=hostname -i | awk '{ print "IP:" $1 }'
+interval=once
+color=#91E78B
+command=nmcli -t device show $(nmcli -t device | grep -E ':wifi:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 | awk '{print "W: "$1}'
+
+# Query my default IP address only on startup
+[ip-eth]
+#command=hostname -i | awk '{ print "IP:" $1 }'
+interval=once
+color=#91E78B
+command=nmcli -t device show $(nmcli -t device | grep -E ':ethernet:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 | awk '{print "E: "$1}'
+
+# Update time every 5 seconds
+[time]
+command=date +"%a %e %b %Y %T"
+interval=5
+color=#bbbbbb
+

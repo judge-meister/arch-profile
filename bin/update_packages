@@ -6,6 +6,7 @@ KERNEL_CHANGED="false"
 
 sudo pacman -Syu --needed archlinux-keyring
 sudo pacman -Su
+yay -Syu
 
 if [ "$(uname -r)" != "$UNAME_KERNEL_VER" ]
 then

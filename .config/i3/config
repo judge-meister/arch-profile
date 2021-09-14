@@ -9,8 +9,8 @@ set $term st
 set $menu1 rofi -show drun -theme "solarized_alternate"
 set $menu2 rofi -show run -theme "solarized_alternate"
 set $menu3 "rofi -modi combi,window -show combi -combi-modi run,drun -theme solarized_alternate"
-set $barcmd i3status --config ~/.config/i3/status.conf
-#set $barcmd i3blocks
+#set $barcmd i3status --config ~/.config/i3/status.conf
+set $barcmd i3blocks
 #set $lockcmd i3lock -c 111111
 set $lockcmd fancy-i3lock
 
@@ -30,6 +30,7 @@ font pango: SourceCodePro Medium 8
 
 # HiDPI for sway
 # output eDP-1 scale 1
+exec --no-startup-id xrandr --output DP-1 --left-of LVDS-1 --auto
 
 # Inputs for sway
 # Reverse scroll

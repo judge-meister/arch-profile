@@ -2,8 +2,10 @@
 
 if [ -f "/run/docker.pid" ]
 then
-  echo "yes"
+  echo "Docker: yes"
+  exit 0
 else
-  echo "no"
+  echo "Docker: no"
+  exit 33
 fi
 
