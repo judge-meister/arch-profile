@@ -102,7 +102,7 @@
         "signal": 8
     },
     "custom/docker": {
-        "format": "Docker: {}",
+        "format": "{}",
         "interval": 60,
         "max-length": 15,
         "exec": "$HOME/.local/bin/dockerisrunning",
