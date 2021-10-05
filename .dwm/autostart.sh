@@ -16,7 +16,7 @@ then
 fi ;
 
 lxsession &
-picom &
+picom -CGb
 dwmblocks &
 xbindkeys
 

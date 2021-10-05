@@ -8,7 +8,7 @@ VENDOR="$(cat /sys/class/dmi/id/sys_vendor)"
 dunst &
 lxsession & 
 ~/.fehbg &
-picom &
+picom -CGb
 if [ "$VENDOR" = "LENOVO" ]; then
     setxkbmap -layout gb ;
     
