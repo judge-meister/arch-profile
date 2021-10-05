@@ -3,10 +3,10 @@
 SHELL := bash
 
 .PHONY: all
-all: dotfiles folders etc
+all: dotfiles folders etc Pictures
 
 .PHONY: clean
-clean: cleandotfiles cleanfolders cleanetc
+clean: cleandotfiles cleanfolders cleanetc cleanPictures
 
 .PHONY: dotfiles
 dotfiles: cleandotfiles  ## Install the dotfiles
@@ -25,7 +25,7 @@ cleandotfiles: ## Remove the dotfiles
 
 .PHONY: folders
 folders: cleanfolders ## do lower directories
-	for file in $(shell find .config .dwm .local Pictures bin docs dockerfiles -type f ); do \
+	for file in $(shell find .config .dwm .local bin docs dockerfiles -type f ); do \
 		d=$$(dirname $$file); \
 		mkdir -p $(HOME)/$$d; \
 		ln -snfv $(CURDIR)/$$file $(HOME)/$$d/ ; \
@@ -34,10 +34,22 @@ folders: cleanfolders ## do lower directories
 
 .PHONY: cleanfolders
 cleanfolders: ## do lower directories
-	for file in $(shell find .config .dwm .local Pictures bin docs dockerfiles -type f ); do \
+	for file in $(shell find .config .dwm .local bin docs dockerfiles -type f ); do \
 		f=$$(basename $$file); \
 		rm -fv $(HOME)/$$file ; \
 	done;
+
+.PHONY: Pictures
+Pictures: cleanPictures ## do Pictures folder
+	for file in $(shell find Pictures -maxdepth 1 -mindepth 1); do \
+		f=$$(basename $$file); \
+		mkdir -p $(HOME)/Pictures; \
+		ln -snfv $(CURDIR)/$$file $(HOME)/Pictures/; \
+	done;
+
+.PHONY: cleanPictures
+cleanPictures: ## 
+	rm -frv $(HOME)/Pictures/;
 
 .PHONY: etc
 etc: cleanetc ## install etc files
