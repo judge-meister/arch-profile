@@ -10,3 +10,9 @@
 
     alias pacman='pacman --color auto '
     alias yay='yay --color auto '
+
+    alias gst='git status'
+    alias gad='git add'
+    alias gcm='git commit -m'
+    alias gdt='git icdiff'
+    
