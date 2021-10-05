@@ -12,7 +12,8 @@ set $menu3 "rofi -modi combi,window -show combi -combi-modi run,drun -theme sola
 #set $barcmd i3status --config ~/.config/i3/status.conf
 set $barcmd i3blocks
 #set $lockcmd i3lock -c 111111
-set $lockcmd fancy-i3lock
+#set $lockcmd fancy-i3lock
+set $lockcmd i3lock-fancy
 
 # Test other Mod keys
 #bindsym Mod1+Return exec $term -T "st Mod1 Left Alt"
@@ -104,10 +105,12 @@ for_window [class="Wireshark"] floating enable
 for_window [class="zoom"] floating enable
 for_window [class="Qemu-system-i386"] floating enable
 for_window [class="jigsawgirls.exe"] floating enable
+for_window [class="mpv"] floating enable
 
 # lock screen + auto lock
 bindsym $mod+l exec $lockcmd 
-exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
+#exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
+exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 
 # run pacman -Syu in a terminal
 bindsym $mod+u exec $term -e update_packages
