@@ -14,11 +14,11 @@ capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 #echo "${capacity}% ${status}"
 #echo "${capacity}%"
 
-if [ "${status}" == "Full" ]
+if [ "${status}" == "Full" ] || [ "${status}" == "Unknown" ]
 then
   echo "${FULL}${capacity}%"
 
-elif [ "${status}" == "Charging" ]
+elif [ "${status}" == "Charging" ] 
 then
   echo "${CHARGING}${capacity}%"
 
