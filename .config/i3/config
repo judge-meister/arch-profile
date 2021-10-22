@@ -4,8 +4,8 @@
 
 set $mod Mod4
 #set $term urxvt
-set $term st
-#set $term alacritty
+#set $term st
+set $term alacritty
 set $menu1 rofi -show drun -theme "solarized_alternate"
 set $menu2 rofi -show run -theme "solarized_alternate"
 set $menu3 "rofi -modi combi,window -show combi -combi-modi run,drun -theme solarized_alternate"
@@ -65,6 +65,9 @@ bindsym $mod+d exec $menu3
 # kill focused window
 bindsym $mod+Shift+q kill
 
+#default_border normal 1
+#default_floating_border normal 1
+
 # tigervnc - open on new workspace
 assign [class="TigerVNC Viewer"] → 6
 
@@ -75,6 +78,7 @@ for_window [class="Brave-browser"] border none
 
 # no title: st terminal
 for_window [class="st-256color"] border pixel 1
+for_window [class="Alacritty"] border pixel 1
 
 # skype, steam, wine, Gimp etc. : float
 for_window [class="Code"] floating enable
@@ -204,21 +208,21 @@ bindsym XF86AudioMute        $mute
 bindsym XF86AudioMicMute     $mic_off
 bindsym XF86AudioLowerVolume $vol_dn
 bindsym XF86AudioRaiseVolume $vol_up
-bindsym F10  $mute
-bindsym F11  $vol_dn
-bindsym F12  $vol_up
+#bindsym F10  $mute
+#bindsym F11  $vol_dn
+#bindsym F12  $vol_up
 
 # screen brightness controls
 bindsym XF86MonBrightnessUp exec macbrightness -inc  
 bindsym XF86MonBrightnessDown exec macbrightness -dec  
-bindsym F2 exec macbrightness -inc  
-bindsym F1 exec macbrightness -dec  
+#bindsym F2 exec macbrightness -inc  
+#bindsym F1 exec macbrightness -dec  
 
 # keyboard brightness controls
 #bindsym XF86MonBrightnessUp exec kbdbrightness -inc  
 #bindsym XF86MonBrightnessDown exec kbdbrightness -dec  
-bindsym F6 exec kbdbrightness -inc  
-bindsym F5 exec kbdbrightness -dec  
+#bindsym F6 exec kbdbrightness -inc  
+#bindsym F5 exec kbdbrightness -dec  
 
 # Screenshots
 # Screenshot fullscreen
@@ -275,9 +279,29 @@ gaps outer 0
 bar {
     position top
 	#font pango: monospace 10
-    font pango: SourceCodePro 10
+    #font pango: SourceCodePro, FontAwesome 10
+    #font pango: SourceCodePro 10
+    font pango: FontAwesome 10
 	status_command $barcmd 
+    colors {
+      separator #268bd2
+      #background #002b36
+      background #202020ee
+      statusline #83949600
+      #focused_workspace #fdf6e3 #6c71c4 #fdf6e3
+      focused_workspace #aaaaaa #6c71c4 #cccccc
+      active_workspace #fdf6e3 #6c71c4 #fdf6e3
+      #inactive_workspace #002b36 #586e75 #002b36
+      inactive_workspace #586e75 #202020ee #586e75
+      urgent_workspace #d33682 #d33682 #fdf6e3
+    }
+    i3bar_command i3bar --transparency
 }
+client.focused          #6c71c4 #6c71c4 #ffffff #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #ffffff #eee8d5 #6c71c4
+client.unfocused        #073642 #073642 #888888 #93a1a1 #586e75
+client.urgent           #d33682 #d33682 #ffffff #fdf6e3 #dc322f
+client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
 
 # auto run commands
 exec --no-startup-id ~/.config/i3/autostart.sh
