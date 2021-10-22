@@ -85,43 +85,43 @@
 
 # Apple Mac Media keys (using ~/bin/macfnmode fn)
 # F1 - screen brightness down not working
-"macbrightness -dec"
-  F1
+#"macbrightness -dec"
+#  F1
 
 # F2 - screen brightness up not working
-"macbrightness -inc"
-  F2
+#"macbrightness -inc"
+#  F2
 
 # XF86LaunchA
 # XF86LaunchB
 # F5 - XF86KbdBrightnessDown
-"kbdbrightness -dec"
-  F5
+#"kbdbrightness -dec"
+#  F5
 
 # F6 - XF86KbdBrightnessUp
-"kbdbrightness -inc"
-  F6
+#"kbdbrightness -inc"
+#  F6
 
 # XF86AudioPrev
 # XF86AudioPlay
 # XF86AudioNext
 # F10 - mute not responding
-"pactl set-sink-mute @DEFAULT_SINK@ toggle"
-  F10
+#"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+#  F10
 
 # F11 - vol down not responding
-"pactl set-sink-volume @DEFAULT_SINK@ -1000"
-  F11
+#"pactl set-sink-volume @DEFAULT_SINK@ -1000"
+#  F11
 
 # F12 - vol up not responding
-"pactl set-sink-volume @DEFAULT_SINK@ +1000"
-  F12
+#"pactl set-sink-volume @DEFAULT_SINK@ +1000"
+#  F12
 
-""
-    m:0x0 + c:112
+#""
+#    m:0x0 + c:112
 #    Prior
-""
-    m:0x0 + c:117
+#""
+#    m:0x0 + c:117
 #    Next
 
 #"(Scheme function)"
