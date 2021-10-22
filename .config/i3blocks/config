@@ -1,64 +1,110 @@
 
+separator_block_width=10
+
+#[window]
+#command=~/.config/i3blocks/window
+#interval=1
+#color=#1793d1
+#markup=pango
+
 [updates]
-command=checkupdates | wc -l | awk '{print "📦: "$1}'
+label=<span font="mononoki Nerd Font"></span>
+#command=checkupdates | wc -l | awk '{print "📦: "$1}'
+command=checkupdates | wc -l | awk '{print "  "$1}'
 interval=15
-color=#eeee00
+color=#91e78b
+markup=pango
 
-[disk space]
-command=df -h |grep ' /$' | awk -F' ' '{print "/: "$4}'
+[disk-root]
+label=<span font="mononoki Nerd Font"></span>
+command=df -h |grep ' /$' | awk -F' ' '{print "  "$4}'
 interval=600
-color=#ff4444
+color=#1793d1
+markup=pango
 
-[cpu temp]
-command=t=$(cat /sys/class/hwmon/hwmon4/temp2_input); echo "$t / 1000" | bc  | awk '{print "T: "$1"°C"}'; if [ "$t" -gt 75000 ];then exit 33; fi; exit 0
-interval=10
-color=#bbbbbb
+[disk-home]
+label=<span font="mononoki Nerd Font"></span>
+#command=df -h |grep ' /$' | awk -F' ' '{print "/: "$4}'
+command=df -h |grep '/home$' | awk -F' ' '{print "  "$4}'
+interval=600
+color=#859900
+markup=pango
 
 [Docker]
 command=dockerisrunning
 interval=3600
-color=#0088cc
+color=#6c71c4
 
 [VPN]
 
-[Volume]
-command=volume | awk '{print "♪ "$1}'
-interval=2
-color=#bbbbbb
-
 #[click]
 #full_text=Click me!
-#command=echo "Got clicked with button $button"
+#command=while read button; do if [ $button -eq 1 ]; then echo "Got click $button";else echo "Click me!"; fi; done
+#interval=persist
 #color=#F79494
+
+#[counter]
+#_count=0
+#command=printf '{"full_text":"Counter: %s", "_count":%d}\n' $_count $((_count + 1))
+#format=json
+#interval=1
 
 # Guess the weather hourly - https://wttr.in/:help to see additional options
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=3600
-color=#A4C2F4
+color=#e97ac8
 
-[battery]
-command=battery_status
-interval=20
-color=#bbbbbb
-
-# Query my default IP address only on startup
+# clickable block to show wifi ip address or SSID or just the icon
 [ip-wifi]
-#command=hostname -i | awk '{ print "IP:" $1 }'
-interval=once
-color=#91E78B
-command=nmcli -t device show $(nmcli -t device | grep -E ':wifi:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 | awk '{print "W: "$1}'
+full_text=""
+label=<span font="mononoki Nerd Font"> </span>
+command=while read but; do if [ $but -eq 2 ]; then nmcli -t device show | grep -A5 TYPE:wifi | grep CONNECTION | cut -d':' -f2; elif [ $but -eq 1 ]; then nmcli -t device show $(nmcli -t device | grep -E ':wifi:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 ; else echo ""; fi; done
+#command=while read but; do if [ $but -eq 1 ]; then echo "wifi"; else echo "";fi;done
+#color=#d33682
+color=#91e78b
+interval=persist
+markup=pango
 
 # Query my default IP address only on startup
 [ip-eth]
-#command=hostname -i | awk '{ print "IP:" $1 }'
-interval=once
+full_text= 
+label=<span font="mononoki Nerd Font 10"> </span>
+command=while read but; do if [ $but -eq 1 ]; then nmcli -t device show $(nmcli -t device | grep -E ':ethernet:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 ; else echo ""; fi; done
+interval=persist
 color=#91E78B
-command=nmcli -t device show $(nmcli -t device | grep -E ':ethernet:' | cut -d':' -f1) | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1 | awk '{print "E: "$1}'
+markup=pango
+
+[cpu temp]
+label=<span font="mononoki Nerd Font"></span>
+command=t=$(cat /sys/class/hwmon/hwmon4/temp2_input); echo "$t / 1000" | bc  | awk '{print " "$1"°C"}'; if [ "$t" -gt 75000 ];then exit 33; fi; exit 0
+interval=10
+color=#b58900
+markup=pango
+
+[load]
+label=<span font="mononoki Nerd Font"> </span>
+command=~/.config/i3blocks/load_average
+interval=10
+color=#6c71c4
+markup=pango
+
+[battery]
+command=/home/judge/bin/battery_status
+interval=20
+color=#bbbbbb
+
+[Volume]
+label=<span font="mononoki Nerd Font"></span>
+command=volume | awk '{print " "$1}'
+interval=2
+color=#d70a53
+markup=pango
 
 # Update time every 5 seconds
 [time]
-command=date +"%a %e %b %Y %T"
+#command=date +"%a %e %b %Y %T"
+command=date +"%b %e, %Y %H:%M"
 interval=5
-color=#bbbbbb
+color=#50c878
 
