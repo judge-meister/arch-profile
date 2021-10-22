@@ -85,7 +85,8 @@ input "type:keyboard" {
 }
 # only add the xkb_model setting if on a macbook
 exec_always ~/bin/kbd_model
-exec_always xbindkeys
+# avoid using this - current config breaks F1 F2 F5 F6 F10 F11 F12 - need to find another way especially for Macbook
+#exec_always xbindkeys
 
 ### Key bindings
 #
