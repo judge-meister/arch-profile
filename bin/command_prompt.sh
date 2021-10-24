@@ -5,7 +5,8 @@
 #
 # shellcheck disable=SC2034
 
-# colours
+# define the colour codes - the actual colours are picked up from the 
+#                           terminal emulator theme
 
 BLACK='\e[0;30m'
 DARKRED='\e[0;31m'
@@ -83,13 +84,13 @@ prompt_git() {
 # command_prompt components
 
 # red time and date
-__date__="\[${RED}\]\d \t "
+__date__="\[${DARKRED}\]\d \t "
 
 # green user@host
-__user_host__="\[${DARKGREEN}\]\u\[${DARKGREEN}\]@\[${DARKGREEN}\]\h\[${NOCOL}\]"
+__user_host__="\[${DARKGREEN}\]\u\[${YELLOW}\]@\[${DARKGREEN}\]\h\[${NOCOL}\]"
 
 # cyan working dir  
-__working_dir__=" \[${BLUE}\]\w\[${NOCOL}\]"
+__working_dir__=" \[${DARKBLUE}\]\w\[${NOCOL}\]"
 
 # yellow open and close bracket
 __close_bracket__="\[${YELLOW}\]] "
@@ -100,6 +101,7 @@ __comm_num__="\[${YELLOW}\][\!]\[${NOCOL}\]"
 
 # add final $
 __end=" \$ "
+
 
 # construct PS1
 
