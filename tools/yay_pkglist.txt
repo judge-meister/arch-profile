@@ -1,0 +1,23 @@
+# AUR (via yay)
+# -------------
+brave-bin
+# dmenu-distrotube-git
+# dwm-distrotube-git 6.2.r14.897a867-1
+# dwmblocks-distrotube-git 1.0.r2.044158e-1
+fontviewer 0.5.3-2
+i3lock-fancy-git r187.3c65cbd-1
+icdiff 2.0.4-1
+libxft-bgra-git 2.3.4.r113.98b121f-1
+nerd-fonts-mononoki 2.1.0-2
+play-with-mpv-git 0.1.0.post9+g07a9c1d-1
+rofi-lbonn-wayland-git 1.7.0.wayland1.r3.g2025b73e-1
+# st-distrotube-git 0.8.4.r6.4c60228-1
+swaynagmode 0.2.1-1
+# tabbed 0.6-3
+tbsm 0.5-1
+ttf-ms-fonts 2.0-12
+tulizu 0.2-1
+wev 1.0.0-6
+xbindkeys_config-gtk2 0.1.4-1
+yay-git 1.0.2.r0.g3fef4ae-1
+

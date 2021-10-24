@@ -1,0 +1,73 @@
+# packages to install
+
+# wm / de
+awesome
+dunst
+#dwm
+i3-gaps
+i3blocks
+#i3lock
+lxsession
+pamixer
+pavucontrol
+picom
+python-iwlib
+python-psutil
+python-py-cpuinfo
+python-pywlroots
+qtile
+#rofi
+rofi-calc
+shellcheck
+sway
+#tbsm - AUR
+ttf-anonymous-pro
+ttf-font-awesome
+ttf-nerd-fonts-symbols-mono
+wl-clipboard
+wofi
+xautolock
+#xorg-xprop - all installed as part of xorg group
+#xorg-xrandr
+#xorg-xwayland
+
+# groups 
+xorg
+
+# apps
+alacritty
+emacs
+exa
+feh
+ffmpeg
+gparted
+htop
+#icdiff - AUR
+kitty
+mplayer
+mpv
+neofetch
+nitrogen
+ranger
+screen
+scrot
+#tulizu - AUR
+unzip
+usbutils
+virt-manager
+#wev - AUR
+youtube-dl
+zip
+
+# utils
+imagemagick
+iw
+lshw
+nfs-utils
+nmap
+pulseaudio
+system-config-printer
+
+#
+docker
+
