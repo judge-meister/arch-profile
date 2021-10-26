@@ -30,6 +30,7 @@ xautolock
 #xorg-xprop - all installed as part of xorg group
 #xorg-xrandr
 #xorg-xwayland
+xorg-xinit
 
 # groups 
 xorg
