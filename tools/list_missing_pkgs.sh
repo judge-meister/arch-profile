@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cat pkglist.txt |sort -u| grep -v '#' | while read x; 
+# shellcheck disable=SC2162
+sort -u pkglist.txt | grep -v '#' | while read x; 
 do 
   if [ "x$x" != "x" ]; 
   then 
