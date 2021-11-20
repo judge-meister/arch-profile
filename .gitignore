@@ -25,4 +25,8 @@
 .terminfo/
 .viminfo
 .viminfo.tmp
+.xmonad/xmonad.o
+.xmonad/xmonad-x86_64-linux
+.xmonad/xmonad.hi
+.xmonad/xmonad.errors
 clones
