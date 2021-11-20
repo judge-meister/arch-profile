@@ -54,8 +54,10 @@ floating_modifier $mod
 floating_minimum_size 150 x 150
 floating_maximum_size 2500 x 1500
 
+# START_KEYS
 # start a terminal
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
 
 # start dmenu
 bindsym $mod+d exec $menu3
@@ -113,7 +115,7 @@ for_window [class="jigsawgirls.exe"] floating enable
 for_window [class="mpv"] floating enable
 for_window [class="Fontviewer"] floating enable
 for_window [class="Toplevel"] floating enable
-#for_window [class="i3-frame"] floating enable
+for_window [class="Yad"] floating enable
 
 # lock screen + auto lock
 bindsym $mod+l exec $lockcmd 
@@ -204,6 +206,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 assign [class="Brave-browser"] 10
 
+# KP_GROUP Multimedia Keys
 # audio controls
 set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle      # mic mute
 set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle  # speaker mute
@@ -243,6 +246,7 @@ bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d
 # Screenshot current focused window, sway
 #bindsym Shift+Print exec "swaygrab --focused ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
 
+# KP_GROUP Reload and Exit
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -274,6 +278,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+# END_KEYS
 
 # gaps settings
 smart_gaps on
