@@ -90,9 +90,11 @@ color=#6c71c4
 markup=pango
 
 [battery]
-command=/home/judge/bin/battery_status
+#command=/home/judge/bin/battery_status -utf
+command=~/.config/i3blocks/battery2.py
 interval=20
 color=#bbbbbb
+markup=pango
 
 [Volume]
 label=<span font="mononoki Nerd Font"></span>
