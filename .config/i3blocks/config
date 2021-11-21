@@ -77,7 +77,8 @@ markup=pango
 
 [cpu temp]
 label=<span font="mononoki Nerd Font"></span>
-command=t=$(cat /sys/class/hwmon/hwmon4/temp2_input); echo "$t / 1000" | bc  | awk '{print " "$1"°C"}'; if [ "$t" -gt 75000 ];then exit 33; fi; exit 0
+#command=t=$(cat /sys/class/hwmon/hwmon4/temp2_input); echo "$t / 1000" | bc  | awk '{print " "$1"°C"}'; if [ "$t" -gt 75000 ];then exit 33; fi; exit 0
+command=~/.config/i3blocks/cpu_temp.sh
 interval=10
 color=#b58900
 markup=pango
