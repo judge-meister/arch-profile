@@ -5,65 +5,6 @@
 #
 # Version: 1.8.7
 #
-# If you edit this file, do not forget to uncomment any lines
-# that you change.
-# The pound(#) symbol may be used anywhere for comments.
-#
-# To specify a key, you can use 'xbindkeys --key' or
-# 'xbindkeys --multikey' and put one of the two lines in this file.
-#
-# The format of a command line is:
-#    "command to start"
-#       associated key
-#
-#
-# A list of keys is in /usr/include/X11/keysym.h and in
-# /usr/include/X11/keysymdef.h
-# The XK_ is not needed.
-#
-# List of modifier:
-#   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
-#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
-#
-
-# The release modifier is not a standard X modifier, but you can
-# use it if you want to catch release events instead of press events
-
-# By defaults, xbindkeys does not pay attention with the modifiers
-# NumLock, CapsLock and ScrollLock.
-# Uncomment the lines above if you want to pay attention to them.
-
-#keystate_numlock = enable
-#keystate_capslock = enable
-#keystate_scrolllock= enable
-
-# Examples of commands:
-
-#"xbindkeys_show" 
-#  control+shift + q
-
-# set directly keycode (here control + f with my keyboard)
-#"xterm"
-#  c:41 + m:0x4
-
-# specify a mouse button
-#"xterm"
-#  control + b:2
-
-#"xterm -geom 50x20+20+20"
-#   Shift+Mod2+alt + s
-#
-## set directly keycode (here control+alt+mod2 + f with my keyboard)
-#"xterm"
-#  alt + c:0x29 + m:4 + mod2
-#
-## Control+Shift+a  release event starts rxvt
-#"rxvt"
-#  release+control+shift + a
-#
-## Control + mouse button 2 release event starts rxvt
-#"rxvt"
-#  Control + b:2 + Release
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   XF86AudioMute
@@ -71,65 +12,31 @@
 "pactl set-source-mute @DEFAULT_SINK@ toggle"
   XF86AudioMicMute
 
-"pactl set-sink-volume @DEFAULT_SINK@ -1000"
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
   XF86AudioLowerVolume
 
-"pactl set-sink-volume @DEFAULT_SINK@ +1000"
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
   XF86AudioRaiseVolume
 
-"brightness -inc 10" 
+"macbrightness -inc 10" 
   XF86MonBrightnessUp 
 
-"brightness -dec 10" 
+"macbrightness -dec 10" 
   XF86MonBrightnessDown
 
-# Apple Mac Media keys (using ~/bin/macfnmode fn)
-# F1 - screen brightness down not working
-#"macbrightness -dec"
-#  F1
+"kbdbrightness -dec"
+  XF86KbdBrightnessDown
 
-# F2 - screen brightness up not working
-#"macbrightness -inc"
-#  F2
+"kbdbrightness -inc"
+  XF86KbdBrightnessUp
 
 # XF86LaunchA
 # XF86LaunchB
-# F5 - XF86KbdBrightnessDown
-#"kbdbrightness -dec"
-#  F5
-
-# F6 - XF86KbdBrightnessUp
-#"kbdbrightness -inc"
-#  F6
-
 # XF86AudioPrev
 # XF86AudioPlay
 # XF86AudioNext
-# F10 - mute not responding
-#"pactl set-sink-mute @DEFAULT_SINK@ toggle"
-#  F10
 
-# F11 - vol down not responding
-#"pactl set-sink-volume @DEFAULT_SINK@ -1000"
-#  F11
 
-# F12 - vol up not responding
-#"pactl set-sink-volume @DEFAULT_SINK@ +1000"
-#  F12
-
-#""
-#    m:0x0 + c:112
-#    Prior
-#""
-#    m:0x0 + c:117
-#    Next
-
-#"(Scheme function)"
-#    m:0x0 + c:113
-#    Left
-#"(Scheme function)"
-#    m:0x0 + c:114
-#    Right
 
 ##################################
 # End of xbindkeys configuration #
