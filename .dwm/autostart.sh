@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-VENDOR="$(cat /sys/class/dmi/id/sys_vendor)"
+#VENDOR="$(cat /sys/class/dmi/id/sys_vendor)"
 PRODUCT="$(cat /sys/class/dmi/id/product_name)"
 FAMILY="$(cat /sys/class/dmi/id/product_family)"
 
