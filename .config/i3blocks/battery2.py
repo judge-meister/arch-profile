@@ -11,6 +11,8 @@ import re
 
 config = dict(os.environ)
 status = check_output(['acpi'], universal_newlines=True)
+health = check_output(['acpi', '-b', '-i'], universal_newlines=True)
+#print(health.split('\n')[1].split(' ')[-1])
 
 if not status:
     # stands for no battery found
@@ -127,6 +129,7 @@ else:
     form =  '<span color="{}">{}%</span>'
     fulltext += form.format(color(percentleft), percentleft)
     fulltext += timeleft
+    fulltext += " ["+health.split('\n')[1].split(' ')[-1]+"]"
 
 print(fulltext)
 print(fulltext)

@@ -3,6 +3,12 @@ separator_block_width=10
 #color=#6c71c4
 color=#7E84E6
 
+[i3-focusedwindow]
+label=[]= 
+command=~/.config/i3blocks/i3-focusedwindow 60
+interval=persist
+color=#777777
+
 #[window]
 #command=~/.config/i3blocks/window
 #interval=1
