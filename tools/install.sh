@@ -170,20 +170,20 @@ install_dwm()
   # make each and install
   echo "Installing DWM"; sleep 2
 
-  pushd ~/clones
+  pushd ~/clones || exit
 
   git clone http://gitlab.com/dwt1/dmenu-distrotube.git dmenu
   git clone http://gitlab.com/dwt1/dwmblocks-distrotube.git dwmblocks
   git clone http://gitlab.com/dwt1/dwm-distrotube.git dwm
   git clone http://gitlab.com/dwt1/st-distrotube.git st
 
-  popd
+  popd || exit
   cp dwm.patches/dwm.c.patch ~/clones/dwm/
   cp dwm.patches/Makefile.patch ~/clones/dwm/
   cp dwm.patches/blocks.def.h.patch ~/clones/dwmblocks/
 
   # dwm
-  cd ~/clones/dwm
+  cd ~/clones/dwm || exit
   git checkout 12251a2
   patch < dwm.c.patch
   patch < Makefile.patch
@@ -191,20 +191,20 @@ install_dwm()
   sudo make install
 
   # dwmblocks
-  cd ~/clones/dwmblocks
+  cd ~/clones/dwmblocks || exit
   git checkout 92b2234
   patch < blocks.def.h.patch
   make
   sudo make install
 
   # dmenu
-  cd ~/clones/dmenu
+  cd ~/clones/dmenu || exit
   git checkout 75dfa57
   make
   sudo make install
 
   # st - terminal
-  cd ~/clones/st
+  cd ~/clones/st || exit
   git checkout fee8c95
   make
   sudo make install
@@ -232,7 +232,7 @@ install_scripts()
 install_some_stuff()
 {
   echo "Install Some Stuff"
-  echo ${INST_OPTS}
+  echo "${INST_OPTS}"
 }
 
 # -----------------------------------------------------------------------------
@@ -279,7 +279,8 @@ do
           ;;
     'a' ) install_everything
           ;;
-
+    *) usage
+       ;;
   esac
 done
 shift $((OPTIND-1))
