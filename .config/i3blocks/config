@@ -9,11 +9,10 @@ command=~/.config/i3blocks/i3-focusedwindow 60
 interval=persist
 color=#777777
 
-#[window]
-#command=~/.config/i3blocks/window
-#interval=1
+[window]
+command=~/bin/scale_screen.py -s
+interval=1
 #color=#1793d1
-#markup=pango
 
 [updates]
 label=<span font="mononoki Nerd Font"></span>
