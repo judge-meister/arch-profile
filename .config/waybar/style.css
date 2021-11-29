@@ -1,17 +1,21 @@
+/* style sheet for waybar */
+
+@define-color whitecolor #777;
+
 * {
     border: none;
-    border-radius: 3;
-    /*font-family: "Ubuntu Nerd Font";*/
-    /*font-family: "pango:SourceSansPro";*/
-    font-family: "Source Code Pro";
-    font-size: 13px;
+    border-radius: 1px;
+    font-family: "mononoki Nerd Font";
+    font-size: 15px;
+    font-weight: bold;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(0,0,0,0.6);/* black 50% transparent; */
+    background: rgba(0,0,0,0.8);/* black 70% transparent; */
     color: white;
 }
+
 .modules-right {
     /*width: auto;*/
     min-width: 800px;
@@ -20,8 +24,10 @@ window#waybar {
 
 #window {
     /*font-weight: bold;*/
-    font-family: "Source Code Pro";
+    /*font-family: "Source Code Pro";*/
+    color: #bbb;
     padding-right: 20px;
+    border-right: 1px solid @whitecolor;
 }
 /*
 #workspaces {
@@ -30,35 +36,79 @@ window#waybar {
 */
 
 #workspaces button {
-    padding: 0 2px;
-    margin: 0 2px;
+    padding: 0 3px;
+    margin: 0 0px;
     /*background: transparent;*/
-    color: #777; /*white;*/
-    border: 1px solid #777; /*white;*/
+    color: @whitecolor;
+    border-left: 1px solid @whitecolor;
+    border-right: 1px solid @whitecolor;
     /*border-right: 2px solid transparent;*/
 }
 
 #workspaces button.focused {
-    color: #bbb; /*#c9545d;*/
-    border: 1px solid #aaa; /*#c9545d;*/
-    /*border-right: 2px solid #c9545d;*/
+    border: 1px solid #aaaaaa; /*1*/ 
+    background: #6c71c4;       /*2*/
+    color: #cccccc;            /*3*/
+}
+
+#workspaces button.active {
+    border: 1px solid #fdf6e6; /*1*/ 
+    background: #6c71c4;       /*2*/
+    color: #fdf6e3;            /*3*/
+}
+
+#workspaces button.inactive {
+    border: 1px solid #586e75; /*1*/ 
+    background: #202020;       /*2*/
+    color: #586e75;            /*3*/
+}
+
+#workspaces button.urgent {
+    border: 1px solid #d33682; /*1*/ 
+    background: #d33682;       /*2*/
+    color: #fdf6e3;            /*3*/
 }
 
 #mode {
-    margin: 1 1px;
-    background: #64727D;
-    border-bottom: 3px solid white;
+    margin: 0 0px;
+    background: #F4525D;
+    color: #ccc;
+    border-bottom: 1px solid #bbb;
 }
 
-#clock, #battery, #cpu, #memory, #network, #temperature, #pulseaudio, #custom-spotify, #custom-updates, #custom-docker, #custom-disk, #tray, #mode {
-    padding: 0 3px;
-    margin: 0 2px;
-    border: 1px solid #777;
+#battery, 
+#cpu, 
+#custom-scale, 
+#custom-spotify, 
+#custom-updates, 
+#custom-docker, 
+#custom-disk_root, 
+#custom-disk_home, 
+#memory, 
+#mode, 
+#network, 
+#pulseaudio, 
+#temperature, 
+#tray 
+{
+    padding-right: 4px;
+    padding-left: 4px;
+    margin: 0 0px;
+    border-left: 1px solid #777;
+    border-right: 1px solid #777;
     color: #bbb;
 }
 
 #clock {
     font-weight: bold;
+    padding: 0 4px;
+    margin: 0 0px;
+    border-left: 1px solid #777;
+    border-right: 0px solid #777;
+    color: #bbb;
+}
+
+#clock {
 }
 
 #battery {
@@ -130,18 +180,19 @@ window#waybar {
 }
 
 #custom-updates {
-    /*color: rgb(102, 220, 105);*/
 }
+
 #custom-updates.hover {
     background: #444;
 }
 
 #custom-docker {
-    /*color: rgb(102, 220, 105);*/
 }
 
-#custom-disk {
-    /*color: rgb(102, 220, 105);*/
+#custom-disk_root {
+}
+
+#custom-disk_home {
 }
 
 #tray {

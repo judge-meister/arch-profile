@@ -9,7 +9,7 @@ default_border pixel 1
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
+# Logo key. Use Mod1 for Alt. Mod4 for Win Key
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
@@ -17,7 +17,8 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term alacritty -o font.size=12.0
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -28,26 +29,23 @@ set $term alacritty
 set $drun_menu rofi -theme solarized -font "hack 10" -show drun
 set $run_menu rofi -theme solarized -font "hack 10" -show run
 
-#output * resolution --custom 1366x768
-#output * mode 1600x900
-
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#output * bg /home/judge/Pictures/wallpaper.png fill
-output * bg /home/judge/Pictures/sexy-model-woman-boobs-nude-gorgeous-trimmed-pussy-african-pierced-nipples-1366x768.png fill
-
-#
-# Example configuration:
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+#output * resolution --custom 1366x768
+#output * mode 1600x900
+output LVDS-1 scale 0.85
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /home/judge/Pictures/wallpaper.png fill
+#output * bg /home/judge/Pictures/sexy-model-woman-boobs-nude-gorgeous-trimmed-pussy-african-pierced-nipples-1366x768.png fill
+output * bg $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 
 ### Idle configuration
-#
-# Example configuration:
 #
 exec swayidle -w \
           timeout 300 'fancy-swaylock' \
@@ -60,15 +58,6 @@ exec swayidle -w \
 
 ### Input configuration
 #
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
 input "type:touchpad" {
       tap enabled
       click_method clickfinger
@@ -77,6 +66,7 @@ input "type:touchpad" {
       natural_scroll enabled
       scroll_method two_finger
 }
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
@@ -85,6 +75,7 @@ input "type:keyboard" {
 }
 # only add the xkb_model setting if on a macbook
 exec_always ~/bin/kbd_model
+
 # avoid using this - current config breaks F1 F2 F5 F6 F10 F11 F12 - need to find another way especially for Macbook
 #exec_always xbindkeys
 
@@ -200,11 +191,11 @@ exec_always ~/bin/kbd_model
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    #bindsym $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    #bindsym $mod+minus scratchpad show
 #
 # Resizing containers:
 #
@@ -231,12 +222,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
-# Thinkpad extra keys
+# Media keys
 #
-set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -2000
-set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +2000
+    set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -2000
+    set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +2000
 
     bindsym XF86AudioMute        $mute
     bindsym XF86AudioMicMute     $mic_off
@@ -247,16 +238,15 @@ set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +2000
     bindsym XF86MonBrightnessUp exec brightness -inc 10 
     bindsym XF86MonBrightnessDown exec brightness -dec 10 
 
-# macbook controls (needs fnmode set to fn)
-exec_always ~/bin/macfnmode fn
-bindsym F1 exec $HOME/bin/macbrightness -dec
-bindsym F2 exec $HOME/bin/macbrightness -inc
-bindsym F5 exec $HOME/bin/kbdbrightness -dec
-bindsym F6 exec $HOME/bin/kbdbrightness -inc
-bindsym F10 $mute
-bindsym F11 $vol_dn
-bindsym F12 $vol_up
+    # keyboard brightness controls
+    bindsym XF86KbdBrightnessUp exec kbdbrightness -inc  
+    bindsym XF86KbdBrightnessDown exec kbdbrightness -dec  
 
+
+
+# adjust screen res
+bindsym $mod+minus exec $HOME/bin/scale_sway.py -i
+bindsym $mod+equal exec $HOME/bin/scale_sway.py -d
 
 # gaps settings
 smart_gaps on
@@ -305,26 +295,42 @@ gaps outer 0
 bar {
 	swaybar_command waybar
 }
-#bar {
-#    position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-#    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-#    colors {
-#        statusline #ffffff
-#        background #323232
-#        inactive_workspace #32323200 #32323200 #5c5c5c
-#    }
-#}
 
 # vncview class name "TigerVNC Viewer"
-#for_window [class="TigerVNC Viewer"] floating enable
 assign [class="TigerVNC Viewer"] → 6
+assign [class="Brave-browser"] → 10
+
+for_window [class="^Spotify$"] border none
+for_window [class="^Spotify Premium$"] border none
+for_window [class="Brave-browser"] border none
+for_window [class="st-256color"] border pixel 1
+for_window [class="Alacritty"] border pixel 1
+for_window [class="Code"] floating enable
+for_window [class="copyq"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="Gimp"] floating enable
+for_window [class="Tor Browser"] floating enable
+for_window [class="Virt-manager"] floating enable
+for_window [class="Virt-viewer"] floating enable
+for_window [class="VirtualBox"] floating enable
+for_window [class="vlc"] floating enable
+for_window [class="Wine"] floating enable
+for_window [class="zoom"] floating enable
+for_window [class="Qemu-system-i386"] floating enable
+for_window [class="qemu-system-x86_64"] floating enable
+for_window [class="jigsawgirls.exe"] floating enable
+for_window [class="mpv"] floating enable
+for_window [class="Fontviewer"] floating enable
+for_window [class="Toplevel"] floating enable
+for_window [class="Yad"] floating enable
+
 
 # start a few useful programs
 exec_always dunst
-
+#exec wl-paste -t text --watch clipman store --no-persist
+exec copyq
+exec lxsession
 
 include /etc/sway/config.d/*
+

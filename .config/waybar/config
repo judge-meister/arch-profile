@@ -1,45 +1,60 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar at the bottom of your screen
-    "height": 24, // Waybar height
-    // "width": 1366, // Waybar width
+    "layer": "top",             // Waybar at top layer
+    "position": "top",          // Waybar at the bottom of your screen
+    "height": 24,               // Waybar height
+    // "width": 1366,           // Waybar width
+
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
+    "modules-left": ["sway/workspaces", 
+                     "sway/mode", 
+                     "custom/spotify"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/disk", "custom/docker", "custom/updates", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "tray", "clock"],
+    "modules-right": ["custom/scale", 
+                      "custom/disk_root", 
+                      "custom/disk_home", 
+                      "custom/docker", 
+                      "custom/updates", 
+                      "pulseaudio", 
+                      "network", 
+                      "temperature", 
+                      "cpu", 
+                      "memory", 
+                      "battery", 
+                      "tray", 
+                      "clock"],
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": true,
         "disable-markup": false,
         "all-outputs": false,
         //"format": " {icon} ",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
+        //"format-icons": {
+        //    "1": "",
+        //    "2": "",
+        //    "3": "",
+        //    "4": "",
+        //    "5": "",
+        //    "6": "",
+        //    "urgent": "",
+        //    "focused": "",
+        //    "default": ""
+        //}
     },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 21,
         "spacing": 10
     },
     "clock": {
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% "
+        "format": "{usage}%  "
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}%  "
     },
     "temperature": {
         "hwmon-path": "/sys/class/hwmon/hwmon4/temp2_input",
@@ -60,18 +75,17 @@
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-charging": "{capacity}% ⚡",
-        //"format-icons": ["", "", "", "", ""]
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-wifi": "{essid} ({signalStrength}%)  ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
         "format-disconnected": "Disconnected ⚠"
     },
     "pulseaudio": {
         //"scroll-step": 1,
-        "format": "{volume}% {icon}",
+        "format": "{volume}% {icon} ",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": "",
         "format-icons": {
@@ -93,23 +107,33 @@
         "exec-if": "pgrep spotify"
     },
     "custom/updates": {
-        "format": " {}",
-        "max-length": 15,
+        "format": "{} ",
+        //"max-length": 15,
         "interval": 360,
         "exec": "$HOME/.local/bin/pacupdate",
         "exec-if": "exit 0",
-        "on-click": "alacritty -e update_packages",
+        "on-click": "alacritty -o font.size=11.0 -e update_packages",
         "signal": 8
     },
     "custom/docker": {
         "format": "{}",
         "interval": 60,
-        "max-length": 15,
+        //"max-length": 15,
         "exec": "$HOME/.local/bin/dockerisrunning",
     },
-    "custom/disk": {
-        "format": "/ {}",
+    "custom/disk_root": {
+        "format": "{}  ",
         "interval": 60,
-        "exec": "df -hl / |tail -1| awk -F' ' '{print $4}'",
+        "exec": "df -hl | grep ' /$' | awk -F' ' '{print $4}'",
+    },
+    "custom/disk_home": {
+        "format": "{}  ",
+        "interval": 60,
+        "exec": "df -hl | grep '/home$' | awk -F' ' '{print $4}'",
+    },
+    "custom/scale": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "$HOME/bin/scale_sway.py -s",
     }
 }
