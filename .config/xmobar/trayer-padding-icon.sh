@@ -13,7 +13,7 @@
 # Function to create a transparent Wx1 px XPM icon
 create_xpm_icon () {
     timestamp=$(date)
-    # shellcheck disable=SC2039,SC2034
+    # shellcheck disable=SC2039,SC2034,SC3037
     pixels=$(for i in $(seq "$1"); do echo -n "."; done)
 
     cat << EOF > "$2"
