@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
+"""
+battery status for i3block
+"""
+# pylint: disable=line-too-long,invalid-name,unspecified-encoding
 
 import os
 
 BAT0 = '/sys/class/power_supply/BAT0'
 
 def read_int_value(attr):
+    """read int value"""
     val = -1
     attrpath = os.path.join(BAT0, attr)
     if os.path.exists(attrpath):
@@ -13,6 +18,7 @@ def read_int_value(attr):
     return val
 
 def read_str_value(attr):
+    """read str value"""
     val = ''
     attrpath = os.path.join(BAT0, attr)
     if os.path.exists(attrpath):
@@ -21,23 +27,26 @@ def read_str_value(attr):
     return val
 
 def low_battery(capacity):
+    """low battery"""
     HOME = os.environ['HOME']
-    cmd = 'notify-send --icon="%s/.local/share/icons/battery_low_dark.png" "Very Low Battery" "Only %d%% battery remaining.\nFind a power brick now."' % (HOME, capacity)
+    __icon = f'--icon="{HOME}/.local/share/icons/battery_low_dark.png" '
+    cmd = f'notify-send {__icon} "Very Low Battery" "Only {capacity}% battery remaining.\nFind a power brick now."'
     os.system(cmd)
 
 Alarm = read_int_value('alarm')
-ChargeNow = read_int_value('charge_now')
-ChargeFull = read_int_value('charge_full')
-ChargeFullDesign = read_int_value('charge_full_design')
+ChargeNow = read_int_value('energy_now')
+ChargeFull = read_int_value('energy_full')
+ChargeFullDesign = read_int_value('energy_full_design')
 Status = read_str_value('status')
+#print(Alarm, ChargeNow, ChargeFull)
 
-Percent = ChargeNow * 100 / ChargeFull;
-if Percent > 100.0:
-    Percent = 100.0
+Percent = min(ChargeNow * 100 / ChargeFull, 100.0)
+#if Percent > 100.0:
+#    Percent = 100.0
 
 #print("[%s]" % Status)
 
-Result = "%2.0f%%" % Percent
+Result = f"{Percent:2.0f}%"
 
 if ChargeNow <= Alarm and Status == "Discharging":
     low_battery(Percent)
@@ -46,4 +55,4 @@ if ChargeNow <= Alarm and Status == "Discharging":
 if ChargeNow >= ChargeFull:
     Status = "Charged"
 
-print("%s %s" % (Result, Status))
+print(f"{Result} {Status}")

@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-#
-# Copyright (C) 2016 James Murphy
-# Licensed under the GPL version 2 only
-#
-# A battery indicator blocklet script for i3blocks
+"""
+ Copyright (C) 2016 James Murphy
+ Licensed under the GPL version 2 only
 
+ A battery indicator blocklet script for i3blocks
+"""
+# pylint: disable=invalid-name
+
+import sys
 from subprocess import check_output
 
 status = check_output(['acpi'], universal_newlines=True)
@@ -14,9 +17,9 @@ if not status:
     fulltext = "<span color='red'><span font='FontAwesome'>\uf00d \uf240</span></span>"
     percentleft = 100
 else:
-    # if there is more than one battery in one laptop, the percentage left is 
-    # available for each battery separately, although state and remaining 
-    # time for overall block is shown in the status of the first battery 
+    # if there is more than one battery in one laptop, the percentage left is
+    # available for each battery separately, although state and remaining
+    # time for overall block is shown in the status of the first battery
     batteries = status.split("\n")
     state_batteries=[]
     commasplitstatus_batteries=[]
@@ -42,7 +45,7 @@ else:
     if state == "Discharging":
         time = commasplitstatus[-1].split()[0]
         time = ":".join(time.split(":")[0:2])
-        timeleft = " ({})".format(time)
+        timeleft = f"{time}" # " ({})".format(time)
     elif state == "Full":
         fulltext = FA_PLUG + " "
     elif state == "Unknown":
@@ -50,7 +53,9 @@ else:
     else:
         fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
 
+    # pylint: disable=too-many-return-statements
     def color(percent):
+        """color"""
         if percent < 10:
             # exit code 33 will turn background red
             return "#FFFFFF"
@@ -77,4 +82,4 @@ else:
 print(fulltext)
 print(fulltext)
 if percentleft < 10:
-    exit(33)
+    sys.exit(33)

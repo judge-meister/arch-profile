@@ -24,6 +24,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+"""qtile config"""
+
+# pylint: disable=invalid-name,line-too-long
+
 import os
 import subprocess
 
@@ -106,11 +110,11 @@ for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+            desc="Switch to group {i.name}"),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
+            desc=f"Switch to & move focused window to group {i.name}"),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
@@ -156,23 +160,38 @@ screens = [
                 ),
                 #widget.TextBox("default config", name="default"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.CheckUpdates(distro='Arch_checkupdates', background='777777'),
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.CheckUpdates(distro='Arch_checkupdates' ),
+
+                #widget.Spacer(length=1, background="#777777"),
                 widget.DF(partition='/', warn_space=3),
                 widget.DF(partition='/home', warn_space=5),
-                widget.Wlan(background='bd9f5d', interface='wlp3s0', format='{essid} {percent:2.0%}'),
-                widget.ThermalSensor(background='777777', fmt=' {}'),
-                widget.BatteryIcon(background='bd9f5d'),
-                widget.Battery(background='bd9f5d', format='{percent:2.0%} {hour:d}:{min:02d}'),
-                widget.Volume(get_volume_command=['/home/judge/bin/amixer.qtile'], 
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.Wlan(interface='wlp3s0', format='{essid} {percent:2.0%}' ),
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.ThermalSensor(fmt=' {}'), 
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.BatteryIcon(), 
+                widget.Battery(format='{percent:2.0%} {hour:d}:{min:02d}'),
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.Volume(get_volume_command=['/home/judge/bin/amixer.qtile'],
                               mute_command=['/usr/bin/pamixer', '-t'],
                               volume_up_command=['/usr/bin/pamixer', '-i', '2'],
                               volume_down_command=['/usr/bin/pamixer', '-d', '2'],
                               volume_app=['pavucontrol'],
                               emoji=False,
-                              fmt='\U0001f509{}',
-                              background='777777'),
+                              fmt='\U0001f509{}'),
+
+                #widget.Spacer(length=1, background="#777777"),
                 widget.Systray(),
-                widget.Clock(format='%a %d %b %H:%M', background='bd9f5d'),
+
+                widget.Spacer(length=1, background="#777777"),
+                widget.Clock(format='%a %d %b %H:%M'),
                 #widget.QuickExit(),
             ],
             24,
@@ -220,7 +239,7 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = True
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
+# Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
 # mailing lists, GitHub issues, and other WM documentation that suggest setting
 # this string if your java app doesn't work correctly. We may as well just lie
@@ -233,6 +252,6 @@ wmname = "LG3D"
 # autostart some stuff
 @hook.subscribe.startup_once
 def autostart():
+    """autostart"""
     home = os.path.expanduser('~/.config/i3/autostart.sh')
     subprocess.call([home])
-

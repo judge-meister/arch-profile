@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-#
-# Copyright (C) 2016 James Murphy
-# Licensed under the GPL version 2 only
-#
-# A battery indicator blocklet script for i3blocks
+"""
+ Copyright (C) 2016 James Murphy
+ Licensed under the GPL version 2 only
+
+ A battery indicator blocklet script for i3blocks
+"""
+# pylint: disable=invalid-name
 
 from subprocess import check_output
 import os
 import re
+import sys
 
 config = dict(os.environ)
 status = check_output(['acpi'], universal_newlines=True)
@@ -17,7 +20,7 @@ health = check_output(['acpi', '-b', '-i'], universal_newlines=True)
 if not status:
     # stands for no battery found
     color = config.get("color_10", "red")
-    fulltext = "<span color='{}'><span font='FontAwesome'>\uf00d \uf240</span></span>".format(color)
+    fulltext = f"<span color='{color}'><span font='FontAwesome'>\uf00d \uf240</span></span>"
     percentleft = 100
 else:
     # if there is more than one battery in one laptop, the percentage left is
@@ -38,7 +41,7 @@ else:
                 time = re.match(r"(\d+):(\d+)", time)
                 if time:
                     time = ":".join(time.groups())
-                    timeleft = " ({})".format(time)
+                    timeleft = " ({time})"
                 else:
                     timeleft = ""
 
@@ -55,12 +58,14 @@ else:
 
     # stands for charging
     color = config.get("color_charging", "yellow")
-    FA_LIGHTNING = "<span color='{}'><span font='FontAwesome'>\uf0e7</span></span>".format(color)
+    FA_LIGHTNING = "<span color='{color}'><span font='FontAwesome'>\uf0e7</span></span>"
 
     # stands for plugged in
     FA_PLUG = "<span font='FontAwesome'>\uf1e6</span>"
 
+    # pylint: disable=too-many-return-statements
     def color(percent):
+        """color"""
         if percent < 10:
             # exit code 33 will turn background red
             return config.get("color_10", "#FFFFFF")
@@ -80,7 +85,9 @@ else:
             return config.get("color_80", "#FFFF66")
         return config.get("color_full", "#FFFFFF")
 
+    # pylint: disable=too-many-return-statements
     def get_battery(percent):
+        """get_battery"""
         tmplt="<span color='{col}' font='mononoki Nerd Font Mono'>{sym}</span>"
         tmplt = tmplt.replace('{col}', color(percent))
         if percent < 10:
@@ -135,5 +142,4 @@ print(fulltext)
 print(fulltext)
 
 if percentleft < 10:
-    exit(33)
-
+    sys.exit(33)
