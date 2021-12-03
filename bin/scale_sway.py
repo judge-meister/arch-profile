@@ -16,7 +16,7 @@ def decrease(name, scale):
 
 def increase(name, scale):
     """increase the scaling"""
-    scale = max(scale-0.05), 0.5
+    scale = max(scale-0.05, 0.5)
     call_swaymsg(name, f"{scale:.2f}")
 
 
