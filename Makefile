@@ -53,7 +53,7 @@ cleanPictures: ##
 
 .PHONY: etc
 etc: cleanetc ## install etc files
-	for file in $(shell find etc -type f); do \
+	for file in $(shell find etc -type f | grep -v monitor); do \
 		sudo mkdir -p /$$(dirname $$file); \
 		sudo ln -snfv $(CURDIR)/$$file /$$(dirname $$file)/; \
 	done;
