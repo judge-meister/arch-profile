@@ -1,6 +1,7 @@
 # vim: noet
 
 SHELL := bash
+MANU := $(shell sudo dmidecode -s system-manufacturer)
 
 .PHONY: all
 all: dotfiles folders etc Pictures
@@ -57,12 +58,18 @@ etc: cleanetc ## install etc files
 		sudo mkdir -p /$$(dirname $$file); \
 		sudo ln -snfv $(CURDIR)/$$file /$$(dirname $$file)/; \
 	done;
+ifeq ($(MANU), QEMU)
+	sudo ln -snfv $(CURDIR)/etc/X11/xorg.conf.d/20-monitor.conf /etc/X11/xorg.conf.d/
+endif
 
 .PHONY: cleanetc
 cleanetc: ## remove files installed into etc
 	for file in $(shell find etc -type f); do \
 		sudo rm -f /$$file; \
 	done;
+ifeq ($(MANU), QEMU)
+	sudo rm -f /etc/X11/xorg.conf.d/20-monitor.conf
+endif
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
@@ -78,4 +85,7 @@ shellcheck: ## Runs the shellcheck tests on the scripts.
 .PHONY: pylint
 pylint: ## runs pylint on all the python files in the repo.
 	./test_pylint.sh
+
+# make file for kvm installs
+# vim: noet
 
