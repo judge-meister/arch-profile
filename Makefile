@@ -75,3 +75,7 @@ shellcheck: ## Runs the shellcheck tests on the scripts.
 		--workdir /usr/src \
 		jess/shellcheck ./test.sh
 
+.PHONY: pylint
+pylint: ## runs pylint on all the python files in the repo.
+	./test_pylint.sh
+
