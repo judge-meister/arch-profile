@@ -27,6 +27,9 @@ set bg=dark
 :map <C-T> :tabnew<CR>
 :map <F11> :set noexpandtab<CR>:setlocal list<CR>:set listchars=tab:>~,trail:.<CR>
 
+" paste from system '+' clipboard buffer
+:map <c-v> "+P
+
 " make return indent to the same as previous line
 :set autoindent
 
@@ -48,7 +51,7 @@ set bg=dark
 :set wildmenu
 
 :set scrolloff=2
-:set guioptions=aegimrLt
+:set guioptions=aegimrL
 set hlsearch
 
 autocmd! bufwritepost .vimrc source ~/.vimrc
