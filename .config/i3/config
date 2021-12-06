@@ -6,55 +6,295 @@
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango: SourceCodePro Medium 8
 
-set $mod Mod4
 # Test other Mod keys
 #bindsym Mod1+Return exec $term -T "st Mod1 Left Alt"
 #bindsym Mod2+Return exec $term -T "st Mod2"
 #bindsym Mod3+Return exec $term -T "st Mod3"
-#bindsym Mod4+Return exec $term -T "st Mod4 Cmd (L & R)"
+#bindsym Mod4+Return exec $term -T "st Mod4 Cmd / Windows (L & R)"
 #bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
 
+# -----------------------------------------------------------------------------
+# Global Settings
 
-#set $term st
+# Font settings
+font pango: SourceCodePro Medium 8
+
+# float settings
+floating_minimum_size 150 x 150
+floating_maximum_size 2500 x 1500
+
+# border width
+default_border pixel 1
+#default_floating_border normal 1
+
+# gaps settings
+smart_gaps on
+gaps inner 5
+gaps outer 0
+
+# -----------------------------------------------------------------------------
+# Variables
+
+# use windows / cmd key
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# preferred temrinal emulator
 set $term alacritty
 
+# preferred bar command
 #set $barcmd i3status --config ~/.config/i3/status.conf
 
+# preferred lock command
 #set $lockcmd i3lock -c 111111
 #set $lockcmd fancy-i3lock
 set $lockcmd i3lock-fancy
 
-# HiDPI for sway
+# preferred launcher - rofi
+set $drun_menu rofi -show drun -theme "solarized_alternate"
+set $run_menu rofi -show run -theme "solarized_alternate"
+set $combi_menu "rofi -modi drun,combi,window -show drun -combi-modi run,drun -theme solarized_alternate"
+
+
+# ------------------------------------------------------------------------------
+# Output configuration
+
+# multiple monitor setup (display port screen left of local LCD)
 # output eDP-1 scale 1
 exec --no-startup-id xrandr --output DP-1 --left-of LVDS-1 --auto
 
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+# ------------------------------------------------------------------------------
+# Idle configuration - auto screen lock
+#
 
-floating_minimum_size 150 x 150
-floating_maximum_size 2500 x 1500
+#exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
+exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 
-# START_KEYS
-# start a terminal
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
 
-# start dmenu
-set $menu1 rofi -show drun -theme "solarized_alternate"
-set $menu2 rofi -show run -theme "solarized_alternate"
-set $menu3 "rofi -modi drun,combi,window -show drun -combi-modi run,drun -theme solarized_alternate"
-bindsym $mod+d exec $menu3
-bindsym $mod+Shift+d exec $menu1
-bindsym $mod+Control+d exec $menu2
 
-# kill focused window
-bindsym $mod+Shift+q kill
+# -----------------------------------------------------------------------------
+# key bindings
 
-#default_border normal 1
-#default_floating_border normal 1
+#
+# Basics:
+#
+    # start a terminal
+    bindsym $mod+Return exec $term
+
+    # kill focused window
+    bindsym $mod+Shift+q kill
+
+
+    # key binding help
+    bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
+
+    # launcher bindings
+    bindsym $mod+d exec $combi_menu
+    bindsym $mod+Shift+d exec $drun_menu
+    bindsym $mod+Control+d exec $run_menu
+
+    # Use Mouse+$mod to drag floating windows to their wanted position
+    floating_modifier $mod
+
+    # lock screen + auto lock
+    bindsym $mod+l exec $lockcmd 
+
+    # reload the configuration file
+    bindsym $mod+Shift+c reload
+    
+    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    bindsym $mod+Shift+r restart
+    
+    # exit i3 (logs you out of your X session)
+    #bindsym $mod+Shift+e exit
+    bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3wm?' -B 'Exit' 'i3-msg exit' -B 'Reload' 'i3-msg reload' -B 'Power Off' 'poweroff' -B 'Reboot' 'reboot'"
+
+    # exit i3 (logs you out of your X session)
+    #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+ 
+
+    # run pacman -Syu in a terminal
+    bindsym $mod+u exec $term -e update_packages
+
+#
+# Moving Around:
+#
+    # move to monitor
+    bindsym $mod+Control+Left move workspace to output left
+    bindsym $mod+Control+Right move workspace to output right
+
+    # alternatively, you can use the cursor keys:
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # alternatively, you can use the cursor keys:
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+#
+# Layout stuff
+#
+    # split in horizontal/vertical orientation
+    bindsym $mod+h split h
+    bindsym $mod+v split v
+
+    # change container layout (stacked, tabbed, toggle split)
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # enter fullscreen mode for the focused container
+    bindsym $mod+f fullscreen
+
+    # toggle tiling / floating
+    bindsym $mod+Shift+space floating toggle
+
+    # change focus between tiling / floating windows
+    bindsym $mod+space focus mode_toggle
+
+    # focus the parent container
+    bindsym $mod+a focus parent
+
+    # focus the child container
+    #bindsym $mod+d focus child
+
+#
+# Resize window (you can also use the mouse for that)
+#
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Media keys - KP_GROUP Multimedia Keys
+#
+    # audio controls
+    set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+    bindsym XF86AudioMute        $mute
+    bindsym XF86AudioMicMute     $mic_off
+    bindsym XF86AudioLowerVolume $vol_dn
+    bindsym XF86AudioRaiseVolume $vol_up
+
+    # screen brightness controls
+    bindsym XF86MonBrightnessUp exec macbrightness -inc
+    bindsym XF86MonBrightnessDown exec macbrightness -dec
+
+    # keyboard brightness controls
+    bindsym XF86KbdBrightnessUp exec kbdbrightness -inc
+    bindsym XF86KbdBrightnessDown exec kbdbrightness -dec
+
+#
+# Adjust screen resolution
+#
+    bindsym $mod+plus exec (~/bin/scale_screen.py -i && sleep 1 && ~/.fehbg)
+    bindsym $mod+minus exec (~/bin/scale_screen.py -d && sleep 1 && ~/.fehbg)
+#
+# Random Wallpaper
+#
+    bindsym $mod+b exec ~/bin/random_wall.py
+    bindsym $mod+Shift+b exec ~/.fehbg
+
+
+# -----------------------------------------------------------------------------
+#
+# Extras from Jessie Frazelle dotfiles
+#
+# Screenshots
+
+    # Screenshot fullscreen
+    bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
+
+    # Screenshot with selection
+    bindsym $mod+Print exec "sleep 0.4; scrot -q 100 -s ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
+    
+    # Screenshot current focused window
+    bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
+
+
+# END_KEYS
+
+# -----------------------------------------------------------------------------
+# Status Bar:
+
+bar {
+    position top
+    font pango: FontAwesome 10
+    status_command i3blocks
+    colors {
+        separator  #268bd2
+        background #202020ee
+        statusline #83949600
+        focused_workspace  #aaaaaa #6c71c4   #cccccc
+        active_workspace   #fdf6e3 #6c71c4   #fdf6e3
+        inactive_workspace #586e75 #202020ee #586e75
+        urgent_workspace   #d33682 #d33682   #fdf6e3
+    }
+    i3bar_command i3bar --transparency
+}
+client.focused          #6c71c4 #6c71c4 #ffffff #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #ffffff #eee8d5 #6c71c4
+client.unfocused        #073642 #073642 #888888 #93a1a1 #586e75
+client.urgent           #d33682 #d33682 #ffffff #fdf6e3 #dc322f
+client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
+
+
+# -----------------------------------------------------------------------------
+# Discrete app settings
 
 # tigervnc, Brave - open on new workspace
 assign [class="TigerVNC Viewer"] → 6
@@ -89,194 +329,19 @@ for_window [class="Fontviewer"] floating enable
 for_window [class="Toplevel"] floating enable
 for_window [class="Yad"] floating enable
 
-# lock screen + auto lock
-bindsym $mod+l exec $lockcmd 
-#exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
-exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
-
-# run pacman -Syu in a terminal
-bindsym $mod+u exec $term -e update_packages
-
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+semicolon focus right
-
-# move to monitor
-#bindsym $mod+Shift+Left move workspace to output left
-#bindsym $mod+Shift+Right move workspace to output right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal/vertical orientation
-bindsym $mod+h split h
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+for_window [class="NEdit"] border normal 1
+for_window [class="NEdit" instance="FileSelect_popup"] floating enable
+for_window [class="NEdit" instance="help"] floating enable
+for_window [class="NEdit" instance="Information"] floating enable
+for_window [class="NEdit" instance="Warning"] floating enable
+for_window [class="NEdit" instance="Question"] floating enable
+for_window [class="NEdit" instance="Prompt_popup"] floating enable
+for_window [class="NEdit" instance="findDialog_popup"] floating enable
 
 
-# KP_GROUP Multimedia Keys
-# audio controls
-set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle      # mic mute
-set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle  # speaker mute
-set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -5% # -1000
-set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +5% # +1000
-bindsym XF86AudioMute        $mute
-bindsym XF86AudioMicMute     $mic_off
-bindsym XF86AudioLowerVolume $vol_dn
-bindsym XF86AudioRaiseVolume $vol_up
+# -----------------------------------------------------------------------------
+# start a few useful programs
 
-# screen brightness controls
-bindsym XF86MonBrightnessUp exec macbrightness -inc  
-bindsym XF86MonBrightnessDown exec macbrightness -dec  
-
-# keyboard brightness controls
-bindsym XF86KbdBrightnessUp exec kbdbrightness -inc  
-bindsym XF86KbdBrightnessDown exec kbdbrightness -dec  
-
-# random wallpaper
-bindsym $mod+b exec ~/bin/random_wall.py
-bindsym $mod+Shift+b exec ~/.fehbg
-
-# change screen resolution
-bindsym $mod+plus exec (~/bin/scale_screen.py -i && sleep 1 && ~/.fehbg)
-bindsym $mod+minus exec (~/bin/scale_screen.py -d && sleep 1 && ~/.fehbg)
-
-# Screenshots
-# Screenshot fullscreen
-bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
-# Screenshot with selection
-bindsym $mod+Print exec "sleep 0.4; scrot -q 100 -s ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
-# Screenshot current focused window
-bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
-
-# Screenshot fullscreen, sway
-#bindsym Shift+Print exec "swaygrab ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
-# Screenshot capture, sway
-#bindsym Shift+Print exec "swaygrab -c ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').webm"
-# Screenshot current focused window, sway
-#bindsym Shift+Print exec "swaygrab --focused ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
-
-# KP_GROUP Reload and Exit
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exit
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-# END_KEYS
-
-# gaps settings
-smart_gaps on
-gaps inner 5
-gaps outer 0
-
-# i3status bar config
-bar {
-    position top
-    font pango: FontAwesome 10
-    status_command i3blocks
-    colors {
-        separator  #268bd2
-        background #202020ee
-        statusline #83949600
-        focused_workspace  #aaaaaa #6c71c4   #cccccc
-        active_workspace   #fdf6e3 #6c71c4   #fdf6e3
-        inactive_workspace #586e75 #202020ee #586e75
-        urgent_workspace   #d33682 #d33682   #fdf6e3
-    }
-    i3bar_command i3bar --transparency
-}
-client.focused          #6c71c4 #6c71c4 #ffffff #fdf6e3 #6c71c4
-client.focused_inactive #073642 #073642 #ffffff #eee8d5 #6c71c4
-client.unfocused        #073642 #073642 #888888 #93a1a1 #586e75
-client.urgent           #d33682 #d33682 #ffffff #fdf6e3 #dc322f
-client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
-
-# auto run commands
 exec --no-startup-id ~/.config/i3/autostart.sh
 
 

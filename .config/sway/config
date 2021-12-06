@@ -1,21 +1,45 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
+# Sway config file
 #
 # Read `man 5 sway` for a complete reference.
 
-font pango: SourceCodePro Medium 11
-default_border pixel 1
+# test other mod keys
+# Mod1 -> Left Alt
+# Mod2 -> ?
+# Mod3 -> ?
+# Mod4 -> Cmd / Windows (L & R)
+# Mod5 -> Right Alt
 
-### Variables
-#
-# Logo key. Use Mod1 for Alt. Mod4 for Win Key
+# -----------------------------------------------------------------------------
+# Global settings
+
+# font settings
+font pango: SourceCodePro Medium 11
+
+# float settings
+floating_minimum_size 150 x 150
+floating_maximum_size 2500 x 1500
+
+# border width
+default_border pixel 1
+#default_floating_border normal 1
+
+# gaps settings
+smart_gaps on
+gaps inner 5
+gaps outer 0
+
+# ------------------------------------------------------------------------------
+# Variables
+
+# Logo key. (Cmd / Win Key)
 set $mod Mod4
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
 set $term alacritty -o font.size=12.0
 
@@ -23,14 +47,17 @@ set $term alacritty -o font.size=12.0
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-#set $menu1 wofi --show drun
-#set $menu2 wofi --show run
 #set $menu rofi -modi drun,ssh -theme solarized -font "hack 10" -show drun
+
+set $wofi_drun wofi --show drun
+set $wofi_run wofi --show run
 set $drun_menu rofi -theme solarized -font "hack 10" -show drun
 set $run_menu rofi -theme solarized -font "hack 10" -show run
 
-### Output configuration
-#
+
+# ------------------------------------------------------------------------------
+# Output configuration
+
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -45,7 +72,9 @@ output LVDS-1 scale 0.85
 #output * bg /home/judge/Pictures/sexy-model-woman-boobs-nude-gorgeous-trimmed-pussy-african-pierced-nipples-1366x768.png fill
 output * bg $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 
-### Idle configuration
+
+# ------------------------------------------------------------------------------
+# Idle configuration - auto screen lock
 #
 exec swayidle -w \
           timeout 300 'fancy-swaylock' \
@@ -56,7 +85,8 @@ exec swayidle -w \
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-### Input configuration
+# ------------------------------------------------------------------------------
+# Input configuration
 #
 input "type:touchpad" {
       tap enabled
@@ -76,10 +106,9 @@ input "type:keyboard" {
 # only add the xkb_model setting if on a macbook
 exec_always ~/bin/kbd_model
 
-# avoid using this - current config breaks F1 F2 F5 F6 F10 F11 F12 - need to find another way especially for Macbook
-#exec_always xbindkeys
 
-### Key bindings
+# ------------------------------------------------------------------------------
+# Key bindings
 #
 # Basics:
 #
@@ -92,6 +121,7 @@ exec_always ~/bin/kbd_model
     # Start your launcher
     bindsym $mod+d exec $drun_menu
     bindsym $mod+Shift+d exec $run_menu
+    bindsym $mod+Control+d exec $wofi_drun
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -108,26 +138,24 @@ exec_always ~/bin/kbd_model
 
     # Exit sway (logs you out of your Wayland session)
     #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    # run pacman -Syu in a terminal
+    bindsym $mod+u exec $term -e update_packages
+
 #
 # Moving around:
 #
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
+    # move to monitor
+    bindsym $mod+Control+Left move workspace to output left
+    bindsym $mod+Control+Right move workspace to output right
+
+    # Move your focus around - use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
@@ -146,6 +174,7 @@ exec_always ~/bin/kbd_model
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -204,12 +233,7 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
@@ -224,109 +248,150 @@ bindsym $mod+r mode "resize"
 #
 # Media keys
 #
+    # audio controls
     set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -2000
-    set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +2000
+    set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
     bindsym XF86AudioMute        $mute
     bindsym XF86AudioMicMute     $mic_off
     bindsym XF86AudioLowerVolume $vol_dn
     bindsym XF86AudioRaiseVolume $vol_up
 
-    # increase and decrease screen brightness
-    bindsym XF86MonBrightnessUp exec brightness -inc 10 
-    bindsym XF86MonBrightnessDown exec brightness -dec 10 
+    # screen brightness controls
+    bindsym XF86MonBrightnessUp exec macbrightness -inc
+    bindsym XF86MonBrightnessDown exec macbrightness -dec
 
     # keyboard brightness controls
-    bindsym XF86KbdBrightnessUp exec kbdbrightness -inc  
-    bindsym XF86KbdBrightnessDown exec kbdbrightness -dec  
-
-
-
-# adjust screen res
-bindsym $mod+minus exec $HOME/bin/scale_sway.py -i
-bindsym $mod+equal exec $HOME/bin/scale_sway.py -d
-
-# gaps settings
-smart_gaps on
-gaps inner 5
-gaps outer 0
-
-  # nag
-  set {
-    $nag         exec swaynagmode
-    $nag_exit    $nag --exit
-    $nag_confirm $nag --confirm
-    $nag_select  $nag --select
-  }
-  mode "nag" {
-    bindsym {
-      Ctrl+d    mode "default"
-
-      Ctrl+c    $nag_exit
-      q         $nag_exit
-      Escape    $nag_exit
-
-      Return    $nag_confirm
-
-      Tab       $nag_select prev
-      Shift+Tab $nag_select next
-
-      Left      $nag_select next
-      Right     $nag_select prev
-
-      Up        $nag_select next
-      Down      $nag_select prev
-    }
-  }
-  bindsym $mod+Shift+e exit
-  #bindsym {
-  #  $mod+Shift+e $nag -t "warning" -m "Exit Sway?" -b "Exit" "swaymsg exit" -b "Reload" "swaymsg reload"
-  #}
-  # -R is recommended for swaynag_command so that, upon a syntax error in your sway config, the
-  # 'Reload Sway' option will be initially selected instead of the 'Exit Sway' option
-#  swaynag_command $nag -R
+    bindsym XF86KbdBrightnessUp exec kbdbrightness -inc
+    bindsym XF86KbdBrightnessDown exec kbdbrightness -dec
 
 #
+# Adjust screen resolution
+#
+    bindsym $mod+minus exec $HOME/bin/scale_sway.py -i
+    bindsym $mod+equal exec $HOME/bin/scale_sway.py -d
+#
+# Random Wallpaper - TBD
+#
+
+
+# -----------------------------------------------------------------------------
+#
+# Extras from Jessie Frazelle dotfiles
+#
+# Screenshots
+
+    # Screenshot fullscreen, sway
+    bindsym Print exec "swaygrab ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
+
+    # Screenshot capture, sway
+    bindsym $mod+Print exec "swaygrab -c ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').webm"
+
+    # Screenshot current focused window, sway
+    bindsym Shift+Print exec "swaygrab --focused ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
+
+# END_KEYS
+
+###----------------------------------------------------------------------------
+### nag settings
+
+    # nag
+    set {
+	$nag         exec swaynagmode
+	$nag_exit    $nag --exit
+	$nag_confirm $nag --confirm
+	$nag_select  $nag --select
+    }
+    mode "nag" {
+	bindsym {
+	    Ctrl+d    mode "default"
+
+	    Ctrl+c    $nag_exit
+	    q         $nag_exit
+	    Escape    $nag_exit
+
+	    Return    $nag_confirm
+
+	    Tab       $nag_select prev
+	    Shift+Tab $nag_select next
+
+	    Left      $nag_select next
+	    Right     $nag_select prev
+
+	    Up        $nag_select next
+	    Down      $nag_select prev
+	}
+    }
+    #bindsym $mod+Shift+e exit
+
+    bindsym {
+      $mod+Shift+e $nag -t "warning" -m "Exit Sway?" -b "Exit" "swaymsg exit" -b "Reload" "swaymsg reload" -b "Power Off" "poweroff" -b "Reboot" "reboot"
+    }
+    # -R is recommended for swaynag_command so that, upon a syntax error in your sway config, the
+    # 'Reload Sway' option will be initially selected instead of the 'Exit Sway' option
+    swaynag_command $nag -R
+
+# ----------------------------------------------------------------------------
 # Status Bar:
 #
-# Read `man 5 sway-bar` for more information about this section.
+# Read `man 5 sway-bar` or `man 5 waybar` for more information about this 
+# section.
 bar {
 	swaybar_command waybar
 }
 
 
-# vncview class name "TigerVNC Viewer"
+# ----------------------------------------------------------------------------
+# Discrete app settings
+
+# tigervnc, Brave - open on new workspace
 assign [class="TigerVNC Viewer"] → 6
 assign [class="Brave-browser"] → 10
 
-for_window [class="^Spotify$"] border none
-for_window [class="^Spotify Premium$"] border none
-for_window [class="Brave-browser"] border none
-for_window [class="st-256color"] border pixel 1
-for_window [class="Alacritty"] border pixel 1
-for_window [class="Code"] floating enable
-for_window [class="copyq"] floating enable
-for_window [class="feh"] floating enable
-for_window [class="Gimp"] floating enable
-for_window [class="Tor Browser"] floating enable
-for_window [class="Virt-manager"] floating enable
-for_window [class="Virt-viewer"] floating enable
-for_window [class="VirtualBox"] floating enable
-for_window [class="vlc"] floating enable
-for_window [class="Wine"] floating enable
-for_window [class="zoom"] floating enable
-for_window [class="Qemu-system-i386"] floating enable
-for_window [class="qemu-system-x86_64"] floating enable
-for_window [class="jigsawgirls.exe"] floating enable
-for_window [class="mpv"] floating enable
-for_window [class="Fontviewer"] floating enable
-for_window [class="Toplevel"] floating enable
-for_window [class="Yad"] floating enable
+# spotify, brave: no border
+for_window [app_id="^Spotify$"] border none
+for_window [app_id="^Spotify Premium$"] border none
+for_window [app_id="Brave-browser"] border none
+
+# no title: st terminal
+for_window [app_id="st-256color"] border pixel 1
+for_window [app_id="Alacritty"] border pixel 1
+
+# skype, steam, wine, Gimp etc. : float
+for_window [app_id="Code"] floating enable
+for_window [app_id="copyq"] floating enable
+for_window [app_id="feh"] floating enable
+for_window [app_id="Gimp"] floating enable
+for_window [app_id="Tor Browser"] floating enable
+for_window [app_id="virt-manager"] floating enable
+for_window [app_id="virt-viewer"] floating enable
+for_window [app_id="VirtualBox"] floating enable
+for_window [app_id="vlc"] floating enable
+for_window [app_id="Wine"] floating enable
+for_window [app_id="zoom"] floating enable
+for_window [app_id="Qemu-system-i386"] floating enable
+for_window [app_id="qemu-system-x86_64"] floating enable
+for_window [app_id="jigsawgirls.exe"] floating enable
+for_window [app_id="mpv"] floating enable
+for_window [app_id="Fontviewer"] floating enable
+for_window [app_id="Toplevel"] floating enable
+for_window [app_id="Yad"] floating enable
+
+for_window [class="NEdit"] border normal 1
+for_window [class="NEdit" instance="FileSelect_popup"] floating enable
+for_window [class="NEdit" instance="help"] floating enable
+for_window [class="NEdit" instance="Information"] floating enable
+for_window [class="NEdit" instance="Warning"] floating enable
+for_window [class="NEdit" instance="Question"] floating enable
+for_window [class="NEdit" instance="Prompt_popup"] floating enable
+for_window [class="NEdit" instance="findDialog_popup"] floating enable
 
 
+# ----------------------------------------------------------------------------
 # start a few useful programs
+
 exec_always dunst
 #exec wl-paste -t text --watch clipman store --no-persist
 exec copyq
