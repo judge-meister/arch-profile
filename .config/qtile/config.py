@@ -172,10 +172,10 @@ screens = [
                 widget.Wlan(interface='wlp3s0', format='{essid} {percent:2.0%}' ),
 
                 widget.Spacer(length=1, background="#777777"),
-                widget.ThermalSensor(fmt=' {}'), 
+                widget.ThermalSensor(fmt=' {}'),
 
                 widget.Spacer(length=1, background="#777777"),
-                widget.BatteryIcon(), 
+                widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%} {hour:d}:{min:02d}'),
 
                 widget.Spacer(length=1, background="#777777"),
