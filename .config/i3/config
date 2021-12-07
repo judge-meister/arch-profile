@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 # Global Settings
 
-# Font settings
+# font settings
 font pango: SourceCodePro Medium 8
 
 # float settings
@@ -48,12 +48,7 @@ set $right l
 # preferred temrinal emulator
 set $term alacritty
 
-# preferred bar command
-#set $barcmd i3status --config ~/.config/i3/status.conf
-
 # preferred lock command
-#set $lockcmd i3lock -c 111111
-#set $lockcmd fancy-i3lock
 set $lockcmd i3lock-fancy
 
 # preferred launcher - rofi
@@ -62,7 +57,7 @@ set $run_menu rofi -show run -theme "solarized_alternate"
 set $combi_menu "rofi -modi drun,combi,window -show drun -combi-modi run,drun -theme solarized_alternate"
 
 
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Output configuration
 
 # multiple monitor setup (display port screen left of local LCD)
@@ -70,45 +65,51 @@ set $combi_menu "rofi -modi drun,combi,window -show drun -combi-modi run,drun -t
 exec --no-startup-id xrandr --output DP-1 --left-of LVDS-1 --auto
 
 
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Idle configuration - auto screen lock
 #
-
-#exec_always --no-startup-id xautolock -time 10 -locker "fancy-i3lock && sleep 1"
 exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
-
+#
+# This will lock your screen after 10 minutes of inactivity
 
 
 # -----------------------------------------------------------------------------
-# key bindings
+# Input configuration
+#
 
+
+# -----------------------------------------------------------------------------
+# Key bindings
 #
 # Basics:
 #
-    # start a terminal
+    # Start a terminal
     bindsym $mod+Return exec $term
 
-    # kill focused window
+    # Kill focused window
     bindsym $mod+Shift+q kill
 
-
-    # key binding help
+    # help for key bindings
     bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
 
     # launcher bindings
-    bindsym $mod+d exec $combi_menu
-    bindsym $mod+Shift+d exec $drun_menu
-    bindsym $mod+Control+d exec $run_menu
+    bindsym $mod+d exec $drun_menu
+    bindsym $mod+Shift+d exec $run_menu
+    #bindsym $mod+Control+d exec $run_menu
 
-    # Use Mouse+$mod to drag floating windows to their wanted position
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
     floating_modifier $mod
 
-    # lock screen + auto lock
-    bindsym $mod+l exec $lockcmd 
-
-    # reload the configuration file
+    # Reload the configuration file
     bindsym $mod+Shift+c reload
     
+    # manually lock the screen
+    bindsym $mod+l exec $lockcmd 
+
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     bindsym $mod+Shift+r restart
     
@@ -130,13 +131,13 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     bindsym $mod+Control+Left move workspace to output left
     bindsym $mod+Control+Right move workspace to output right
 
-    # alternatively, you can use the cursor keys:
+    # Move your focus around - use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # alternatively, you can use the cursor keys:
+    # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
@@ -144,33 +145,37 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 #
 # Workspaces:
 #
-    # switch to workspace
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
 
-    # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
 #
-# Layout stuff
+# Layout stuff:
 #
-    # split in horizontal/vertical orientation
+    # You can "split" the current object of your focus with
+    # $mod+h or $mod+v, for horizontal and vertical splits
+    # respectively.
     bindsym $mod+h split h
     bindsym $mod+v split v
 
@@ -193,31 +198,47 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 
     # focus the child container
     #bindsym $mod+d focus child
-
 #
-# Resize window (you can also use the mouse for that)
+# Scratchpad:
+#
+    # "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    #bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    #bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
 #
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
 
-    # Pressing left will shrink the window’s width.
-    # Pressing right will grow the window’s width.
-    # Pressing up will shrink the window’s height.
-    # Pressing down will grow the window’s height.
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+
+    #bindsym Left resize shrink width 10px
+    #bindsym Down resize grow height 10px
+    #bindsym Up resize shrink height 10px
+    #bindsym Right resize grow width 10px
 
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
 
-    # back to normal: Enter or Escape
+    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
 #
-# Media keys - KP_GROUP Multimedia Keys
+# Media keys:
 #
     # audio controls
     set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -284,6 +305,7 @@ bar {
         inactive_workspace #586e75 #202020ee #586e75
         urgent_workspace   #d33682 #d33682   #fdf6e3
     }
+    # i3bar_command i3status --config ~/.config/i3/status.conf
     i3bar_command i3bar --transparency
 }
 client.focused          #6c71c4 #6c71c4 #ffffff #fdf6e3 #6c71c4
@@ -314,16 +336,17 @@ for_window [class="Code"] floating enable
 for_window [class="copyq"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="Gimp"] floating enable
-for_window [class="Tor Browser"] floating enable
+for_window [class="Gimp-2.10"] floating enable
+#for_window [class="Tor Browser"] floating enable
 for_window [class="Virt-manager"] floating enable
 for_window [class="Virt-viewer"] floating enable
-for_window [class="VirtualBox"] floating enable
-for_window [class="vlc"] floating enable
-for_window [class="Wine"] floating enable
-for_window [class="zoom"] floating enable
+#for_window [class="VirtualBox"] floating enable
+#for_window [class="vlc"] floating enable
+#for_window [class="Wine"] floating enable
+#for_window [class="zoom"] floating enable
 for_window [class="Qemu-system-i386"] floating enable
 for_window [class="qemu-system-x86_64"] floating enable
-for_window [class="jigsawgirls.exe"] floating enable
+#for_window [class="jigsawgirls.exe"] floating enable
 for_window [class="mpv"] floating enable
 for_window [class="Fontviewer"] floating enable
 for_window [class="Toplevel"] floating enable
