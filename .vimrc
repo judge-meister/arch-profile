@@ -105,7 +105,6 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" new
 
 set cursorline
 set laststatus=2
@@ -114,6 +113,7 @@ set laststatus=2
 augroup filetype_sh
     autocmd!
     autocmd Filetype sh iabbrev <buffer> ifa if<space>[[<space>]];<space>then<cr><cr><bs>fi<cr>
+    autocmd Filetype sh iabbrev <buffer> getoptsa while<space>getopts<space":h"<space>opt;<cr>do<cr>case<space>${opt}<space>in<cr><space><space><space><space>h)<cr><space><space><space><space>;;<cr><bs><bs>esac<cr><cr><bs>done<cr>
 augroup END
 " }}}
 
@@ -143,16 +143,16 @@ if &term =~ "xterm"
     autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
 
-set statusline=%f                                                     " file name
-"set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},                    " encoding
-"set statusline+=%{&ff}]                                              " file format
-set statusline+=\ %Y                                                  " file type
-set statusline+=\ [%getbufvar(bufnv('%'),'&mod')?'modified':'saved'}] " modified 
-set statusline+=%r                                                    " read only
-set statusline+=\ %=                                                  " right-align
-set statusline+=\ Col:\ %c                                            " column number
-set statusline+=\ Buf:\ %n                                            " buffer number
-set statusline+=\ [%b/0x%B]                                           " ASCII and byte value under cursor
-set statusline+=\ %l/%L\ [%p%%]                                       " line x of y [ percentage ]
+set statusline=%f                                                        " file name
+"set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},                       " encoding
+"set statusline+=%{&ff}]                                                 " file format
+set statusline+=\ %Y                                                     " file type
+set statusline+=\ [%{getbufvar(bufnv('%'),'&mod')?'modified':'saved'}]   " modified 
+set statusline+=%r                                                       " read only
+set statusline+=\ %=                                                     " right-align
+set statusline+=\ Col:\ %c                                               " column number
+set statusline+=\ Buf:\ %n                                               " buffer number
+set statusline+=\ [%b/0x%B]                                              " ASCII and byte value under cursor
+set statusline+=\ %l/%L\ [%p%%]                                          " line x of y [ percentage ]
 
 " }}}
