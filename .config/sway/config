@@ -80,7 +80,7 @@ output * bg $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 exec swayidle -w \
          timeout 600 'fancy-swaylock' \
          timeout 900 'swaymsg "output * dpms off"' \
-	 resume 'swaymsg "output * dpms on"' \
+         resume 'swaymsg "output * dpms on"' \
          before-sleep 'fancy-swaylock'
 #
 # This will lock your screen after 600 seconds of inactivity, then turn off
@@ -291,6 +291,8 @@ bindsym $mod+r mode "resize"
 #
 # Random Wallpaper - TBD
 #
+    bindsym $mod+b exec ~/bin/random_swaybg.py
+    bindsym $mod+Shift+b exec ~/bin/random_swaybg.py $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 
 
 # -----------------------------------------------------------------------------
@@ -357,7 +359,20 @@ bindsym $mod+r mode "resize"
 bar {
     swaybar_command waybar
 }
-
+#bar {
+#    position top
+#    font pango: FontAwesome 10
+#    status_command i3blocks
+#    colors {
+#        separator  #268bd2
+#        background #202020ee
+#        statusline #83949600
+#        focused_workspace  #aaaaaa #6c71c4   #cccccc
+#        active_workspace   #fdf6e3 #6c71c4   #fdf6e3
+#        inactive_workspace #586e75 #202020ee #586e75
+#        urgent_workspace   #d33682 #d33682   #fdf6e3
+#    }
+#}
 
 # -----------------------------------------------------------------------------
 # Discrete app settings

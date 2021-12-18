@@ -6,6 +6,10 @@ import sys
 import getopt
 from subprocess import check_output
 
+FACTOR=0.02
+MINVAL=1.0
+MAXVAL=2.0
+
 xrandr = check_output(['xrandr'], universal_newlines=True)
 
 class ScaleScrn:
@@ -56,12 +60,12 @@ class ScaleScrn:
 
     def decrease(self):
         """decrease scale"""
-        self.scale = max(self.scale-0.05, 1.0)
+        self.scale = max(self.scale-FACTOR, MINVAL)
         self.call_xrandr(f"{self.scale:4.2f}")
 
     def increase(self):
         """increase scale"""
-        self.scale = min(self.scale+0.05, 1.4)
+        self.scale = min(self.scale+FACTOR, MAXVAL)
         self.call_xrandr(f"{self.scale:4.2f}")
 
 

@@ -41,7 +41,7 @@ else:
                 time = re.match(r"(\d+):(\d+)", time)
                 if time:
                     time = ":".join(time.groups())
-                    timeleft = " ({time})"
+                    timeleft = f" ({time})"
                 else:
                     timeleft = ""
 
@@ -58,7 +58,7 @@ else:
 
     # stands for charging
     color = config.get("color_charging", "yellow")
-    FA_LIGHTNING = "<span color='{color}'><span font='FontAwesome'>\uf0e7</span></span>"
+    FA_LIGHTNING = f"<span color='{color}'><span font='FontAwesome'>\uf0e7</span></span>"
 
     # stands for plugged in
     FA_PLUG = "<span font='FontAwesome'>\uf1e6</span>"
@@ -68,50 +68,52 @@ else:
         """color"""
         if percent < 10:
             # exit code 33 will turn background red
-            return config.get("color_10", "#FFFFFF")
-        if percent < 20:
-            return config.get("color_20", "#FF3300")
-        if percent < 30:
-            return config.get("color_30", "#FF6600")
-        if percent < 40:
-            return config.get("color_40", "#FF9900")
-        if percent < 50:
-            return config.get("color_50", "#FFCC00")
-        if percent < 60:
-            return config.get("color_60", "#FFFF00")
-        if percent < 70:
-            return config.get("color_70", "#FFFF33")
-        if percent < 80:
-            return config.get("color_80", "#FFFF66")
-        return config.get("color_full", "#FFFFFF")
+            col = config.get("color_10", "#FFFFFF")
+        elif percent < 20:
+            col = config.get("color_20", "#FF3300")
+        elif percent < 30:
+            col = config.get("color_30", "#FF6600")
+        elif percent < 40:
+            col = config.get("color_40", "#FF9900")
+        elif percent < 50:
+            col = config.get("color_50", "#FFCC00")
+        elif percent < 60:
+            col = config.get("color_60", "#FFFF00")
+        elif percent < 70:
+            col = config.get("color_70", "#FFFF33")
+        elif percent < 80:
+            col = config.get("color_80", "#FFFF66")
+        else:
+            col = config.get("color_full", "#FFFFFF")
+        return col
 
-    # pylint: disable=too-many-return-statements
     def get_battery(percent):
         """get_battery"""
-        tmplt="<span color='{col}' font='mononoki Nerd Font Mono'>{sym}</span>"
-        tmplt = tmplt.replace('{col}', color(percent))
+        col = color(percent)
         if percent < 10:
             # exit code 33 will turn background red
-            return tmplt.replace('{sym}', '\uf58d')  # empty
-        if percent < 20:
-            return tmplt.replace('{sym}', '\uf579')  # 10%
-        if percent < 30:
-            return tmplt.replace('{sym}', '\uf57a')  # 20
-        if percent < 40:
-            return tmplt.replace('{sym}', '\uf57b')  # 30
-        if percent < 50:
-            return tmplt.replace('{sym}', '\uf57c')  # 40
-        if percent < 60:
-            return tmplt.replace('{sym}', '\uf57d')  # 50
-        if percent < 70:
-            return tmplt.replace('{sym}', '\uf57e')  # 60
-        if percent < 80:
-            return tmplt.replace('{sym}', '\uf57f')  # 70
-        if percent < 90:
-            return tmplt.replace('{sym}', '\uf580')  # 80
-        if percent < 100:
-            return tmplt.replace('{sym}', '\uf581')  # 90
-        return tmplt.replace('{sym}', '\uf578')
+            sym = '\uf58d'  # empty
+        elif percent < 20:
+            sym = '\uf579'  # 10%
+        elif percent < 30:
+            sym = '\uf57a'  # 20
+        elif percent < 40:
+            sym = '\uf57b'  # 30
+        elif percent < 50:
+            sym = '\uf57c'  # 40
+        elif percent < 60:
+            sym = '\uf57d'  # 50
+        elif percent < 70:
+            sym = '\uf57e'  # 60
+        elif percent < 80:
+            sym = '\uf57f'  # 70
+        elif percent < 90:
+            sym = '\uf580'  # 80
+        elif percent < 100:
+            sym = '\uf581'  # 90
+        else:
+            sym = '\uf578'  # 100
+        return f"<span color='{col}' font='mononoki Nerd Font Mono'>{sym}</span>"
 
 
     # stands for using battery

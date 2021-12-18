@@ -4,14 +4,11 @@ update screen with a random wallpaper
 """
 
 import os
-import random
+import sys
 from subprocess import check_output
 import psutil
-
-# pylint: disable=line-too-long
-
-#target_file_path = "/Users/user/downloaded.html" # downloaded page saved here
-TARGET_URL_PATH = "http://gallery/phpgallery/?opt=1_1000&path=/zdata/stuff.backup/sdc1/Wallpaper/wallpaper+16x9/goodfon.com/"
+from random_wall import get_random_remote_pic, RemotePicError, \
+                        download_remote_pic, get_random_local_pic
 
 
 def swaybg(url):
@@ -19,6 +16,7 @@ def swaybg(url):
     pid = -1
     for proc in psutil.process_iter():
         if 'swaybg' in proc.name():
+            print(proc.name())
             pid = proc.pid
 
     os.system(f'swaybg -m fill -i {url} &')
@@ -31,27 +29,24 @@ def set_wallpaper(url):
     if os.getenv('WAYLAND_DISPLAY','') != '':
         swaybg(url)
 
-def random_page():
-    """random page"""
-    pages = ['+1', '+2', '+3', '+4', '+5', '+6', '+7', '+8', '+9', '10']
-    return pages[random.randint(0, len(pages)-1)]
-
-def get_list_of_pictures():
-    """get pic list"""
-    paths = []
-    for root, _dirn, filen in os.walk('/home/judge/Pictures', followlinks=True):
-        for file in filen:
-            paths.append(os.path.join(root, file))
-    return paths
-
 def main():
     """ main """
-    pics = get_list_of_pictures()
-    rand_pic = pics[random.randint(0, len(pics)-1)]
+    if len(sys.argv) > 1:
+        if os.path.exists(sys.argv[1]):
+            pic = sys.argv[1]
+            set_wallpaper(f'{pic}')
+            sys.exit()
 
-    print(rand_pic)
+    try:
+        pic = get_random_remote_pic()
+        pic = download_remote_pic(pic)
+        set_wallpaper(f"{pic}")
 
-    set_wallpaper(f'{rand_pic}')
+    except RemotePicError:
+        pic = get_random_local_pic()
+        set_wallpaper(f'{pic}')
+
+    print(pic)
 
 
 

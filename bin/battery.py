@@ -2,7 +2,8 @@
 """
 battery status for i3block
 """
-# pylint: disable=line-too-long,invalid-name,unspecified-encoding
+# pylint: disable=line-too-long,invalid-name
+# unspecified-encoding
 
 import os
 
@@ -13,7 +14,7 @@ def read_int_value(attr):
     val = -1
     attrpath = os.path.join(BAT0, attr)
     if os.path.exists(attrpath):
-        with open(attrpath, 'r') as fp:
+        with open(attrpath, 'r', encoding='utf-8') as fp:
             val = int(fp.readlines()[0])
     return val
 
@@ -22,7 +23,7 @@ def read_str_value(attr):
     val = ''
     attrpath = os.path.join(BAT0, attr)
     if os.path.exists(attrpath):
-        with open(attrpath, 'r') as fp:
+        with open(attrpath, 'r', encoding='utf-8') as fp:
             val = fp.readlines()[0][:-1]
     return val
 

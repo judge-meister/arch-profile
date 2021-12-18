@@ -5,7 +5,8 @@
     // "width": 1366,           // Waybar width
 
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", 
+    "modules-left": ["custom/launcher",
+                     "sway/workspaces", 
                      "sway/mode", 
                      "custom/spotify"],
     "modules-center": ["sway/window"],
@@ -14,14 +15,17 @@
                       "custom/disk_home", 
                       "custom/docker", 
                       "custom/updates", 
+                      "backlight",
                       "pulseaudio", 
                       "network", 
                       "temperature", 
                       "cpu", 
                       "memory", 
                       "battery", 
+                      //"group/hardware", 
                       "tray", 
-                      "clock"],
+                      "clock", "custom/power"],
+    //"group/hardware" : { "modules": ["cpu", "memory", "battery"] },
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": true,
@@ -62,13 +66,19 @@
         "critical-threshold": 80,
         "format-critical": "{temperatureC}°C ",
     },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": " {icon} {percent}% ",
+        "format-icons": ["", ""],
+        "on-scroll-down": "brightnessctl -c backlight set 5%-",
+        "on-scroll-up": "brightnessctl -c backlight set +5%"
+    },
     "battery": {
         "bat": "BAT0",
         "interval": 15,
         "states": {
             // "good": 95,
             "warning": 30,
-            //"critical": 15
             "critical": 15
         },
         "format": "{capacity}% {icon}",
@@ -81,7 +91,8 @@
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%)  ",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
-        "format-disconnected": "Disconnected ⚠"
+        "format-disconnected": "Disconnected ⚠",
+        "on-click": "nmtui",
     },
     "pulseaudio": {
         //"scroll-step": 1,
@@ -97,7 +108,9 @@
             "car": "",
             "default": ["", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
     },
     "custom/spotify": {
         "format": " {}",
@@ -123,6 +136,7 @@
     },
     "custom/disk_root": {
         "format": "{}  ",
+        "tooltip-format": "full",
         "interval": 60,
         "exec": "df -hl | grep ' /$' | awk -F' ' '{print $4}'",
     },
@@ -135,5 +149,17 @@
         "format": "{}",
         "interval": 1,
         "exec": "$HOME/bin/scale_sway.py -s",
-    }
+        "on-click": "$HOME/bin/scale_sway.py -i",
+        "on-click-right": "$HOME/bin/scale_sway.py -d",
+    },
+    "custom/power": {
+      	"format":" ⏻  ",
+       	"on-click": "nwgbar",
+      	"tooltip": false,
+    },
+    "custom/launcher": {
+    	"format":"   ",
+    	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
+    	"tooltip": false,
+    },
 }
