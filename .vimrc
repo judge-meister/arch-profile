@@ -122,7 +122,7 @@ highlight StatusLine ctermbg=DarkGrey ctermfg=white
 augroup statusbar
     autocmd!
     autocmd InsertEnter * highlight StatusLine ctermbg=5
-    autocmd InsertEnter * highlight CursorLine ctermbg=black
+    "autocmd InsertEnter * highlight CursorLine ctermbg=black
     autocmd InsertEnter * highlight FoldColumn ctermbg=5
 
     autocmd InsertLeave * highlight StatusLine ctermbg=DarkGrey ctermfg=white
@@ -130,6 +130,15 @@ augroup statusbar
     autocmd InsertLeave * highlight FoldColumn ctermbg=DarkGrey
 augroup END
 " }}}
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
 
 " switch cursor colour in insert mode, only works in right kind of terminal
 if &term =~ "xterm"
@@ -143,11 +152,14 @@ if &term =~ "xterm"
     autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
 
-set statusline=%f                                                        " file name
+set statusline=
+set statusline+=%{StatuslineGit()}>
+set statusline+=\ %f                                                        " file name
 "set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},                       " encoding
 "set statusline+=%{&ff}]                                                 " file format
 set statusline+=\ %Y                                                     " file type
-set statusline+=\ [%{getbufvar(bufnv('%'),'&mod')?'modified':'saved'}]   " modified 
+"set statusline+=\ [%{getbufvar(bufnv('%'),'&mod')?'modified':'saved'}]   " modified 
+set statusline+=\ %{&modified?'[modified]':'[saved]'}
 set statusline+=%r                                                       " read only
 set statusline+=\ %=                                                     " right-align
 set statusline+=\ Col:\ %c                                               " column number
@@ -156,3 +168,4 @@ set statusline+=\ [%b/0x%B]                                              " ASCII
 set statusline+=\ %l/%L\ [%p%%]                                          " line x of y [ percentage ]
 
 " }}}
+
