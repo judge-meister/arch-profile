@@ -68,7 +68,7 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": " {icon} {percent}% ",
+        "format": "{icon} {percent}%",
         "format-icons": ["", ""],
         "on-scroll-down": "brightnessctl -c backlight set 5%-",
         "on-scroll-up": "brightnessctl -c backlight set +5%"
@@ -153,12 +153,12 @@
         "on-click-right": "$HOME/bin/scale_sway.py -d",
     },
     "custom/power": {
-      	"format":" ⏻  ",
-       	"on-click": "nwgbar",
+      	"format":"⏻ ",
+       	"on-click": "nwgbar -o 0.6",
       	"tooltip": false,
     },
     "custom/launcher": {
-    	"format":"   ",
+    	"format":" ",
     	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
     	"tooltip": false,
     },

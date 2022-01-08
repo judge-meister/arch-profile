@@ -1,6 +1,6 @@
 /* style sheet for waybar */
 
-@define-color whitecolor #777;
+@define-color whitecolor #ccc;
 
 * {
     border: none;
@@ -13,7 +13,7 @@
 
 window#waybar {
     background: rgba(0,0,0,0.8);/* black 70% transparent; */
-    color: white;
+    color: @whitecolor;
 }
 
 .modules-right {
@@ -25,7 +25,7 @@ window#waybar {
 #window {
     /*font-weight: bold;*/
     /*font-family: "Source Code Pro";*/
-    color: #bbb;
+    color: @whitecolor;
     padding-right: 20px;
     border-right: 1px solid @whitecolor;
 }
@@ -77,13 +77,16 @@ window#waybar {
 }
 
 #battery, 
+#backlight,
 #cpu, 
+#custom-launcher,
 #custom-scale, 
 #custom-spotify, 
 #custom-updates, 
 #custom-docker, 
 #custom-disk_root, 
 #custom-disk_home, 
+#custom-power,
 #memory, 
 #mode, 
 #network, 
@@ -96,7 +99,7 @@ window#waybar {
     margin: 0 0px;
     border-left: 1px solid #777;
     border-right: 1px solid #777;
-    color: #bbb;
+    color: @whitecolor;
 }
 
 #clock {
@@ -105,11 +108,11 @@ window#waybar {
     margin: 0 0px;
     border-left: 1px solid #777;
     border-right: 0px solid #777;
-    color: #bbb;
+    color: @whitecolor;
 }
 
-#clock {
-}
+/*#clock {
+}*/
 
 #battery {
 }
@@ -134,7 +137,7 @@ window#waybar {
 }
 
 #battery.warning:not(.charging) {
-    color: white;
+    color: @whitecolor;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -193,6 +196,12 @@ window#waybar {
 }
 
 #custom-disk_home {
+}
+
+#custom-power {
+}
+
+#custom-launcher {
 }
 
 #tray {
