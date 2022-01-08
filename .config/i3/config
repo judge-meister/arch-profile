@@ -80,9 +80,9 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 
 # -----------------------------------------------------------------------------
 # Key bindings
-#
-# Basics:
-#
+#K
+#K Basics:
+#K
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -90,7 +90,7 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     bindsym $mod+Shift+q kill
 
     # help for key bindings
-    bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
+    bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh i3
 
     # launcher bindings
     bindsym $mod+d exec $drun_menu
@@ -124,9 +124,9 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     # run pacman -Syu in a terminal
     bindsym $mod+u exec $term -e update_packages
 
-#
-# Moving Around:
-#
+#K
+#K Moving Around:
+#K
     # move to monitor
     bindsym $mod+Control+Left move workspace to output left
     bindsym $mod+Control+Right move workspace to output right
@@ -142,9 +142,9 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
+#K
+#K Workspaces:
+#K
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -170,9 +170,9 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
+#K
+#K Layout stuff:
+#K
     # You can "split" the current object of your focus with
     # $mod+h or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -210,9 +210,9 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     #bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+#K
+#K Resizing containers:
+#K
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
 
@@ -259,14 +259,14 @@ bindsym $mod+r mode "resize"
     bindsym XF86KbdBrightnessUp exec kbdbrightness -inc
     bindsym XF86KbdBrightnessDown exec kbdbrightness -dec
 
-#
-# Adjust screen resolution
-#
+#K
+#K Screen Resolution
+#K
     bindsym $mod+plus exec (~/bin/scale_screen.py -i && sleep 1 && ~/.fehbg)
     bindsym $mod+minus exec (~/bin/scale_screen.py -d && sleep 1 && ~/.fehbg)
-#
-# Random Wallpaper
-#
+#K
+#K Random Wallpaper
+#K
     bindsym $mod+b exec ~/bin/random_wall.py
     bindsym $mod+Shift+b exec ~/.fehbg
 
@@ -274,9 +274,9 @@ bindsym $mod+r mode "resize"
 # -----------------------------------------------------------------------------
 #
 # Extras from Jessie Frazelle dotfiles
-#
-# Screenshots
-
+#K
+#K Screenshots
+#K
     # Screenshot fullscreen
     bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
 

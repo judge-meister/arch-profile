@@ -112,9 +112,9 @@ exec_always ~/bin/kbd_model
 
 # -----------------------------------------------------------------------------
 # Key bindings
-#
-# Basics:
-#
+#K
+#K Basics:
+#K
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -122,7 +122,7 @@ exec_always ~/bin/kbd_model
     bindsym $mod+Shift+q kill
 
     # help for key bindings
-    bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh
+    bindsym $mod+Shift+slash exec ~/.config/i3/keys.sh sway
 
     # launcher bindings
     bindsym $mod+d exec $drun_menu
@@ -148,9 +148,9 @@ exec_always ~/bin/kbd_model
     # run pacman -Syu in a terminal
     bindsym $mod+u exec $term -e update_packages
 
-#
-# Moving Around:
-#
+#K
+#K Moving Around:
+#K
     # move to monitor
     bindsym $mod+Control+Left move workspace to output left
     bindsym $mod+Control+Right move workspace to output right
@@ -166,9 +166,9 @@ exec_always ~/bin/kbd_model
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
+#K
+#K Workspaces:
+#K
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -194,9 +194,9 @@ exec_always ~/bin/kbd_model
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
+#K
+#K Layout stuff:
+#K
     # You can "split" the current object of your focus with
     # $mod+h or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -234,9 +234,9 @@ exec_always ~/bin/kbd_model
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     #bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+#K
+#K Resizing containers:
+#K
 mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
 
@@ -283,14 +283,14 @@ bindsym $mod+r mode "resize"
     bindsym XF86KbdBrightnessUp exec kbdbrightness -inc
     bindsym XF86KbdBrightnessDown exec kbdbrightness -dec
 
-#
-# Adjust screen resolution
-#
+#K
+#K Screen Resolution
+#K
     bindsym $mod+minus exec $HOME/bin/scale_sway.py -i
     bindsym $mod+equal exec $HOME/bin/scale_sway.py -d
-#
-# Random Wallpaper - TBD
-#
+#K
+#K Random Wallpaper
+#K
     bindsym $mod+b exec ~/bin/random_swaybg.py
     bindsym $mod+Shift+b exec ~/bin/random_swaybg.py $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 
@@ -298,9 +298,9 @@ bindsym $mod+r mode "resize"
 # -----------------------------------------------------------------------------
 #
 # Extras from Jessie Frazelle dotfiles
-#
-# Screenshots
-
+#K
+#K Screenshots
+#K
     # Screenshot fullscreen, sway
     bindsym Print exec "swaygrab ${HOME}/Pictures/Screenshots/$(date '+%Y-%m-%d-%H-%M-%S').png"
 
