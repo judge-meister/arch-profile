@@ -8,11 +8,12 @@ set -o pipefail
 ERRORS=()
 
 # find all executables and run `pylint`
-for f in $(find . -type f -not -path '*.git*' | sort -u); do
+for f in $(find . -type f -not -path '*.git*' -not -path '*/qtile/*' | sort -u); do
 	if file "$f" | grep --quiet Python; then
 		{
-			pylint "$f" && echo "[OK]: successfully pylinted $f"
+			pylint "$f" >/tmp/pylint.out && echo "[OK]: successfully pylinted $f"
 		} || {
+            cat /tmp/pylint.out
 			# add to errors
 			ERRORS+=("$f")
 		}
@@ -23,7 +24,7 @@ done
 if [ ${#ERRORS[@]} -eq 0 ]; then
 	echo "No errors, hooray"
 else
-	echo "These files failed pylint: ${ERRORS[*]}"
+	echo -e "\nThese files failed pylint: ${ERRORS[*]}"
 	exit 1
 fi
 
