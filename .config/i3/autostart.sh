@@ -17,4 +17,6 @@ elif [ "$VENDOR" = "Apple Inc." ]; then
     "$HOME"/bin/macfnmode fn ; 
     
 fi 
- 
+nm-applet &
+volumeicon &
+
