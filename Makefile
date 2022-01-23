@@ -54,7 +54,7 @@ cleanPictures: ##
 
 .PHONY: etc
 etc: cleanetc ## install etc files
-	for file in $(shell find etc -type f | grep -v monitor); do \
+	for file in $(shell find etc usr -type f | grep -v monitor); do \
 		sudo mkdir -p /$$(dirname $$file); \
 		sudo ln -snfv $(CURDIR)/$$file /$$(dirname $$file)/; \
 	done;
@@ -64,7 +64,7 @@ endif
 
 .PHONY: cleanetc
 cleanetc: ## remove files installed into etc
-	for file in $(shell find etc -type f); do \
+	for file in $(shell find etc usr -type f); do \
 		sudo rm -f /$$file; \
 	done;
 ifeq ($(MANU), QEMU)
