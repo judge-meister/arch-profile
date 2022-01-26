@@ -12,7 +12,7 @@ then
 else
     exit
 fi
-grep -E 'bindsym|^#K' ~/.config/${WM}/config | grep -E '\$mod|Ctrl|Print|Shift|#K' | grep -v '#bindsym' \
+grep -E 'bindsym|^#K' ~/.config/"${WM}"/config | grep -E '\$mod|Ctrl|Print|Shift|#K' | grep -v '#bindsym' \
     | sed -e 's/#K//g' \
           -e 's/exec //g' \
           -e 's/$mod/[Mod]/g' \
