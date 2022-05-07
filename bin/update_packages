@@ -4,7 +4,7 @@ UNAME_KERNEL_VER=$(uname -r)
 HEADER_KERNEL_VER=$(cat /usr/src/linux/version)
 KERNEL_CHANGED="false"
 
-sudo pacman -Syu --needed archlinux-keyring
+sudo pacman --sync --needed archlinux-keyring
 sudo pacman -Su
 yay -Syu
 
