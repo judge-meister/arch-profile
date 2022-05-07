@@ -1,11 +1,11 @@
 {
     "layer": "top",             // Waybar at top layer
-    "position": "top",          // Waybar at the bottom of your screen
+    "position": "top",          // Waybar at the top of your screen
     "height": 24,               // Waybar height
-    // "width": 1366,           // Waybar width
+    // "width": 1366,           // Waybar width - (commented out means full width of screen)
 
     // Choose the order of the modules
-    "modules-left": ["custom/launcher",
+    "modules-left": [//"custom/launcher",
                      "sway/workspaces", 
                      "sway/mode", 
                      "custom/spotify"],
@@ -24,7 +24,9 @@
                       "battery", 
                       //"group/hardware", 
                       "tray", 
-                      "clock", "custom/power"],
+                      "clock"//, 
+                      //"custom/power"
+                      ],
     //"group/hardware" : { "modules": ["cpu", "memory", "battery"] },
     "sway/workspaces": {
         "format": "{name}",
@@ -52,10 +54,12 @@
         "spacing": 10
     },
     "clock": {
-        "format-alt": "{:%Y-%m-%d}"
+        /*"format-alt": "{:%Y-%m-%d}",*/
+        "format-alt": "{:%c}",
     },
     "cpu": {
-        "format": "{usage}%  "
+        "format": "{usage}%  ",
+        "on-click": "alacritty -o font.size=11.0 -e htop",
     },
     "memory": {
         "format": "{}%  "
@@ -70,8 +74,11 @@
         // "device": "acpi_video1",
         "format": "{icon} {percent}%",
         "format-icons": ["", ""],
+        "tooltip-format": "Backlight Brightness",
         "on-scroll-down": "brightnessctl -c backlight set 5%-",
-        "on-scroll-up": "brightnessctl -c backlight set +5%"
+        "on-scroll-up": "brightnessctl -c backlight set +5%",
+        "on-click": "brightnessctl -c backlight set 5%-",
+        "on-click-right": "brightnessctl -c backlight set +5%"
     },
     "battery": {
         "bat": "BAT0",
@@ -89,7 +96,8 @@
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%)  ",
+        "format-wifi": "({signalStrength}%)  ",
+        "tooltip-format": "{essid}",
         "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
         "format-disconnected": "Disconnected ⚠",
         "on-click": "nmtui",
@@ -108,9 +116,11 @@
             "car": "",
             "default": ["", ""]
         },
-        "on-click": "pavucontrol",
+        "on-click-middle": "pavucontrol",
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
+        "on-click": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "on-click-right": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
     },
     "custom/spotify": {
         "format": " {}",
@@ -124,7 +134,7 @@
         //"max-length": 15,
         "interval": 360,
         "exec": "$HOME/.local/bin/pacupdate",
-        "exec-if": "exit 0",
+        "exec-if": "pgrep alacritty",
         "on-click": "alacritty -o font.size=11.0 -e update_packages",
         "signal": 8
     },
@@ -152,14 +162,14 @@
         "on-click": "$HOME/bin/scale_sway.py -i",
         "on-click-right": "$HOME/bin/scale_sway.py -d",
     },
-    "custom/power": {
-      	"format":"⏻ ",
-       	"on-click": "nwgbar -o 0.6",
-      	"tooltip": false,
-    },
-    "custom/launcher": {
-    	"format":" ",
-    	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
-    	"tooltip": false,
-    },
+    //"custom/power": {
+    //  	"format":"⏻ ",
+    //   	"on-click": "nwgbar -o 0.6",
+    //  	"tooltip": false,
+    //},
+    //"custom/launcher": {
+    //	"format":" ",
+    //	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
+    //	"tooltip": false,
+    //},
 }

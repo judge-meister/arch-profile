@@ -425,9 +425,9 @@ for_window [class="NEdit" instance="findDialog_popup"] floating enable
 # start a few useful programs
 
 exec_always dunst
-#exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste -t text --watch clipman store 
 #exec copyq
-exec lxsession
+#exec lxsession
 
 include /etc/sway/config.d/*
 

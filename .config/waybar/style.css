@@ -27,7 +27,7 @@ window#waybar {
     /*font-family: "Source Code Pro";*/
     color: @whitecolor;
     padding-right: 20px;
-    border-right: 1px solid @whitecolor;
+    border-right: 0px solid #777;
 }
 /*
 #workspaces {
@@ -40,13 +40,13 @@ window#waybar {
     margin: 0 0px;
     /*background: transparent;*/
     color: @whitecolor;
-    border-left: 1px solid @whitecolor;
+    border-left: 0px solid @whitecolor;
     border-right: 1px solid @whitecolor;
     /*border-right: 2px solid transparent;*/
 }
 
 #workspaces button.focused {
-    border: 1px solid #aaaaaa; /*1*/ 
+    border: 1px solid #777;    /*1*/ 
     background: #6c71c4;       /*2*/
     color: #cccccc;            /*3*/
 }
@@ -98,7 +98,7 @@ window#waybar {
     padding-left: 4px;
     margin: 0 0px;
     border-left: 1px solid #777;
-    border-right: 1px solid #777;
+    border-right: 0px solid #777;
     color: @whitecolor;
 }
 
