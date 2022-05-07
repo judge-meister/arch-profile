@@ -5,6 +5,8 @@ set -o pipefail
 # script to install all dependent packages
 #
 
+# change pacman settings
+# update sudo to make current user an admin
 # install packages via pacman
 # install yay
 # install some AUR packages
@@ -19,11 +21,27 @@ pacman_settings()
 
   [ ! -f /etc/pacman.conf.bak ] && sudo cp /etc/pacman.conf /etc/pacman.conf.bak
 
-  sed -e 's/\(ParallelDownloads = .*$\)/\1\nILoveCandy/g' \
+  sudo sed -e 's/\(ParallelDownloads = .*$\)/\1\nILoveCandy/g' \
       -e 's/^#Color$/Color/' \
       -e 's/^#ParallelDownloads = /ParallelDownloads = /' \
       -e 's/^ILoveCandy//g' \
-      /etc/pacman.conf
+      -i /etc/pacman.conf
+}
+
+# -----------------------------------------------------------------------------
+# add sudoers file for current user
+make_user_admin()
+{
+    if [ "$USER" != "root" ]
+    then
+        echo "This option should be run as root user. Use su to change to root first."
+        exit 1
+    fi
+    echo "Type username to add to sudoers config:"
+    # shellcheck disable=SC2162
+    read admin
+    echo "$admin ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/"$admin"
+    chmod 600 /usr/sudoers.d/"$admin"
 }
 
 # -----------------------------------------------------------------------------
@@ -229,10 +247,11 @@ install_scripts()
 }
 
 # -----------------------------------------------------------------------------
-install_some_stuff()
+install_something()
 {
   echo "Install Some Stuff"
   echo "${INST_OPTS}"
+  ${INST_OPTS}
 }
 
 # -----------------------------------------------------------------------------
@@ -259,9 +278,18 @@ install_everything()
 usage()
 {
   echo "Usage:  install.sh"
-  echo "    -h                 this help"
-  echo "    -i <option list>   comma separated list of options to install"
-  echo "    -a                 install all options, e.g. for a clean machine"
+  echo "    -h                  this help"
+  echo "    -i <single option>  comma separated list of options to install"
+  echo "    -a                  install all options, e.g. for a clean machine"
+  echo
+  echo "options available are"
+  echo "  make_user_admin"
+  echo "  pacman_settings"
+  echo "  install_scripts"
+  echo "  install_pacman_packages"
+  echo "  install_yay_from_git"
+  echo "  install_aur_packages"
+  echo "  install_dwm"
   echo
 }
 
@@ -275,7 +303,7 @@ do
           exit 0
           ;;
     'i' ) INST_OPTS=${OPTARG}
-          install_some_stuff
+          install_something
           ;;
     'a' ) install_everything
           ;;
@@ -284,3 +312,4 @@ do
   esac
 done
 shift $((OPTIND-1))
+
