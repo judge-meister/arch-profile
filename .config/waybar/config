@@ -97,9 +97,10 @@
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
         "format-wifi": "({signalStrength}%)  ",
-        "tooltip-format": "{essid}",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
+        //"format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
+        "format-ethernet": "  ",
         "format-disconnected": "Disconnected ⚠",
+        "tooltip-format": "({ifname}) {essid}: {ipaddr}/{cidr}",
         "on-click": "nmtui",
     },
     "pulseaudio": {
