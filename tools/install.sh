@@ -63,22 +63,26 @@ install_aur_packages()
 {
   echo "Installing Required AUR Packages"; sleep 2
 
+  # bare minimum
+  yay -Sy --needed \
+    i3lock-fancy-git \
+    icdiff \
+    swaynagmode \
+    tbsm \
+    ttf-ms-fonts \
+    nerd-fonts-mononoki \
+
+  # extras
   yay -Sy --needed \
     brave-bin \
     fontviewer \
-    i3lock-fancy-git \
-    icdiff \
     libxft-bgra-git \
-    nerd-fonts-mononoki \
     play-with-mpv-git \
     rofi-lbonn-wayland-git \
-    swaynagmode \
     tabbed \
-    tbsm \
-    ttf-ms-fonts \
     tulizu \
     wev \
-    xbindkeys_config-gtk2 \
+    xbindkeys_config-gtk2 
 
   PRODUCT=$(cat /sys/class/dmi/id/product_name)
   if [ "$PRODUCT" == "MacBookPro5,5" ]
@@ -121,9 +125,11 @@ install_pacman_packages()
     rofi-calc \
     shellcheck \
     sway \
+    swaylock \
     ttf-anonymous-pro \
     ttf-font-awesome \
     ttf-nerd-fonts-symbols-mono \
+    waybar \
     wl-clipboard \
     wofi \
     xautolock \
@@ -139,6 +145,7 @@ install_pacman_packages()
     ffmpeg \
     gparted \
     gimp \
+    grim \
     kitty \
     mplayer \
     mpv \
@@ -158,8 +165,6 @@ install_pacman_packages()
   sudo pacman -Sy --needed \
     imagemagick \
     iw \
-    linux-lts \
-    linux-lts-headers \
     lshw \
     nfs-utils \
     nmap \
@@ -167,6 +172,11 @@ install_pacman_packages()
     pulseaudio \
     system-config-printer \
     wget \
+
+  # lts kernel
+  sudo pacman -Sy --needed \
+    linux-lts \
+    linux-lts-headers
 
   # docker
   sudo pacman -Sy --needed \
