@@ -293,8 +293,13 @@ bindsym $mod+r mode "resize"
 #K
     bindsym $mod+b exec ~/bin/random_swaybg.py
     bindsym $mod+Shift+b exec ~/bin/random_swaybg.py $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
+#K
+#K Toggle Alacritty Opacity
+#K
+    bindsym $mod+Control+a exec "$HOME/bin/toggle_alacritty_opacity.sh -d"
+    bindsym $mod+Shift+a exec "$HOME/bin/toggle_alacritty_opacity.sh -i"
 
-
+	
 # -----------------------------------------------------------------------------
 #
 # Extras from Jessie Frazelle dotfiles
