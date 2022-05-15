@@ -125,6 +125,7 @@ install_pacman_packages()
     rofi-calc \
     shellcheck \
     sway \
+    swayidle \
     swaylock \
     ttf-anonymous-pro \
     ttf-font-awesome \
@@ -139,6 +140,7 @@ install_pacman_packages()
   sudo pacman -Sy --needed \
     alacritty \
     atom \
+    bc \
     emacs \
     exa \
     feh \
@@ -146,16 +148,21 @@ install_pacman_packages()
     gparted \
     gimp \
     grim \
+    jq \
     kitty \
+    libvirt \
     mplayer \
     mpv \
     neofetch \
     nitrogen \
+    qemu-arch-extra \
     ranger \
     screen \
     scrot \
+    slurp \
     unzip \
     usbutils \
+    vim \
     virt-manager \
     yad \
     youtube-dl \
@@ -170,13 +177,9 @@ install_pacman_packages()
     nmap \
     pacman-contrib \
     pulseaudio \
+    python-beautifulsoup4 \
     system-config-printer \
     wget \
-
-  # lts kernel
-  sudo pacman -Sy --needed \
-    linux-lts \
-    linux-lts-headers
 
   # docker
   sudo pacman -Sy --needed \
@@ -184,7 +187,10 @@ install_pacman_packages()
 
   if [ "$PRODUCT" == "MacBookPro5,5" ]
   then
+    # lts kernel - useful to have on MacBookPro for failsafe
     sudo pacman -Sy --needed \
+      linux-lts \
+      linux-lts-headers \
       broadcom-wl-dkms
   fi
 

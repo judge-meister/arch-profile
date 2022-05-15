@@ -12,8 +12,10 @@ then
 else
     exit
 fi
-grep -E 'bindsym|^#K' ~/.config/"${WM}"/config | grep -E '\$mod|Ctrl|Print|Shift|#K' | grep -v '#bindsym' \
-    | sed -e 's/#K//g' \
+(
+grep -E 'bindsym|^#=' ~/.config/"${WM}"/config \
+    | grep -E '\$mod|Ctrl|Print|Shift|#=' | grep -v '#bindsym' \
+    | sed -e 's/#=//g' \
           -e 's/exec //g' \
           -e 's/$mod/[Mod]/g' \
           -e 's/Shift/[Shift]/g' \
@@ -24,5 +26,7 @@ grep -E 'bindsym|^#K' ~/.config/"${WM}"/config | grep -E '\$mod|Ctrl|Print|Shift
           -e 's/$lockcmd/Screen Lock/g' \
           -e 's/Terminal.*update_packages/Update System Packages/g' \
     | awk -F' ' '{printf "%6s %-25s %s %s %s %s %s %s %s %s\n",$1,$2,$3,$4,$5,$6,$7,$8,$9,$10}' \
-    | sed -e 's/bindsym/  /g' \
-    | yad --text-info --back=#282c34 --fore=#46d9ff --geometry=1000x600
+    | sed -e 's/bindsym/  /g'
+grep -E '^#-' ~/.config/"${WM}"/config | sed 's|#-||g'
+) \
+ | yad --text-info --back=#282c34 --fore=#46d9ff --geometry=1000x600

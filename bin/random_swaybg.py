@@ -39,6 +39,7 @@ def main():
 
     try:
         pic = get_random_remote_pic()
+        print(f"{pic}")
         pic = download_remote_pic(pic)
         set_wallpaper(f"{pic}")
 
@@ -46,7 +47,7 @@ def main():
         pic = get_random_local_pic()
         set_wallpaper(f'{pic}')
 
-    print(pic)
+    #print(pic)
 
 
 
