@@ -9,11 +9,11 @@ echo "-----------------------------------"
 ## Fetch background_opacity from alacritty.yml
 opacity=$(awk '$1 == "opacity:" {print $2; exit}' \
     ~/.config/alacritty/alacritty.yml)
-echo $1 $opacity
+echo "$1 $opacity"
 case $1 in 
-  -i) toggle_opacity=$(printf "%.2f" $(echo "$opacity+0.05" | bc))
+  -i) toggle_opacity=$(printf "%.2f" "$(echo "$opacity+0.05" | bc)")
       ;;
-  -d) toggle_opacity=$(printf "%.2f" $(echo "$opacity-0.05" | bc))
+  -d) toggle_opacity=$(printf "%.2f" "$(echo "$opacity-0.05" | bc)")
       ;;
 esac
 echo "$opacity > $toggle_opacity"
