@@ -12,6 +12,7 @@
 :autocmd BufEnter * cd %:p:h
 
 autocmd FileType yaml setlocal ai ts=2 sw=2 et
+autocmd BufWritePre *.py :%s/\s\+$//e
 
 " set the coloUr scheme
 colorscheme pablo

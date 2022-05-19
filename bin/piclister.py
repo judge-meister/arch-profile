@@ -1,32 +1,46 @@
 #!/usr/bin/env python3
 
+"""piclister"""
 
-import sys, string, re, os
+import sys
+#import string
+import re
+import os
+import urllib.request
+import urllib.parse
+import urllib.error
 from html.parser import HTMLParser #, HTMLParseError
-from html.entities import name2codepoint
+#from html.entities import name2codepoint
 
 class MyHTMLParser(HTMLParser):
+    """my html parser"""
+    # pylint: disable=missing-function-docstring
+
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.in_script = 0
+        self.urls = []
 
     def reset(self):
         HTMLParser.reset(self)
         self.urls = []
-        self.in_script=0
+        self.in_script = 0
 
     #def handle_comment(self, data):
     #    print 'comment', data
 
     def do_div(self, attrs):
         #print "DIV",attrs
-        href = [v for k, v in attrs if k=='data-image' or k=='data-lazy']
+        href = [v for k, v in attrs if k in ('data-image', 'data-lazy')]
         if href and not self.in_script:
             self.urls.extend(href)
-            
-    def do_script(self, attrs):
-        self.in_script=1
+
+    def do_script(self, _attrs):
+        self.in_script = 1
         #print 'script start'
 
     def end_script(self):
-        self.in_script=0
+        self.in_script = 0
         #print 'script end'
 
     def do_a(self, attrs):
@@ -97,10 +111,11 @@ class MyHTMLParser(HTMLParser):
 
     #def do_title(self, attr):
     #    print "do_title"
-        
+
     def handle_starttag(self, tag, attrs):
         #print 'Encountered the beginning of a <%s> tag' % tag
         #print attrs
+        # pylint: disable=multiple-statements
         if tag == 'a':      self.do_a(attrs)
         if tag == 'area':   self.do_area(attrs)
         if tag == 'embed':  self.do_embed(attrs)
@@ -117,53 +132,56 @@ class MyHTMLParser(HTMLParser):
 
     def handle_endtag(self, tag):
         #print 'Encountered the end of a </%s> tag' % tag
-        if tag == 'script': self.end_script()
+        if tag == 'script':
+            self.end_script()
 
     #def handle_data(self, data):
         #print "handle_data -[%d] %s" % (len(data), repr(data))
         #for x in data:
         #    print x
-        
+
     def handle_charref(self, name):
-        if name.startswith('x'):
-            c = chr(int(name[1:], 16))
-        else:
-            c = chr(int(name))
+        pass
+        #if name.startswith('x'):
+        #    c = chr(int(name[1:], 16))
+        #else:
+        #    c = chr(int(name))
         #print "Num ent  :", c
-        
+
     def handle_entityref(self, name):
-        print(("entityref",name))
+        print("entityref",name)
         #c = unichr(name2codepoint[name])
         #print "Named ent:", c
-        
-    def clearHrefs(self):
+
+    def clear_hrefs(self):
         self.urls = []
 
-    def getLinks(self):
+    def get_links(self):
         return self.urls
 
 
-def piclister(url):
-    import urllib.request, urllib.parse, urllib.error
-    usock = urllib.request.urlopen(url)
-    parser = MyHTMLParser()
-    parser.feed(usock.read())
-    parser.close()
-    usock.close()
+def piclister(url1):
+    """piclister - not called internally"""
+    #usock = urllib.request.urlopen(url)
+    with urllib.request.urlopen(url1) as usock:
+        parser = MyHTMLParser()
+        parser.feed(usock.read())
+        parser.close()
+    #usock.close()
     ret_urls = []
     #print parser.urls
     for url in parser.urls:
-        if (string.find(url, 'avascript') > 0):
-            url2=url[string.find(url,"'"):string.find(url,",")]
-            print(('\n',url2,'\n'))
-            ret_urls.append(url2[string.find(url2,"'")+1:string.rfind(url2,"'")])
-            print(('javascript--', url2[string.find(url2,"'")+1:string.rfind(url2,"'")]))
+        if url.find('avascript') > 0:
+            url2 = url[url.find("'"):url.find(",")]
+            print('\n',url2,'\n')
+            ret_urls.append(url2[url2.find("'")+1:url2.rfind("'")])
+            print('javascript--', url2[url2.find("'")+1:url2.rfind("'")])
         else:
             ret_urls.append(url)
     return ret_urls
 
-def main(html,url):
-    """"""
+def piclister_main(html, _url):
+    """piclister_main"""
     #print "main()"
     output=[]
     try:
@@ -171,7 +189,7 @@ def main(html,url):
         #    if l.find('Cote') > -1:
         #        print l
         parser = MyHTMLParser()
-        parser.clearHrefs()
+        parser.clear_hrefs()
         parser.feed(html)
 
     except AttributeError:
@@ -186,23 +204,23 @@ def main(html,url):
 
     except Exception:
         #print os.path.join(self.basedir, filename)
-        print(('exception returned', sys.exc_info()[0]))
+        print('exception returned', sys.exc_info()[0])
         #sock.close()
         raise
         #return []
 
     else:
-        #print 'else', parser.getLinks()
-        for o in parser.getLinks():
-            if (o.find('avascript') > 0):
-                url2=o[o.find("'"):o.find(",")]
+        #print 'else', parser.get_links()
+        for link in parser.get_links():
+            if link.find('avascript') > 0:
+                url2=link[link.find("'"):link.find(",")]
                 #print '\n',url2,'\n'
                 output.append(url2[url2.find("'")+1:url2.rfind("'")])
                 #print 'javascript--', url2[string.find(url2,"'")+1:string.rfind(url2,"'")]
 
             else:
                 #ret_urls.append(url)
-                output.append(o)
+                output.append(link)
         #sock.close()
 
     return output
@@ -214,47 +232,55 @@ def main(html,url):
 
 
 def printresults(output):
-    """"""
-    for u in output:
+    """print results"""
+    for line in output:
         #print url, ':- ', u
-        print(u)
+        print(line)
 
 
 
-if __name__ == "__main__":
+def main():
+    """main version 2"""
 
-    import urllib.request, urllib.parse, urllib.error
-    # version 2
-    output=[]
     if len(sys.argv) > 1:
         for url in sys.argv[1:]:
-            #print "call main()"
-            print(("[DEBUG] %s\n" % url))
+            #print "call piclister_main()"
+            print("[DEBUG] {url}\n")
             if os.path.exists(url):
-                html = open(url, 'r').read()
+                #html = open(url, 'r').read()
+                with open(url, 'r', encoding='utf-8') as furl:
+                    html = furl.read()
             else:
                 try:
-                    html_bytes = urllib.request.urlopen(url).read() 
-                    html = str(html_bytes, 'utf-8').replace('! -', '!-')
+                    #html_bytes = urllib.request.urlopen(url).read()
+                    with urllib.request.urlopen(url) as furl:
+                        html_bytes = furl.read()
+                        html = str(html_bytes, 'utf-8').replace('! -', '!-')
                 except TypeError:
                     print("Exception Raised:  TypeError")
                     print(url)
-                    print((urllib.request.urlopen(url).read()))
+                    #print(urllib.request.urlopen(url).read())
+                    with urllib.request.urlopen(url) as furl:
+                        print(furl.read())
                     raise
             #html = html.replace('&#039;','').replace('&#8217;','')
             found = True
             while found:
                 match = re.search('&#[0-9]*;', html)
-                if match != None:
-                    print((match.group(0)))
+                if match is not None:
+                    print(match.group(0))
                     html = html.replace(match.group(0),'')
                 else:
                     found = False
             html = html.replace('&bull;','') #.replace(';','')
             html = html.replace('"!</','"></')
-            out = main(html, url)
+            out = piclister_main(html, url)
             printresults(out)
     else:
         html = sys.stdin.read()
-        out = main(html.replace(';',''), "stdin")
+        out = piclister_main(html.replace(';',''), "stdin")
         printresults(out)
+
+
+if __name__ == "__main__":
+    main()

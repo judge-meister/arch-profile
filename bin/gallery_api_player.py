@@ -6,36 +6,40 @@ use mpv to play video media
 think of something for image galleries
 """
 
-# curl -s http://gallery/phpgallery/?path=/zvideos/torrents/ | piclister.py | grep -E 'phpgallery.*path|phpgallery.*media'
-
-START_URL="/phpgallery/?path=/zvideos/torrents/"
-FILTER=" | piclister.py | grep -E 'phpgallery.*path|phpgallery.*media|\.jpg$|\.png$' | grep -v -E '/\.pics/|/images/template/engage.png'"
-CURL="curl -s "
-
 import os
 import urllib.parse
 from subprocess import getstatusoutput as unix
 
+# curl -s http://gallery/phpgallery/?path=/zvideos/torrents/ | piclister.py \
+#       | grep -E 'phpgallery.*path|phpgallery.*media'
+
+START_URL="/phpgallery/?path=/zvideos/torrents/"
+FILTER=r" | piclister.py | grep -E 'phpgallery.*path|phpgallery.*media|\.jpg$|\.png$' " \
+       r"| grep -v -E '/\.pics/|/images/template/engage.png'"
+CURL="curl -s "
+
 def playvideo(url):
-    """"""
-    st, out = unix(f"mpv \"http://gallery{url}\" ")
-    if st != 0:
-        print(f"{st} {out}")
+    """play the video url"""
+    stt, out = unix(f"mpv \"http://gallery{url}\" ")
+    if stt != 0:
+        print(f"{stt} {out}")
 
 def showimages(url):
-    """"""
-    st, out = unix(f"qutebrowser \"http://gallery{url}\" ")
-    if st != 0:
-        print(f"{st} {out}")
+    """show image in qutebrowser"""
+    stt, out = unix(f"qutebrowser \"http://gallery{url}\" ")
+    if stt != 0:
+        print(f"{stt} {out}")
 
 def mainloop(url):
-    """"""
-    Quit = False
-    while not Quit:
+    """the main loop"""
+    # pylint: disable=too-many-branches
+
+    finished = False
+    while not finished:
         #print(f"\n{CURL} \"http://gallery{url}\" {FILTER}\n")
         path = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)['path'][0]
         print(f"\n  ----  [ {path} ]  ----\n")
-        st, out = unix(f"{CURL} \"http://gallery{url}\" {FILTER}")
+        _st, out = unix(f"{CURL} \"http://gallery{url}\" {FILTER}")
         lines = out.split('\n')
         if len(lines) >= 7:
             navigation = lines[:7]
@@ -54,24 +58,24 @@ def mainloop(url):
                 print(f"{i}. {choice[i][0]}")
 
             print("")
-            Done = False
-            while not Done:
-                value = input(f"Choose a number: ")
+            done = False
+            while not done:
+                value = input("Choose a number: ")
                 try:
                     if value == "q":
                         value = 0
                     num = int(value)
-                    if 0 <= num and num < idx:
-                        Done = True
+                    if num in range(0, idx):
+                        done = True
                     else:
                         print(f"Invalid option, got {num}")
-            
+
                 except ValueError:
-                    print(f"Invalid: not a number")
-                    Done = False
+                    print("Invalid: not a number")
+                    done = False
 
             if choice[num][0] == "Quit":
-                Quit = True
+                finished = True
             else:
                 if choice[num][1].find("/?media=") > -1:
                     playvideo(choice[num][1])
@@ -80,14 +84,13 @@ def mainloop(url):
                 else:
                     url = choice[num][1]
         else:
-            Quit = True
+            finished = True
             print(f"Error: {out}")
 
 def main():
-    """"""
+    """main"""
     mainloop(START_URL)
-        
+
 
 if __name__ == "__main__":
     main()
-    
