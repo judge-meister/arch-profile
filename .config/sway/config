@@ -69,9 +69,9 @@ output LVDS-1 scale 0.85
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#output * bg /home/judge/Pictures/wallpaper.png fill
+output * bg /home/judge/.config/sway/wallpaper.png fill
 #output * bg /home/judge/Pictures/sexy-model-woman-boobs-nude-gorgeous-trimmed-pussy-african-pierced-nipples-1366x768.png fill
-output * bg $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
+#output * bg $HOME/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg fill
 
 
 # -----------------------------------------------------------------------------
@@ -449,6 +449,7 @@ for_window [class="NEdit" instance="findDialog_popup"] floating enable
 
 exec_always dunst
 exec wl-paste -t text --watch clipman store 
+exec udiskie -ant
 #exec copyq
 #exec lxsession
 

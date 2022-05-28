@@ -13,7 +13,7 @@
 }
 
 window#waybar {
-    background: rgba(0,0,0,0.9);/* black 70% transparent; */
+    background: rgba(0,0,0,0.4);/* black 70% transparent; */
     color: @whitecolor;
 }
 
