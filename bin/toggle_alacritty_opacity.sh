@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Requires: libnotify, alacritty
+
 set -x
 exec &> >(tee -a ~/bin/toggle_al_op.log)
 echo "-----------------------------------"
@@ -30,3 +32,5 @@ echo "$opacity > $toggle_opacity"
 ## Replace opacity value in alacritty.yml
 sed -i -- "s/opacity: $opacity/opacity: $toggle_opacity/" \
     ~/.config/alacritty/alacritty.yml
+
+cp ~/.config/alacritty/alacritty.yml ~/clones/dotfiles/.config/alacritty/alacritty.yml

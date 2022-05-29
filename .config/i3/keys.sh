@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Requires: yad
+
 # shellcheck disable=2016
 #grep -E 'bindsym|# KP_GROUP' .config/i3/config  | \
 #  grep -v -E  'workspace|#|Print ' | \

@@ -17,6 +17,7 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 " set the coloUr scheme
 colorscheme pablo
 set bg=dark
+:hi Normal guibg=NONE ctermbg=NONE
 
 " set the line numbering colours
 :hi linenr guifg=grey guibg=black

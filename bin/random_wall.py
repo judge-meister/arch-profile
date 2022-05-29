@@ -9,6 +9,8 @@ import urllib.request
 from urllib.error import URLError
 from bs4 import BeautifulSoup
 
+# Requires: feh
+
 # pylint: disable=line-too-long
 
 TARGET_URL_PATH = "http://gallery/phpgallery/?opt=1_1000&path=/zdata/stuff.backup/sdc1/Wallpaper/wallpaper+16x9/goodfon.com/"

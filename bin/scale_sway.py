@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """script to adjust the screen scaling for a sway window manager"""
+# Requires: sway
 
 import sys
 import getopt

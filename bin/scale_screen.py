@@ -2,6 +2,8 @@
 """
 screen scaler for X display
 """
+# Requires: xorg-xrandr
+
 import sys
 import getopt
 from subprocess import check_output

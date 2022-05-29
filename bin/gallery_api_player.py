@@ -5,6 +5,7 @@ provide a list of links as options to navigate
 use mpv to play video media
 think of something for image galleries
 """
+# Requires: mpv, qutebrowser, curl
 
 import os
 import urllib.parse

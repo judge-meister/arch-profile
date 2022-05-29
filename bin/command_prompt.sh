@@ -2,6 +2,7 @@
 #
 # Command Prompt
 #
+# Requires: git
 #
 # shellcheck disable=SC2034
 

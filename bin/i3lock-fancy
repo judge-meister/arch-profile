@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Author: Dolores Portalatin <hello@doloresportalatin.info>
-# Dependencies: imagemagick, i3lock-color-git, scrot, wmctrl (optional)
+# Requires: imagemagick, i3lock, scrot, wmctrl (optional)
+
 set -o errexit -o noclobber -o nounset
 
 hue=(-level "0%,100%,0.6")

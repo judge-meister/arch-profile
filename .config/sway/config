@@ -9,6 +9,10 @@
 #bindsym Mod4+Return exec $term -T "st Mod4 Cmd / Windows (L & R)"
 #bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
 
+# Requires: alacritty, swaylock, rofi, sway, swayidle
+# Requires: libpulse, swaynagmode, waybar
+# Requires: dunst, wl-clipboard, clipman, udiskie
+
 # -----------------------------------------------------------------------------
 # Global Settings
 
@@ -104,7 +108,7 @@ input "type:touchpad" {
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
       xkb_layout gb 
-#      xkb_model macbook79
+      # xkb_model macbook79
 }
 # only add the xkb_model setting if on a macbook
 exec_always ~/bin/kbd_model
@@ -300,7 +304,7 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Control+a exec "$HOME/bin/toggle_alacritty_opacity.sh -d"
     bindsym $mod+Shift+a exec "$HOME/bin/toggle_alacritty_opacity.sh -i"
 
-	
+
 # -----------------------------------------------------------------------------
 #
 # Extras from Jessie Frazelle dotfiles
@@ -346,7 +350,7 @@ bindsym $mod+r mode "resize"
 	$nag_select  $nag --select
     }
     mode "nag" {
-	bindsym {
+      bindsym {
 	    Ctrl+d    mode "default"
 
 	    Ctrl+c    $nag_exit
@@ -363,7 +367,7 @@ bindsym $mod+r mode "resize"
 
 	    Up        $nag_select next
 	    Down      $nag_select prev
-	}
+      }
     }
     #bindsym $mod+Shift+e exit
 

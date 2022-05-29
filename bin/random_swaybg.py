@@ -2,6 +2,7 @@
 """
 update screen with a random wallpaper
 """
+# Requires: swaybg
 
 import os
 import sys

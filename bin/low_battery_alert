@@ -1,4 +1,5 @@
 #!/bin/bash
+# Requires: libnotify
 
 limit=20
 [ "$1" != "" ] && limit=150

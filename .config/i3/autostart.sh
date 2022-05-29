@@ -2,6 +2,7 @@
 #
 # start some stuff for i3
 #
+# Requires: dunst, lxsession, picom, networkmanager, volumeicon, feh
 
 VENDOR="$(cat /sys/class/dmi/id/sys_vendor)"
 

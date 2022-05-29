@@ -1,3 +1,5 @@
+# Requires: nerd-fonts-mononoki, curl
+# Requires: networkmanager
 
 separator_block_width=10
 #color=#6c71c4

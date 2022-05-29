@@ -7,7 +7,7 @@
 #
 # Based on a similar script from Jess Frazelle (@jezzfraz) but simpler.
 #
-# Dependencies: i3lock, scrot
+# Requires: i3lock, scrot, imagemagick
 #
 ##############################################################################
 set -e

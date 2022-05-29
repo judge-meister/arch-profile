@@ -7,7 +7,7 @@
 #
 # Based on a similar script from Jess Frazelle (@jezzfraz) but simpler.
 #
-# Dependencies: swaylock, grim
+# Requires: swaylock, grim, imagemagick, xorg-xrandr
 #
 ##############################################################################
 set -e

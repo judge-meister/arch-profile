@@ -26,6 +26,8 @@
 
 """qtile config"""
 
+# Requires: pamixer, pavucontrol, rofi
+
 # pylint: disable=invalid-name,line-too-long
 
 import os

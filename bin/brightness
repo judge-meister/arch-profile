@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+# Requires: bc
+#
 MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 CUR=$(cat /sys/class/backlight/intel_backlight/brightness)
 CUR_PERC=$(echo "((${CUR}*100/${MAX})+0.5)" | bc -l | python3 -c "print(round(float(input())))")
@@ -39,6 +41,4 @@ then
 else
   adjust_brightness
 fi
-
-
 

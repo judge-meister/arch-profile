@@ -1,4 +1,5 @@
 #!/bin/bash
+# Requires: sudo, pacman, yay, procps-ng, waybar
 
 UNAME_KERNEL_VER=$(uname -r)
 HEADER_KERNEL_VER=$(cat /usr/src/linux/version)

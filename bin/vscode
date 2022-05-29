@@ -1,9 +1,13 @@
 #!/bin/bash
 
+which code
+code
+exit
+
 if [ "$1" == "build" ]
 then
   cd ~/dockerfiles/vscode || exit
-  docker build -t judge/vscode:latest .
+  docker build -t judge/vscode:latest ~/clones/dotfiles/dockerfiles/vscode
   exit
 fi
 

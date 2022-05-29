@@ -1,4 +1,5 @@
 #!/bin/bash
+# Requires: pacman-contrib
 
 cupd=$(checkupdates | wc -l)
 echo -e "$cupd "

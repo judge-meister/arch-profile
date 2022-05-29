@@ -21,6 +21,8 @@
 # create each row and then combine the rows into one final image
 #
 """
+# Requires: feh
+
 # pylint: disable=invalid-name
 
 #redefined-outer-name

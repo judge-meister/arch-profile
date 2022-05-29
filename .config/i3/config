@@ -14,6 +14,9 @@
 #bindsym Mod4+Return exec $term -T "st Mod4 Cmd / Windows (L & R)"
 #bindsym Mod5+Return exec $term -T "st Mod5 Right Alt"
 
+# Requires: alacritty, rofi, xorg-xrandr, xautolock, feh 
+# Requires: ttf-font-awesome, i3blocks, libpulse, scrot
+
 # -----------------------------------------------------------------------------
 # Global Settings
 
@@ -283,7 +286,7 @@ bindsym $mod+r mode "resize"
 
     # Screenshot with selection
     bindsym $mod+Print exec "sleep 0.4; scrot -q 100 -s ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
-    
+
     # Screenshot current focused window
     bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e ${HOME}'/google-cloud-sdk/bin/gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
 

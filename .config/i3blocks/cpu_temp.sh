@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Requires: bc, acpi, acpid
 
 VENDOR=$(cat /sys/class/dmi/id/sys_vendor)
 

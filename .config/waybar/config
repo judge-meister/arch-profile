@@ -1,3 +1,6 @@
+// Requires: alacritty, brightnessctl, libpulse, pavucontrol
+// Requires: networkmanager
+
 {
     "layer": "top",             // Waybar at top layer
     "position": "top",          // Waybar at the top of your screen

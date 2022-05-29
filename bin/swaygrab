@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Requires sway, grim, slurp and jq.
+# Requires: sway, grim, slurp, jq
 
 set -eo pipefail
 

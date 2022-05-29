@@ -5,6 +5,8 @@
 
  A battery indicator blocklet script for i3blocks
 """
+# Requires: acpi
+
 # pylint: disable=invalid-name
 
 from subprocess import check_output
