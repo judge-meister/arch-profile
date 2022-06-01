@@ -439,23 +439,26 @@ for_window [class="Toplevel"] floating enable
 for_window [app_id="yad"] floating enable
 
 for_window [class="NEdit"] border normal 1
-for_window [class="NEdit" instance="FileSelect_popup"] floating enable
+for_window [class="NEdit" instance="FileSelect_popup"] floating enable, border pixel 1
 for_window [class="NEdit" instance="help"] floating enable
-for_window [class="NEdit" instance="Information"] floating enable
-for_window [class="NEdit" instance="Warning"] floating enable
-for_window [class="NEdit" instance="Question"] floating enable
-for_window [class="NEdit" instance="Prompt_popup"] floating enable
-for_window [class="NEdit" instance="findDialog_popup"] floating enable
+for_window [class="NEdit" instance="Information"] floating enable, border pixel 1
+for_window [class="NEdit" instance="Warning"] floating enable, border pixel 1
+for_window [class="NEdit" instance="Question"] floating enable, border pixel 1
+for_window [class="NEdit" instance="Prompt_popup"] floating enable, border pixel 1
+for_window [class="NEdit" instance="findDialog_popup"] floating enable, border pixel 1
 
 
 # -----------------------------------------------------------------------------
 # start a few useful programs
 
-exec_always dunst
-exec wl-paste -t text --watch clipman store 
-exec udiskie -ant
-#exec copyq
-#exec lxsession
+exec --no-startup-id ~/.config/sway/autostart.sh
+
+exec  wl-paste -t text --watch clipman store 
+
+#exec_always dunst
+#exec  udiskie -ant
+##exec copyq
+#exec  lxsession
 
 include /etc/sway/config.d/*
 

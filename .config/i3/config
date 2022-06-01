@@ -110,20 +110,20 @@ exec_always --no-startup-id xautolock -time 10 -locker "i3lock-fancy && sleep 1"
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
-    
+
     # manually lock the screen
     bindsym $mod+l exec $lockcmd 
 
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     bindsym $mod+Shift+r restart
-    
+
     # exit i3 (logs you out of your X session)
     #bindsym $mod+Shift+e exit
     bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3wm?' -B 'Exit' 'i3-msg exit' -B 'Reload' 'i3-msg reload' -B 'Power Off' 'poweroff' -B 'Reboot' 'reboot'"
 
     # exit i3 (logs you out of your X session)
     #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
- 
+
 
     # run pacman -Syu in a terminal
     bindsym $mod+u exec $term -e update_packages

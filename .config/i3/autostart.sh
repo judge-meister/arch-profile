@@ -20,4 +20,5 @@ elif [ "$VENDOR" = "Apple Inc." ]; then
 fi 
 nm-applet &
 volumeicon &
+udiskie -ant &
 

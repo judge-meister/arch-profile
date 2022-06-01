@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill '/home/judge/Pictures/Montage/ivi_pizzot_montage_1920x1200_16668.jpg' 
+feh --no-fehbg --bg-fill '/home/judge/.config/sway/wallpaper.png' 
