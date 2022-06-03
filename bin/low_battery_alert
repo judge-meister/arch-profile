@@ -6,15 +6,15 @@ limit=20
 
 VAL=$(acpi -b)
 
-bat_status=$(echo $VAL | awk -F' ' '{print $3}' | sed 's|,||g')
-capacity=$(echo $VAL | awk -F' ' '{print $4}' | sed 's|%,||g')
+bat_status=$(echo "$VAL" | awk -F' ' '{print $3}' | sed 's|,||g')
+capacity=$(echo "$VAL" | awk -F' ' '{print $4}' | sed 's|%,||g')
 
 if [[ "${bat_status}" == "Discharging" && ${capacity} -le ${limit} ]]
 then
     echo "Battery alert - ${capacity}%"
     dunstify \
         -u critical \
-        --raw_icon=$HOME/.local/share/icons/battery_low_dark.png \
+        --raw_icon="$HOME"/.local/share/icons/battery_low_dark.png \
         "Low battery" \
         "Only ${capacity}% battery remaining"
 
