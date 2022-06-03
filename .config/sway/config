@@ -11,17 +11,18 @@
 
 # Requires: alacritty, swaylock, rofi, sway, swayidle
 # Requires: libpulse, swaynagmode, waybar
-# Requires: dunst, wl-clipboard, clipman, udiskie
+# Requires: wl-clipboard
 
 # -----------------------------------------------------------------------------
 # Global Settings
 
 # font settings
-font pango: SourceCodePro Medium 11
+font pango: SourceCodePro Medium 12
 
 # float settings
 floating_minimum_size 150 x 150
-floating_maximum_size 2500 x 1500
+#floating_maximum_size 2500 x 1500
+floating_maximum_size 1600 x 900
 
 # border width
 default_border pixel 1
@@ -270,10 +271,10 @@ bindsym $mod+r mode "resize"
 # Media keys:
 #
     # audio controls
-    set $mute    exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    set $mic_off exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    set $vol_dn  exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    set $vol_up  exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    set $mute    exec changeVolume set-sink-mute @DEFAULT_SINK@ toggle
+    set $mic_off exec changeVolume set-source-mute @DEFAULT_SOURCE@ toggle
+    set $vol_dn  exec changeVolume set-sink-volume @DEFAULT_SINK@ -5%
+    set $vol_up  exec changeVolume set-sink-volume @DEFAULT_SINK@ +5%
 
     bindsym XF86AudioMute        $mute
     bindsym XF86AudioMicMute     $mic_off
@@ -281,8 +282,8 @@ bindsym $mod+r mode "resize"
     bindsym XF86AudioRaiseVolume $vol_up
 
     # screen brightness controls
-    bindsym XF86MonBrightnessUp exec macbrightness -inc
-    bindsym XF86MonBrightnessDown exec macbrightness -dec
+    bindsym XF86MonBrightnessUp exec changeBrightness -inc
+    bindsym XF86MonBrightnessDown exec changeBrightness -dec
 
     # keyboard brightness controls
     bindsym XF86KbdBrightnessUp exec kbdbrightness -inc
@@ -407,11 +408,13 @@ bar {
 # tigervnc, Brave - open on new workspace
 assign [class="TigerVNC Viewer"] → 6
 assign [class="Brave-browser"] → 10
+assign [app_id="firefoxdeveloperedition"] → 10
 
 # spotify, brave: no border
 for_window [app_id="^Spotify$"] border none
 for_window [app_id="^Spotify Premium$"] border none
 for_window [app_id="Brave-browser"] border none
+for_window [app_id="firefoxdeveloperedition"] border none
 
 # no title: st terminal
 for_window [app_id="st-256color"] border pixel 1
@@ -455,10 +458,6 @@ exec --no-startup-id ~/.config/sway/autostart.sh
 
 exec  wl-paste -t text --watch clipman store 
 
-#exec_always dunst
-#exec  udiskie -ant
-##exec copyq
-#exec  lxsession
 
 include /etc/sway/config.d/*
 

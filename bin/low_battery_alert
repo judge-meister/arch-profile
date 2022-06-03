@@ -1,21 +1,35 @@
 #!/bin/bash
-# Requires: libnotify
+# Requires: libnotify, acpi, dunst
 
 limit=20
 [ "$1" != "" ] && limit=150
 
-bat_files="/sys/class/power_supply/BAT0"
-bat_status=$(cat ${bat_files}/status)
-capacity=$(cat "${bat_files}/capacity")
-chargenow=$(cat "${bat_files}/charge_now")
-chargefull=$(cat "${bat_files}/charge_full")
-capacity=$((chargenow*100/chargefull))
+VAL=$(acpi -b)
 
-if [[ ${bat_status} == "Discharging" && ${capacity} -le ${limit} ]]
+bat_status=$(echo $VAL | awk -F' ' '{print $3}' | sed 's|,||g')
+capacity=$(echo $VAL | awk -F' ' '{print $4}' | sed 's|%,||g')
+
+if [[ "${bat_status}" == "Discharging" && ${capacity} -le ${limit} ]]
 then
     echo "Battery alert - ${capacity}%"
-    notify-send \
-        --icon="$HOME/.local/share/icons/battery_low_dark.png" \
+    dunstify \
+        -u critical \
+        --raw_icon=$HOME/.local/share/icons/battery_low_dark.png \
         "Low battery" \
         "Only ${capacity}% battery remaining"
+
+    done=0
+    while [ "$done" -eq "0" ]; 
+    do
+        val=$(acpi_listen -t 5 2>&1 |grep '^ac_adapter .* 00000001$' | awk -F' ' '{print $4}')
+        #echo $val;
+        if [ "$val" == "00000001" ]
+        then
+            dunstctl close
+            done=1
+        fi
+    done
 fi
+
+# acpi -b
+# Battery 0: Discharging, 96%, 02:32:24 remaining

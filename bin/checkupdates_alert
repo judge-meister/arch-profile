@@ -6,8 +6,7 @@
 update_count=$(checkupdates | wc -l)
 if [ "$update_count" -gt 0 ]
 then
-  notify-send "Pacman Updates" "$(checkupdates|cut -d' ' -f1,4)"\
-    --icon=/usr/share/icons/Adwaita/512x512/legacy/emblem-package.png
+    notify-send -u normal "Pacman Updates" "$(checkupdates|cut -d' ' -f1,4)"
 fi
 
 # by using a cpu_temperature item in i3status config we can show the number of pacman updates available.

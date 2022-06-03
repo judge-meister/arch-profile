@@ -326,11 +326,13 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
 # tigervnc, Brave - open on new workspace
 assign [class="TigerVNC Viewer"] → 6
 assign [class="Brave-browser"] → 10
+assign [class="firefoxdeveloperedition"] → 10
 
 # spotify, brave: no border
 for_window [class="^Spotify$"] border none
 for_window [class="^Spotify Premium$"] border none
 for_window [class="Brave-browser"] border none
+for_window [class="firefoxdeveloperedition"] border none
 
 # no title: st terminal
 for_window [class="st-256color"] border pixel 1

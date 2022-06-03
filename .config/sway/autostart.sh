@@ -1,9 +1,9 @@
 #
 # start some stuff for sway
 #
-# Requires: dunst, lxsession, udiskie
+# Requires: lxsession, udiskie
 
-dunst &
+
 lxsession &
 udiskie -ant &
 # copyq &
