@@ -17,12 +17,13 @@ a:hover { color: #777777; }
 .EOF
 (
 echo "<body bgcolor=\"#222222\">"
-echo "<a href=\"../index.html\"><b>[</b> up <b>]</b></a> "
-find . -maxdepth 1 -type l -o -type d | while read x; 
+echo "<a href=\"..\"><b>[</b> up <b>]</b></a> "
+find . -maxdepth 1 -mindepth 1 -type l -o -type d | sort | while read x; 
 do 
   if [ -d "$(realpath "$x")" ]
   then
-    echo "<a href=\"$x/index.html\"><b>[</b> $x <b>]</b></a>"
+    y=${x/\.\//}
+    echo "<a href=\"$y\"><b>[</b> $y <b>]</b></a>"
   fi
 done
 echo "</div>"
