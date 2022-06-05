@@ -2,14 +2,16 @@
 # Requires: pacman-contrib
 
 # don't run this unless we've been up more than 2 mins
-UPTIME=$(uptime -p | sed 's|^up \([0-9]*\) minutes$|\1|g;s|^up [0-9]* hour.*|3|g')
+#UPTIME=$(uptime -p | sed 's|^up \([0-9]*\) minutes$|\1|g;s|^up [0-9]* hour.*|3|g')
 #echo $UPTIME
-if [ "$UPTIME" -gt 2 ]
-then
+#if [ "$UPTIME" -gt 2 ]
+#then
 
-    cupd=$(checkupdates | wc -l)
-    echo -e "$cupd "
+#    cupd=$(checkupdates | wc -l)
+#    echo -e "$cupd "
 
-else
-    echo -e "U "
-fi
+#else
+#    echo -e "U "
+#fi
+echo -e "$(($(cat ~/.tmp/pacupts) /1000)) "
+
