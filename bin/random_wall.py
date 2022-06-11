@@ -57,10 +57,10 @@ def download_remote_pic(pic):
         print("Unable to download image: "+str(err.reason))
         raise RemotePicError from URLError
 
-def get_list_of_pictures():
+def get_list_of_pictures(picpath):
     """get pic list"""
     paths = []
-    for root, _dirn, filen in os.walk('/home/judge/Pictures', followlinks=True):
+    for root, _dirn, filen in os.walk(os.path.join('/home/judge/Pictures', picpath), followlinks=True):
         for file in filen:
             paths.append(os.path.join(root, file))
     return paths

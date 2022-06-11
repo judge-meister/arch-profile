@@ -75,7 +75,7 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{icon} {percent}%",
+        "format": "{percent}% {icon} ",
         "format-icons": ["", ""],
         "tooltip-format": "Backlight Brightness",
         "on-scroll-down": "brightnessctl -c backlight set 5%-",
@@ -135,11 +135,11 @@
     },
     "custom/updates": {
         "format": "{} ",
-        "tooltip-format": "{} Package Update(s) to install",
+        //"tooltip-format": "{} Package Update(s) to install",
         //"max-length": 15,
         "interval": 360,
-        "exec": "$HOME/.local/bin/pacupdate",
-        "exec-if": "pgrep alacritty",
+        "exec": "checkupdate | wc -l", //"$HOME/.local/bin/pacupdate",
+        "exec-if": "", //"pgrep alacritty",
         "on-click": "alacritty -o font.size=11.0 -e update_packages",
         "signal": 8
     },

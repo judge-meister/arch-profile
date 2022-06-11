@@ -1,11 +1,11 @@
 #!/bin/bash
 set -x
-pictures=/home/judge/Pictures
+pictures=/home/judge/Pictures/WP
 
 opacity=0.65
 shade=out.png
-input=sexy-model-woman-boobs-nude-gorgeous-trimmed-pussy-african-pierced-nipples-1366x768.png 
-dimensions=$(identify "$input" |sed  's/.* \([0-9x]*\) .*/\1/g')
+input=sexy-african-pierced-nipples.png 
+dimensions=$(identify "$pictures"/"$input" |sed  's/.* \([0-9x]*\) .*/\1/g') 
 result=result.png
 
 dimmer()
@@ -13,23 +13,24 @@ dimmer()
   rm -f $shade $result
 
   # create a black image with opacity
-  convert -size "$dimensions" xc:'rgba(0, 0, 0, '$opacity')' $shade
+  convert -size "$dimensions" xc:'rgba(0, 0, 0, '$opacity')' $pictures/$shade
 
   # overlay the transparent image onto the wallpaper image
   #convert $input -gravity center $shade -composite $result
-  composite $shade $pictures/$input $result
+  composite $pictures/$shade $pictures/$input $pictures/$result
 
   #rm -f $shade
 
-  pkill swaybg
-  swaybg -m fit -i $pictures/$result 2>/dev/null &
+  pid=$(pgrep swaybg)
+  swaybg -m fill -i $pictures/$result 2>/dev/null &
+  kill $pid
 }
 
 if [ "$#" -eq 2 ]
 then
     opacity="$1"
     input="$2"
-    dimensions=$(identify "$input" |sed  's/.* \([0-9x]*\) .*/\1/g')
+    dimensions=$(identify "$pictures"/"$input" |sed  's/.* \([0-9x]*\) .*/\1/g')
     dimmer
 else
     dimmer
