@@ -9,6 +9,7 @@
 
     // Choose the order of the modules
     "modules-left": [//"custom/launcher",
+                     "custom/hostname",
                      "sway/workspaces", 
                      "sway/mode", 
                      "custom/spotify"],
@@ -22,12 +23,15 @@
                       "pulseaudio", 
                       "network", 
                       "temperature", 
+                      "custom/fanspeed",
                       "cpu", 
                       "memory", 
                       "battery", 
                       //"group/hardware", 
+                      "custom/language",
                       "tray", 
-                      "clock"//, 
+                      "clock", 
+                      "custom/clock"//,
                       //"custom/power"
                       ],
     //"group/hardware" : { "modules": ["cpu", "memory", "battery"] },
@@ -72,6 +76,11 @@
         "format": "{temperatureC}°C ",
         "critical-threshold": 80,
         "format-critical": "{temperatureC}°C ",
+    },
+    "custom/fanspeed": {
+        "format": "({})",
+        "exec": "cat /sys/class/hwmon/hwmon3/fan1_input",
+        "interval": 5,
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -126,6 +135,18 @@
         "on-click": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
         "on-click-right": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
     },
+    "custom/hostname": {
+        "format": "{}",
+        "exec": "hostname",
+        "interval": 360,
+    },
+    "custom/language": {
+        "format": "{}",
+        "exec": "$HOME/bin/swap_kb -r",
+        "on-click": "$HOME/bin/swap_kb",
+        "interval": 5,
+        "signal": 9,
+    },
     "custom/spotify": {
         "format": " {}",
         "max-length": 40,
@@ -134,12 +155,12 @@
         "exec-if": "pgrep spotify"
     },
     "custom/updates": {
-        "format": "{} ",
+        "format": "{}  ",
         //"tooltip-format": "{} Package Update(s) to install",
         //"max-length": 15,
         "interval": 360,
         "exec": "checkupdate | wc -l", //"$HOME/.local/bin/pacupdate",
-        "exec-if": "", //"pgrep alacritty",
+        "exec-if": "[ -f $HOME/.local/bin/pacupdate ]",
         "on-click": "alacritty -o font.size=11.0 -e update_packages",
         "signal": 8
     },
@@ -148,6 +169,7 @@
         "interval": 60,
         //"max-length": 15,
         "exec": "$HOME/.local/bin/dockerisrunning",
+        "exec-if": "[ -f $HOME/.local/bin/dockerisrunning ]",
     },
     "custom/disk_root": {
         "format": "{}  ",
@@ -165,6 +187,12 @@
         "exec": "$HOME/bin/scale_sway.py -s",
         "on-click": "$HOME/bin/scale_sway.py -i",
         "on-click-right": "$HOME/bin/scale_sway.py -d",
+    },
+    "custom/clock": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "date +%H:%M",
+        "exec-if": "[ -f /etc/debian_version ]",
     },
     //"custom/power": {
     //  	"format":"⏻ ",
