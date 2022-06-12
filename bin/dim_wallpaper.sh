@@ -23,7 +23,7 @@ dimmer()
 
   pid=$(pgrep swaybg)
   swaybg -m fill -i $pictures/$result 2>/dev/null &
-  kill $pid
+  kill "$pid"
 }
 
 if [ "$#" -eq 2 ]
